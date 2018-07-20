@@ -1,5 +1,9 @@
 # Warsztaty BSC: plan na Q3 2018
 
+Plany warsztatowe na III kwartał 2018 roku.
+
+*Uwaga!* Wstępny plan działań.
+
 ## Nowoczesne programowanie w Delphi
 
 ### Opis warsztatów
