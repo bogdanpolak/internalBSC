@@ -50,6 +50,8 @@ type
     procedure tmrFrameShowTimer(Sender: TObject);
   private
     procedure myAddRowToImportTable(joEmailRow: TJSONObject);
+    procedure UpdateContact(contactID: Integer; firstName: string;
+      lastName: string; company: string);
   public
     constructor Create(AOwner: TComponent); override;
   end;
@@ -59,7 +61,8 @@ implementation
 {$R *.dfm}
 
 uses
-  System.IOUtils, UnitMockData, MainDataModule, ResolveConflictsDialogUnit;
+  System.IOUtils, UnitMockData, MainDataModule, ResolveConflictsDialogUnit,
+  UnitInterbaseCreateDB;
 
 procedure TFrameImport.btnLoadNewEmailsClick(Sender: TObject);
 var
@@ -94,6 +97,13 @@ begin
   // Mimic: Frame OnCreate Event
 end;
 
+procedure TFrameImport.UpdateContact(contactID: Integer; firstName: string;
+  lastName: string; company: string);
+begin
+  MainDM.FDConnection1.ExecSQL(IB_UPDATE_CONTACT_SQL,
+    [firstName, lastName, company, contactID]);
+end;
+
 procedure TFrameImport.btnImportSelectedClick(Sender: TObject);
 var
   email: string;
@@ -119,11 +129,8 @@ begin
               ('Error! (FrameImport->btnImportSelected.OnClick) Email ' + email
               + ' not found during import');
           id := FDQuery2.Fields[0].AsInteger;
-          FDQuery2.SQL.Text := 'UPDATE Contacts' + ' SET firstname = ''' +
-            mtabEmailsFirstName.Value + ''',lastname = ''' +
-            mtabEmailsLastName.Value + ''',company = ''' +
-            mtabEmailsCompany.Value + ''' WHERE contactid = ' + IntToStr(id);
-          FDQuery2.ExecSQL;
+          UpdateContact(id, mtabEmailsFirstName.Value, mtabEmailsLastName.Value,
+            mtabEmailsCompany.Value);
         end
         else
         begin
