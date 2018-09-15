@@ -50,6 +50,7 @@ type
     procedure tmrFrameShowTimer(Sender: TObject);
   private
     procedure myAddRowToImportTable(joEmailRow: TJSONObject);
+    function FindContactIdByEmail(email: string): Integer;
   public
     constructor Create(AOwner: TComponent); override;
   end;
@@ -94,6 +95,19 @@ begin
   // Mimic: Frame OnCreate Event
 end;
 
+function TFrameImport.FindContactIdByEmail(email: string): Integer;
+var
+  id: Variant;
+begin
+  id := MainDM.FDConnection1.ExecSQLScalar
+    ('SELECT contactid FROM Contacts WHERE email = :email', [email]);
+  if VarIsNull(id) then
+    raise Exception.Create
+      ('Error! (FrameImport->btnImportSelected.OnClick) Email ' + email +
+      ' not found during import');
+  Result := id;
+end;
+
 procedure TFrameImport.btnImportSelectedClick(Sender: TObject);
 var
   email: string;
@@ -111,14 +125,7 @@ begin
         email := mtabEmailsEmail.Value;
         if mtabEmailsDuplicated.Value then
         begin
-          FDQuery2.SQL.Text := 'SELECT contactid FROM Contacts WHERE email=''' +
-            email + '''';
-          FDQuery2.Open;
-          if FDQuery2.Eof then
-            raise Exception.Create
-              ('Error! (FrameImport->btnImportSelected.OnClick) Email ' + email
-              + ' not found during import');
-          id := FDQuery2.Fields[0].AsInteger;
+          id := FindContactIdByEmail(email);
           FDQuery2.SQL.Text := 'UPDATE Contacts' + ' SET firstname = ''' +
             mtabEmailsFirstName.Value + ''',lastname = ''' +
             mtabEmailsLastName.Value + ''',company = ''' +
