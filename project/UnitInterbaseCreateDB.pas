@@ -89,6 +89,10 @@ const
   IB_INSERT_CONTCT2LIST_SQL = 'INSERT INTO Contact2List'+
     '(contactid, listid) VALUES (:contactid, :listid)';
 
+  IB_UPDATE_CONTACT_SQL = 'UPDATE Contacts SET'+
+    ' firstname = :firstname, lastname = :lastname, company = :company'+
+    ' WHERE contactid = :contactid';
+
 
 implementation
 
