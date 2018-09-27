@@ -2,7 +2,8 @@ program MergeTextFiles;
 
 uses
   Vcl.Forms,
-  Form.Main in 'Form.Main.pas' {Form1};
+  Form.Main in 'Form.Main.pas' {Form1},
+  Helper.TGroupBox in 'Helper.TGroupBox.pas';
 
 {$R *.res}
 

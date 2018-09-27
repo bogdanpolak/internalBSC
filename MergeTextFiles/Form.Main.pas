@@ -42,11 +42,12 @@ implementation
 {$R *.dfm}
 
 uses
-  System.IOUtils, System.Types;
+  System.IOUtils, System.Types, Helper.TGroupBox;
 
 procedure TForm1.btnImportUnsubscribedClick(Sender: TObject);
 var
   s: string;
+  c: Tcontrol;
 begin
   slUnsubscribed.Clear;
   slUnsubscribed.Text := IdHTTP1.Get(edtUnsubsrcribedURL.Text);
@@ -63,33 +64,11 @@ end;
 
 procedure TForm1.FormResize(Sender: TObject);
 var
-  hg: Integer;
-  ControlsToExclude: TArray<TControl>;
-  AParent: TWinControl;
   sumHeight: Integer;
-  i: Integer;
-  ctrl: TControl;
-  isExcluded: Boolean;
-  j: Integer;
+  hg: Integer;
 begin
-  ControlsToExclude := [lbxFilesToAdd, lbxFilesToRemove];
-  AParent := GroupBox1;
-  // sumChildrenHeight
-  sumHeight := 0;
-  for i := 0 to AParent.ControlCount-1 do
-  begin
-    ctrl := AParent.Controls[i];
-    isExcluded := false;
-    for j := 0 to Length(ControlsToExclude)-1 do
-      if ControlsToExclude[j] = ctrl then
-        isExcluded := True;
-    if not isExcluded then begin
-      sumHeight := sumHeight + ctrl.Height;
-      if ctrl.AlignWithMargins then 
-        sumHeight := sumHeight + ctrl.Margins.Top + ctrl.Margins.Bottom;
-    end;
-  end;
-  hg := (GroupBox1.ClientHeight - sumHeight - 12) div 2;
+  sumHeight := GroupBox1.ChildrensSumHeight([lbxFilesToAdd, lbxFilesToRemove]);
+  hg := (GroupBox1.ClientHeight - sumHeight) div 2;
   lbxFilesToAdd.Height := hg;
 end;
 
