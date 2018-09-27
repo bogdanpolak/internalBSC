@@ -1,7 +1,7 @@
-object Form1: TForm1
+object FormMain: TFormMain
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'Text Files Merger 2.0'
   ClientHeight = 567
   ClientWidth = 608
   Color = clBtnFace
@@ -15,35 +15,20 @@ object Form1: TForm1
   OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13
-  object Panel1: TPanel
-    Left = 0
-    Top = 0
-    Width = 608
-    Height = 41
-    Margins.Bottom = 0
-    Align = alTop
-    BevelOuter = bvNone
-    BorderWidth = 1
-    BorderStyle = bsSingle
-    Caption = 'Panel1'
-    Color = clHighlightText
-    Ctl3D = False
-    ParentBackground = False
-    ParentCtl3D = False
-    TabOrder = 0
-  end
   object GroupBox1: TGroupBox
     AlignWithMargins = True
     Left = 3
-    Top = 43
+    Top = 2
     Width = 374
-    Height = 521
+    Height = 562
     Margins.Top = 2
     Align = alLeft
     Caption = 'Pliki:'
     Padding.Left = 2
     Padding.Right = 2
-    TabOrder = 1
+    TabOrder = 0
+    ExplicitTop = 43
+    ExplicitHeight = 521
     object lbTitleFilesToAdd: TLabel
       AlignWithMargins = True
       Left = 7
@@ -81,22 +66,24 @@ object Form1: TForm1
     object lbTitleImport: TLabel
       AlignWithMargins = True
       Left = 7
-      Top = 429
+      Top = 470
       Width = 360
       Height = 13
       Margins.Bottom = 0
       Align = alBottom
       Caption = 'Adres URL do importu wyrejestrowanych:'
+      ExplicitTop = 429
       ExplicitWidth = 200
     end
     object lbUnsubscribed: TLabel
       AlignWithMargins = True
       Left = 7
-      Top = 503
+      Top = 544
       Width = 360
       Height = 13
       Align = alBottom
       Caption = 'Nie zaimportowano listy wyrejestrowanych'
+      ExplicitTop = 503
       ExplicitWidth = 205
     end
     object lbxFilesToAdd: TListBox
@@ -115,42 +102,46 @@ object Form1: TForm1
       Left = 7
       Top = 277
       Width = 360
-      Height = 146
+      Height = 187
       Align = alClient
       ItemHeight = 13
       TabOrder = 1
+      ExplicitHeight = 146
     end
     object edtUnsubsrcribedURL: TEdit
       AlignWithMargins = True
       Left = 7
-      Top = 445
+      Top = 486
       Width = 360
       Height = 21
       Align = alBottom
       TabOrder = 2
-      Text = 'http://embarcadero.com.pl/newsletter/export.php?format=raw'
+      ExplicitTop = 445
     end
     object btnImportUnsubscribed: TButton
       AlignWithMargins = True
       Left = 7
-      Top = 472
+      Top = 513
       Width = 360
       Height = 25
       Align = alBottom
       Caption = 'Importuj [Unsubscribed]'
       TabOrder = 3
       OnClick = btnImportUnsubscribedClick
+      ExplicitTop = 472
     end
   end
   object GroupBox2: TGroupBox
     AlignWithMargins = True
     Left = 383
-    Top = 44
+    Top = 3
     Width = 222
-    Height = 520
+    Height = 561
     Align = alClient
-    Caption = 'GroupBox2'
-    TabOrder = 2
+    Caption = 'Wyniki scalania'
+    TabOrder = 1
+    ExplicitTop = 44
+    ExplicitHeight = 520
     object Button1: TButton
       AlignWithMargins = True
       Left = 5
@@ -167,11 +158,12 @@ object Form1: TForm1
       Left = 5
       Top = 52
       Width = 212
-      Height = 463
+      Height = 504
       Align = alClient
       Lines.Strings = (
         'Memo1')
       TabOrder = 1
+      ExplicitHeight = 463
     end
   end
   object IdHTTP1: TIdHTTP

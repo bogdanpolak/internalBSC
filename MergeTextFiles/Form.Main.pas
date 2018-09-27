@@ -9,8 +9,7 @@ uses
   IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP;
 
 type
-  TForm1 = class(TForm)
-    Panel1: TPanel;
+  TFormMain = class(TForm)
     GroupBox1: TGroupBox;
     lbxFilesToAdd: TListBox;
     lbTitleFilesToAdd: TLabel;
@@ -35,16 +34,17 @@ type
   end;
 
 var
-  Form1: TForm1;
+  FormMain: TFormMain;
 
 implementation
 
 {$R *.dfm}
 
 uses
-  System.IOUtils, System.Types, Helper.TGroupBox;
+  System.IOUtils, System.Types, Helper.TGroupBox, System.JSON,
+  Global.AppConfiguration;
 
-procedure TForm1.btnImportUnsubscribedClick(Sender: TObject);
+procedure TFormMain.btnImportUnsubscribedClick(Sender: TObject);
 var
   s: string;
   c: Tcontrol;
@@ -55,14 +55,16 @@ begin
     [slUnsubscribed.Count]);
 end;
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TFormMain.FormCreate(Sender: TObject);
 begin
   slUnsubscribed := TStringList.Create;
   fillListBoxeWithTextFileNames(lbxFilesToAdd, '.\add\');
   fillListBoxeWithTextFileNames(lbxFilesToRemove, '.\remove\');
+  TAppConfiguration.loadSecureConfiguration();
+  edtUnsubsrcribedURL.Text := TAppConfiguration.secureUrlUnsubscribe;
 end;
 
-procedure TForm1.FormResize(Sender: TObject);
+procedure TFormMain.FormResize(Sender: TObject);
 var
   sumHeight: Integer;
   hg: Integer;
@@ -72,7 +74,7 @@ begin
   lbxFilesToAdd.Height := hg;
 end;
 
-procedure TForm1.fillListBoxeWithTextFileNames(lbx: TListBox;
+procedure TFormMain.fillListBoxeWithTextFileNames(lbx: TListBox;
   const dir: string);
 var
   files: TStringDynArray;
