@@ -31,9 +31,6 @@ object Form1: TForm1
     ParentBackground = False
     ParentCtl3D = False
     TabOrder = 0
-    ExplicitLeft = 3
-    ExplicitTop = 3
-    ExplicitWidth = 555
   end
   object GroupBox1: TGroupBox
     AlignWithMargins = True
@@ -79,7 +76,6 @@ object Form1: TForm1
       Margins.Bottom = 0
       Align = alTop
       Caption = 'Usuwane (folder remove):'
-      ExplicitTop = 208
       ExplicitWidth = 126
     end
     object lbTitleImport: TLabel
@@ -113,8 +109,6 @@ object Form1: TForm1
       Align = alTop
       ItemHeight = 13
       TabOrder = 0
-      ExplicitWidth = 272
-      ExplicitHeight = 148
     end
     object lbxFilesToRemove: TListBox
       AlignWithMargins = True
@@ -125,7 +119,6 @@ object Form1: TForm1
       Align = alClient
       ItemHeight = 13
       TabOrder = 1
-      ExplicitLeft = 9
     end
     object edtUnsubsrcribedURL: TEdit
       AlignWithMargins = True
@@ -136,9 +129,6 @@ object Form1: TForm1
       Align = alBottom
       TabOrder = 2
       Text = 'http://embarcadero.com.pl/newsletter/export.php?format=raw'
-      ExplicitLeft = 3
-      ExplicitTop = 543
-      ExplicitWidth = 742
     end
     object btnImportUnsubscribed: TButton
       AlignWithMargins = True
@@ -150,9 +140,6 @@ object Form1: TForm1
       Caption = 'Importuj [Unsubscribed]'
       TabOrder = 3
       OnClick = btnImportUnsubscribedClick
-      ExplicitLeft = 3
-      ExplicitTop = 503
-      ExplicitWidth = 366
     end
   end
   object GroupBox2: TGroupBox
@@ -164,10 +151,6 @@ object Form1: TForm1
     Align = alClient
     Caption = 'GroupBox2'
     TabOrder = 2
-    ExplicitLeft = 96
-    ExplicitTop = 208
-    ExplicitWidth = 185
-    ExplicitHeight = 105
     object Button1: TButton
       AlignWithMargins = True
       Left = 5
@@ -178,9 +161,6 @@ object Form1: TForm1
       Align = alTop
       Caption = 'Button1'
       TabOrder = 0
-      ExplicitLeft = 7
-      ExplicitTop = 8
-      ExplicitWidth = 114
     end
     object Memo1: TMemo
       AlignWithMargins = True
@@ -192,7 +172,6 @@ object Form1: TForm1
       Lines.Strings = (
         'Memo1')
       TabOrder = 1
-      ExplicitLeft = 3
     end
   end
   object IdHTTP1: TIdHTTP
