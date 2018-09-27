@@ -3,7 +3,7 @@ object FormMain: TFormMain
   Top = 0
   Caption = 'Text Files Merger 2.0'
   ClientHeight = 567
-  ClientWidth = 608
+  ClientWidth = 814
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -135,35 +135,39 @@ object FormMain: TFormMain
     AlignWithMargins = True
     Left = 383
     Top = 3
-    Width = 222
+    Width = 428
     Height = 561
     Align = alClient
     Caption = 'Wyniki scalania'
     TabOrder = 1
     ExplicitTop = 44
+    ExplicitWidth = 222
     ExplicitHeight = 520
-    object Button1: TButton
+    object btnMergeAllFiles: TButton
       AlignWithMargins = True
       Left = 5
       Top = 21
-      Width = 212
+      Width = 418
       Height = 25
       Margins.Top = 6
       Align = alTop
-      Caption = 'Button1'
+      Caption = 'btnMergeAllFiles'
       TabOrder = 0
+      OnClick = btnMergeAllFilesClick
+      ExplicitWidth = 212
     end
     object Memo1: TMemo
       AlignWithMargins = True
       Left = 5
       Top = 52
-      Width = 212
+      Width = 418
       Height = 504
       Align = alClient
       Lines.Strings = (
         'Memo1')
+      ScrollBars = ssVertical
       TabOrder = 1
-      ExplicitHeight = 463
+      ExplicitWidth = 283
     end
   end
   object IdHTTP1: TIdHTTP

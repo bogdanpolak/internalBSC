@@ -16,7 +16,7 @@ type
     Splitter1: TSplitter;
     lbTitleFilesToRemove: TLabel;
     lbxFilesToRemove: TListBox;
-    Button1: TButton;
+    btnMergeAllFiles: TButton;
     lbTitleImport: TLabel;
     edtUnsubsrcribedURL: TEdit;
     GroupBox2: TGroupBox;
@@ -25,6 +25,7 @@ type
     lbUnsubscribed: TLabel;
     IdHTTP1: TIdHTTP;
     procedure btnImportUnsubscribedClick(Sender: TObject);
+    procedure btnMergeAllFilesClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
   private
@@ -50,9 +51,46 @@ var
   c: Tcontrol;
 begin
   slUnsubscribed.Clear;
+  IdHttp1.Request.UserAgent := 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; MAAU)';
   slUnsubscribed.Text := IdHTTP1.Get(edtUnsubsrcribedURL.Text);
   lbUnsubscribed.Caption := Format('Zaimportowano: %d linii',
     [slUnsubscribed.Count]);
+end;
+
+procedure TFormMain.btnMergeAllFilesClick(Sender: TObject);
+var
+  fname: string;
+  fileText: string;
+  slResultData: TStringList;
+  slFileContent: TStringList;
+  sLineToRemove: string;
+  idx: Integer;
+begin
+  Memo1.Clear;
+  slResultData := TStringList.Create;
+  slFileContent := TStringList.Create;
+  try
+    for fname in lbxFilesToAdd.Items do
+    begin
+      fileText := TFile.ReadAllText(fname);
+      slResultData.Text := slResultData.Text + fileText;
+    end;
+    for fname in lbxFilesToRemove.Items do
+    begin
+      slFileContent.Clear;
+      slFileContent.Text := TFile.ReadAllText(fname);
+      for sLineToRemove in slFileContent do
+        if not sLineToRemove.Trim.IsEmpty then begin
+          idx :=  slResultData.IndexOf(sLineToRemove.Trim);
+          if idx>=0 then
+            slResultData.Delete(idx);
+      end;
+    end;
+    Memo1.Lines := slResultData;
+  finally
+    slFileContent.Free;
+    slResultData.Free;
+  end;
 end;
 
 procedure TFormMain.FormCreate(Sender: TObject);
