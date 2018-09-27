@@ -3,7 +3,7 @@ object Form1: TForm1
   Top = 0
   Caption = 'Form1'
   ClientHeight = 567
-  ClientWidth = 556
+  ClientWidth = 608
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,7 +18,7 @@ object Form1: TForm1
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 556
+    Width = 608
     Height = 41
     Margins.Bottom = 0
     Align = alTop
@@ -34,20 +34,12 @@ object Form1: TForm1
     ExplicitLeft = 3
     ExplicitTop = 3
     ExplicitWidth = 555
-    object Button1: TButton
-      Left = 7
-      Top = 8
-      Width = 114
-      Height = 25
-      Caption = 'Button1'
-      TabOrder = 0
-    end
   end
   object GroupBox1: TGroupBox
     AlignWithMargins = True
     Left = 3
     Top = 43
-    Width = 286
+    Width = 374
     Height = 521
     Margins.Top = 2
     Align = alLeft
@@ -55,12 +47,11 @@ object Form1: TForm1
     Padding.Left = 2
     Padding.Right = 2
     TabOrder = 1
-    ExplicitHeight = 412
-    object Label1: TLabel
+    object lbTitleFilesToAdd: TLabel
       AlignWithMargins = True
       Left = 7
       Top = 21
-      Width = 272
+      Width = 360
       Height = 13
       Margins.Top = 6
       Margins.Bottom = 0
@@ -70,90 +61,155 @@ object Form1: TForm1
     end
     object Splitter1: TSplitter
       Left = 4
-      Top = 304
-      Width = 278
+      Top = 254
+      Width = 366
       Height = 7
       Cursor = crVSplit
-      Align = alBottom
+      Align = alTop
       ExplicitTop = 125
       ExplicitWidth = 190
     end
-    object Label2: TLabel
+    object lbTitleFilesToRemove: TLabel
       AlignWithMargins = True
       Left = 7
-      Top = 311
-      Width = 272
+      Top = 261
+      Width = 360
       Height = 13
       Margins.Top = 0
       Margins.Bottom = 0
-      Align = alBottom
+      Align = alTop
       Caption = 'Usuwane (folder remove):'
       ExplicitTop = 208
       ExplicitWidth = 126
     end
-    object Label3: TLabel
+    object lbTitleImport: TLabel
       AlignWithMargins = True
       Left = 7
-      Top = 479
-      Width = 272
+      Top = 429
+      Width = 360
       Height = 13
       Margins.Bottom = 0
       Align = alBottom
-      Caption = 'Label3'
-      ExplicitLeft = 3
-      ExplicitTop = 471
-      ExplicitWidth = 278
+      Caption = 'Adres URL do importu wyrejestrowanych:'
+      ExplicitWidth = 200
     end
-    object ListBox1: TListBox
+    object lbUnsubscribed: TLabel
+      AlignWithMargins = True
+      Left = 7
+      Top = 503
+      Width = 360
+      Height = 13
+      Align = alBottom
+      Caption = 'Nie zaimportowano listy wyrejestrowanych'
+      ExplicitWidth = 205
+    end
+    object lbxFilesToAdd: TListBox
       AlignWithMargins = True
       Left = 7
       Top = 37
-      Width = 272
-      Height = 267
+      Width = 360
+      Height = 217
       Margins.Bottom = 0
-      Align = alClient
+      Align = alTop
       ItemHeight = 13
       TabOrder = 0
+      ExplicitWidth = 272
       ExplicitHeight = 148
     end
-    object ListBox2: TListBox
+    object lbxFilesToRemove: TListBox
       AlignWithMargins = True
       Left = 7
-      Top = 327
-      Width = 272
+      Top = 277
+      Width = 360
       Height = 146
-      Align = alBottom
+      Align = alClient
       ItemHeight = 13
       TabOrder = 1
-      ExplicitTop = 254
-      ExplicitWidth = 184
+      ExplicitLeft = 9
     end
-    object Edit1: TEdit
+    object edtUnsubsrcribedURL: TEdit
       AlignWithMargins = True
       Left = 7
-      Top = 495
-      Width = 272
+      Top = 445
+      Width = 360
       Height = 21
       Align = alBottom
       TabOrder = 2
-      Text = 'Edit1'
+      Text = 'http://embarcadero.com.pl/newsletter/export.php?format=raw'
       ExplicitLeft = 3
-      ExplicitTop = 467
-      ExplicitWidth = 278
+      ExplicitTop = 543
+      ExplicitWidth = 742
+    end
+    object btnImportUnsubscribed: TButton
+      AlignWithMargins = True
+      Left = 7
+      Top = 472
+      Width = 360
+      Height = 25
+      Align = alBottom
+      Caption = 'Importuj [Unsubscribed]'
+      TabOrder = 3
+      OnClick = btnImportUnsubscribedClick
+      ExplicitLeft = 3
+      ExplicitTop = 503
+      ExplicitWidth = 366
     end
   end
-  object ListBox3: TListBox
+  object GroupBox2: TGroupBox
     AlignWithMargins = True
-    Left = 295
+    Left = 383
     Top = 44
-    Width = 258
+    Width = 222
     Height = 520
     Align = alClient
-    ItemHeight = 13
+    Caption = 'GroupBox2'
     TabOrder = 2
-    ExplicitLeft = 360
-    ExplicitTop = 144
-    ExplicitWidth = 121
-    ExplicitHeight = 97
+    ExplicitLeft = 96
+    ExplicitTop = 208
+    ExplicitWidth = 185
+    ExplicitHeight = 105
+    object Button1: TButton
+      AlignWithMargins = True
+      Left = 5
+      Top = 21
+      Width = 212
+      Height = 25
+      Margins.Top = 6
+      Align = alTop
+      Caption = 'Button1'
+      TabOrder = 0
+      ExplicitLeft = 7
+      ExplicitTop = 8
+      ExplicitWidth = 114
+    end
+    object Memo1: TMemo
+      AlignWithMargins = True
+      Left = 5
+      Top = 52
+      Width = 212
+      Height = 463
+      Align = alClient
+      Lines.Strings = (
+        'Memo1')
+      TabOrder = 1
+      ExplicitLeft = 3
+    end
+  end
+  object IdHTTP1: TIdHTTP
+    AllowCookies = True
+    ProxyParams.BasicAuthentication = False
+    ProxyParams.ProxyPort = 0
+    Request.ContentLength = -1
+    Request.ContentRangeEnd = -1
+    Request.ContentRangeStart = -1
+    Request.ContentRangeInstanceLength = -1
+    Request.Accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    Request.BasicAuthentication = False
+    Request.UserAgent = 'Mozilla/3.0 (compatible; Indy Library)'
+    Request.Ranges.Units = 'bytes'
+    Request.Ranges = <>
+    HTTPOptions = [hoForceEncodeParams]
+    Left = 40
+    Top = 104
   end
 end
