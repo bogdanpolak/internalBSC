@@ -14,7 +14,7 @@ uses
   System.JSON, System.SysUtils, System.IOUtils;
 
 resourcestring
-  StrDefaultImportUnsubscribedURL = '<<Zapytaj>>';
+  StrDefaultImportUnsubscribedURL = 'http://www.delphi.pl/newsletter/remove.txt';
 
 const
   StrSecureDataJsonFile = 'secure-data.json';

@@ -11,6 +11,7 @@ object FormMain: TFormMain
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
   PixelsPerInch = 96
@@ -27,8 +28,6 @@ object FormMain: TFormMain
     Padding.Left = 2
     Padding.Right = 2
     TabOrder = 0
-    ExplicitTop = 43
-    ExplicitHeight = 521
     object lbTitleFilesToAdd: TLabel
       AlignWithMargins = True
       Left = 7
@@ -72,7 +71,6 @@ object FormMain: TFormMain
       Margins.Bottom = 0
       Align = alBottom
       Caption = 'Adres URL do importu wyrejestrowanych:'
-      ExplicitTop = 429
       ExplicitWidth = 200
     end
     object lbUnsubscribed: TLabel
@@ -83,7 +81,6 @@ object FormMain: TFormMain
       Height = 13
       Align = alBottom
       Caption = 'Nie zaimportowano listy wyrejestrowanych'
-      ExplicitTop = 503
       ExplicitWidth = 205
     end
     object lbxFilesToAdd: TListBox
@@ -106,7 +103,6 @@ object FormMain: TFormMain
       Align = alClient
       ItemHeight = 13
       TabOrder = 1
-      ExplicitHeight = 146
     end
     object edtUnsubsrcribedURL: TEdit
       AlignWithMargins = True
@@ -116,7 +112,6 @@ object FormMain: TFormMain
       Height = 21
       Align = alBottom
       TabOrder = 2
-      ExplicitTop = 445
     end
     object btnImportUnsubscribed: TButton
       AlignWithMargins = True
@@ -128,7 +123,6 @@ object FormMain: TFormMain
       Caption = 'Importuj [Unsubscribed]'
       TabOrder = 3
       OnClick = btnImportUnsubscribedClick
-      ExplicitTop = 472
     end
   end
   object GroupBox2: TGroupBox
@@ -140,9 +134,6 @@ object FormMain: TFormMain
     Align = alClient
     Caption = 'Wyniki scalania'
     TabOrder = 1
-    ExplicitTop = 44
-    ExplicitWidth = 222
-    ExplicitHeight = 520
     object btnMergeAllFiles: TButton
       AlignWithMargins = True
       Left = 5
@@ -154,7 +145,6 @@ object FormMain: TFormMain
       Caption = 'btnMergeAllFiles'
       TabOrder = 0
       OnClick = btnMergeAllFilesClick
-      ExplicitWidth = 212
     end
     object Memo1: TMemo
       AlignWithMargins = True
@@ -167,7 +157,6 @@ object FormMain: TFormMain
         'Memo1')
       ScrollBars = ssVertical
       TabOrder = 1
-      ExplicitWidth = 283
     end
   end
   object IdHTTP1: TIdHTTP
