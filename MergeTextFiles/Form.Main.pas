@@ -51,7 +51,8 @@ var
   c: Tcontrol;
 begin
   slUnsubscribed.Clear;
-  IdHttp1.Request.UserAgent := 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; MAAU)';
+  IdHTTP1.Request.UserAgent :=
+    'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; MAAU)';
   slUnsubscribed.Text := IdHTTP1.Get(edtUnsubsrcribedURL.Text);
   lbUnsubscribed.Caption := Format('Zaimportowano: %d linii',
     [slUnsubscribed.Count]);
@@ -80,11 +81,12 @@ begin
       slFileContent.Clear;
       slFileContent.Text := TFile.ReadAllText(fname);
       for sLineToRemove in slFileContent do
-        if not sLineToRemove.Trim.IsEmpty then begin
-          idx :=  slResultData.IndexOf(sLineToRemove.Trim);
-          if idx>=0 then
+        if not sLineToRemove.Trim.IsEmpty then
+        begin
+          idx := slResultData.IndexOf(sLineToRemove.Trim);
+          if idx >= 0 then
             slResultData.Delete(idx);
-      end;
+        end;
     end;
     Memo1.Lines := slResultData;
   finally
