@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 251
-  ClientWidth = 475
+  ClientHeight = 567
+  ClientWidth = 556
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,6 +11,149 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
+  OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 556
+    Height = 41
+    Margins.Bottom = 0
+    Align = alTop
+    BevelOuter = bvNone
+    BorderWidth = 1
+    BorderStyle = bsSingle
+    Caption = 'Panel1'
+    Color = clHighlightText
+    Ctl3D = False
+    ParentBackground = False
+    ParentCtl3D = False
+    TabOrder = 0
+    ExplicitLeft = 3
+    ExplicitTop = 3
+    ExplicitWidth = 555
+    object Button1: TButton
+      Left = 7
+      Top = 8
+      Width = 114
+      Height = 25
+      Caption = 'Button1'
+      TabOrder = 0
+    end
+  end
+  object GroupBox1: TGroupBox
+    AlignWithMargins = True
+    Left = 3
+    Top = 43
+    Width = 286
+    Height = 521
+    Margins.Top = 2
+    Align = alLeft
+    Caption = 'Pliki:'
+    Padding.Left = 2
+    Padding.Right = 2
+    TabOrder = 1
+    ExplicitHeight = 412
+    object Label1: TLabel
+      AlignWithMargins = True
+      Left = 7
+      Top = 21
+      Width = 272
+      Height = 13
+      Margins.Top = 6
+      Margins.Bottom = 0
+      Align = alTop
+      Caption = 'Dodawne (folder add):'
+      ExplicitWidth = 109
+    end
+    object Splitter1: TSplitter
+      Left = 4
+      Top = 304
+      Width = 278
+      Height = 7
+      Cursor = crVSplit
+      Align = alBottom
+      ExplicitTop = 125
+      ExplicitWidth = 190
+    end
+    object Label2: TLabel
+      AlignWithMargins = True
+      Left = 7
+      Top = 311
+      Width = 272
+      Height = 13
+      Margins.Top = 0
+      Margins.Bottom = 0
+      Align = alBottom
+      Caption = 'Usuwane (folder remove):'
+      ExplicitTop = 208
+      ExplicitWidth = 126
+    end
+    object Label3: TLabel
+      AlignWithMargins = True
+      Left = 7
+      Top = 479
+      Width = 272
+      Height = 13
+      Margins.Bottom = 0
+      Align = alBottom
+      Caption = 'Label3'
+      ExplicitLeft = 3
+      ExplicitTop = 471
+      ExplicitWidth = 278
+    end
+    object ListBox1: TListBox
+      AlignWithMargins = True
+      Left = 7
+      Top = 37
+      Width = 272
+      Height = 267
+      Margins.Bottom = 0
+      Align = alClient
+      ItemHeight = 13
+      TabOrder = 0
+      ExplicitHeight = 148
+    end
+    object ListBox2: TListBox
+      AlignWithMargins = True
+      Left = 7
+      Top = 327
+      Width = 272
+      Height = 146
+      Align = alBottom
+      ItemHeight = 13
+      TabOrder = 1
+      ExplicitTop = 254
+      ExplicitWidth = 184
+    end
+    object Edit1: TEdit
+      AlignWithMargins = True
+      Left = 7
+      Top = 495
+      Width = 272
+      Height = 21
+      Align = alBottom
+      TabOrder = 2
+      Text = 'Edit1'
+      ExplicitLeft = 3
+      ExplicitTop = 467
+      ExplicitWidth = 278
+    end
+  end
+  object ListBox3: TListBox
+    AlignWithMargins = True
+    Left = 295
+    Top = 44
+    Width = 258
+    Height = 520
+    Align = alClient
+    ItemHeight = 13
+    TabOrder = 2
+    ExplicitLeft = 360
+    ExplicitTop = 144
+    ExplicitWidth = 121
+    ExplicitHeight = 97
+  end
 end
