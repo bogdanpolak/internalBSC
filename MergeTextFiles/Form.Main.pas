@@ -51,6 +51,7 @@ type
     procedure lbxFilesToAddDblClick(Sender: TObject);
     procedure lbxFilesToRemoveDblClick(Sender: TObject);
   private
+    isImportedItemsToRemoveFromWeb: Boolean;
     procedure fillStringsWithTextFileNames(sl: TStrings; const dir: string);
     function mergeEverything(filesToAdd, filesToRemove: TStrings): string;
     procedure mergeAppendLinesFromAddFiles(slResultData: TStrings;
@@ -78,7 +79,8 @@ const
 
 procedure TFormMain.actFileSaveAs1Accept(Sender: TObject);
 begin
-  ShowMessage ('not implemented yet. FielName: '+actFileSaveAs1.Dialog.FileName);
+  ShowMessage('not implemented yet. FielName: ' +
+    actFileSaveAs1.Dialog.FileName);
 end;
 
 procedure TFormMain.btnImportFromWebClick(Sender: TObject);
@@ -100,10 +102,13 @@ begin
     lbxFilesToRemove.Items.Delete(idx);
   end;
   lbxFilesToRemove.AddItem(cmd, sl);
+  isImportedItemsToRemoveFromWeb := True;
 end;
 
 procedure TFormMain.btnMergeAllFilesClick(Sender: TObject);
 begin
+  if not isImportedItemsToRemoveFromWeb then
+    ShowMessage('Nie zaimporotwano listy elementów do usuni¹cia w Web-a');
   Memo1.Clear;
   Memo1.Lines.Text := mergeEverything(lbxFilesToAdd.Items,
     lbxFilesToRemove.Items);
@@ -220,7 +225,7 @@ var
   slContent: TStringList;
   i: Integer;
   ItemName: string;
-  isMemoryItem: boolean;
+  isMemoryItem: Boolean;
   memoryList: TStringList;
 begin
   slContent := TStringList.Create;

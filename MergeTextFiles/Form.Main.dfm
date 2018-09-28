@@ -159,7 +159,7 @@ object FormMain: TFormMain
       Caption = 'btnMergeAllFiles'
       TabOrder = 0
       OnClick = btnMergeAllFilesClick
-      ExplicitWidth = 418
+      ExplicitLeft = 6
     end
     object Memo1: TMemo
       AlignWithMargins = True
