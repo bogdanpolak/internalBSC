@@ -6,7 +6,9 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
-  IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP;
+  IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP,
+  Vcl.StdActns, Vcl.Menus, System.Actions, Vcl.ActnList,
+  Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan;
 
 type
   TFormMain = class(TForm)
@@ -25,6 +27,22 @@ type
     lbWebImport: TLabel;
     IdHTTP1: TIdHTTP;
     Splitter2: TSplitter;
+    ActionManager1: TActionManager;
+    actEditCut1: TEditCut;
+    actEditCopy1: TEditCopy;
+    actFileSaveAs1: TFileSaveAs;
+    PopupMenu1: TPopupMenu;
+    Copy1: TMenuItem;
+    Cut1: TMenuItem;
+    actEditSelectAll1: TEditSelectAll;
+    actEditUndo1: TEditUndo;
+    actEditDelete1: TEditDelete;
+    SelectAll1: TMenuItem;
+    Delete1: TMenuItem;
+    Undo1: TMenuItem;
+    N1: TMenuItem;
+    SaveAs1: TMenuItem;
+    procedure actFileSaveAs1Accept(Sender: TObject);
     procedure btnImportFromWebClick(Sender: TObject);
     procedure btnMergeAllFilesClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -57,6 +75,11 @@ uses
 
 const
   LIST_WEB_PREFIX = '[WEB] ';
+
+procedure TFormMain.actFileSaveAs1Accept(Sender: TObject);
+begin
+  ShowMessage ('not implemented yet. FielName: '+actFileSaveAs1.Dialog.FileName);
+end;
 
 procedure TFormMain.btnImportFromWebClick(Sender: TObject);
 var

@@ -170,9 +170,10 @@ object FormMain: TFormMain
       Align = alClient
       Lines.Strings = (
         'Memo1')
+      PopupMenu = PopupMenu1
       ScrollBars = ssVertical
       TabOrder = 1
-      ExplicitWidth = 418
+      ExplicitLeft = 7
     end
   end
   object IdHTTP1: TIdHTTP
@@ -191,5 +192,76 @@ object FormMain: TFormMain
     HTTPOptions = [hoForceEncodeParams]
     Left = 40
     Top = 104
+  end
+  object ActionManager1: TActionManager
+    Left = 536
+    Top = 168
+    StyleName = 'Platform Default'
+    object actEditCut1: TEditCut
+      Category = 'Edit'
+      Caption = 'Cu&t'
+      Hint = 'Cut|Cuts the selection and puts it on the Clipboard'
+      ImageIndex = 0
+      ShortCut = 16472
+    end
+    object actEditCopy1: TEditCopy
+      Category = 'Edit'
+      Caption = '&Copy'
+      Hint = 'Copy|Copies the selection and puts it on the Clipboard'
+      ImageIndex = 1
+      ShortCut = 16451
+    end
+    object actFileSaveAs1: TFileSaveAs
+      Category = 'File'
+      Caption = 'Save &As...'
+      Hint = 'Save As|Saves the active file with a new name'
+      ImageIndex = 30
+      OnAccept = actFileSaveAs1Accept
+    end
+    object actEditSelectAll1: TEditSelectAll
+      Category = 'Edit'
+      Caption = 'Select &All'
+      Hint = 'Select All|Selects the entire document'
+      ShortCut = 16449
+    end
+    object actEditUndo1: TEditUndo
+      Category = 'Edit'
+      Caption = '&Undo'
+      Hint = 'Undo|Reverts the last action'
+      ImageIndex = 3
+      ShortCut = 16474
+    end
+    object actEditDelete1: TEditDelete
+      Category = 'Edit'
+      Caption = '&Delete'
+      Hint = 'Delete|Erases the selection'
+      ImageIndex = 5
+      ShortCut = 46
+    end
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 560
+    Top = 256
+    object Copy1: TMenuItem
+      Action = actEditCopy1
+    end
+    object Cut1: TMenuItem
+      Action = actEditCut1
+    end
+    object SelectAll1: TMenuItem
+      Action = actEditSelectAll1
+    end
+    object Delete1: TMenuItem
+      Action = actEditDelete1
+    end
+    object Undo1: TMenuItem
+      Action = actEditUndo1
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object SaveAs1: TMenuItem
+      Action = actFileSaveAs1
+    end
   end
 end
