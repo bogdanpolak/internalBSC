@@ -18,14 +18,14 @@ type
     lbxFilesToRemove: TListBox;
     btnMergeAllFiles: TButton;
     lbTitleImport: TLabel;
-    edtUnsubsrcribedURL: TEdit;
+    edtImportURL: TEdit;
     GroupBox2: TGroupBox;
     Memo1: TMemo;
-    btnImportUnsubscribed: TButton;
-    lbUnsubscribed: TLabel;
+    btnImportFromWeb: TButton;
+    lbWebImport: TLabel;
     IdHTTP1: TIdHTTP;
     Splitter2: TSplitter;
-    procedure btnImportUnsubscribedClick(Sender: TObject);
+    procedure btnImportFromWebClick(Sender: TObject);
     procedure btnMergeAllFilesClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -53,7 +53,9 @@ uses
   System.IOUtils, System.Types, Helper.TGroupBox, System.JSON,
   Global.AppConfiguration;
 
-procedure TFormMain.btnImportUnsubscribedClick(Sender: TObject);
+const
+  LIST_WEB_PREFIX = '[WEB] ';
+procedure TFormMain.btnImportFromWebClick(Sender: TObject);
 var
   cmd: string;
   sl: TStringList;
@@ -62,9 +64,9 @@ begin
   sl := TStringList.Create;
   IdHTTP1.Request.UserAgent :=
     'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; MAAU)';
-  sl.Text := IdHTTP1.Get(edtUnsubsrcribedURL.Text);
-  lbUnsubscribed.Caption := Format('Zaimportowano: %d linii', [sl.Count]);
-  cmd := 'GET '+edtUnsubsrcribedURL.Text;
+  sl.Text := IdHTTP1.Get(edtImportURL.Text);
+  lbWebImport.Caption := Format('Zaimportowano: %d linii', [sl.Count]);
+  cmd := LIST_WEB_PREFIX+edtImportURL.Text;
   idx := lbxFilesToRemove.Items.IndexOf(cmd);
   if idx>=0 then
   begin
@@ -86,7 +88,7 @@ begin
   fillStringsWithTextFileNames(lbxFilesToAdd.Items, '.\add\');
   fillStringsWithTextFileNames(lbxFilesToRemove.Items, '.\remove\');
   TAppConfiguration.loadSecureConfiguration();
-  edtUnsubsrcribedURL.Text := TAppConfiguration.secureUrlUnsubscribe;
+  edtImportURL.Text := TAppConfiguration.secureUrlUnsubscribe;
 end;
 
 procedure TFormMain.FormResize(Sender: TObject);
@@ -118,7 +120,7 @@ var
   i: Integer;
 begin
   for i := 0 to lbxFilesToRemove.Count-1 do
-    if lbxFilesToRemove.Items[i].StartsWith('GET ') then
+    if lbxFilesToRemove.Items[i].StartsWith(LIST_WEB_PREFIX) then
       (lbxFilesToRemove.Items.Objects[i] as TStringList).Free;
 end;
 
@@ -155,7 +157,7 @@ procedure TFormMain.mergeDeleteLinesFromRemoveFiles(slResultData: TStrings;
 var
   slContent: TStringList;
   i: integer;
-  itemToRemove: string;
+  ItemName: string;
   isMemoryItem: boolean;
   memoryList: TStringList;
 begin
@@ -163,8 +165,8 @@ begin
   try
     for i:=0 to removeItemsList.Count-1 do
     begin
-      itemToRemove := removeItemsList[i];
-      isMemoryItem := itemToRemove.StartsWith('GET ');
+      ItemName := removeItemsList[i];
+      isMemoryItem := ItemName.StartsWith(LIST_WEB_PREFIX);
       if isMemoryItem then
       begin
         memoryList := removeItemsList.Objects[i] as TStringList;
@@ -173,7 +175,7 @@ begin
       else
       begin
         slContent.Clear;
-        slContent.Text := TFile.ReadAllText(itemToRemove);
+        slContent.Text := TFile.ReadAllText(ItemName);
         mergeDeleteLinesFromList(slResultData, slContent);
       end;
     end;

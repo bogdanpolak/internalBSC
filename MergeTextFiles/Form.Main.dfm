@@ -82,15 +82,15 @@ object FormMain: TFormMain
       Caption = 'Adres URL do importu wyrejestrowanych:'
       ExplicitWidth = 200
     end
-    object lbUnsubscribed: TLabel
+    object lbWebImport: TLabel
       AlignWithMargins = True
       Left = 7
       Top = 544
       Width = 360
       Height = 13
       Align = alBottom
-      Caption = 'Nie zaimportowano listy wyrejestrowanych'
-      ExplicitWidth = 205
+      Caption = 'Nie zaimportowano listy do usuni'#281'cie'
+      ExplicitWidth = 175
     end
     object lbxFilesToAdd: TListBox
       AlignWithMargins = True
@@ -113,7 +113,7 @@ object FormMain: TFormMain
       ItemHeight = 13
       TabOrder = 1
     end
-    object edtUnsubsrcribedURL: TEdit
+    object edtImportURL: TEdit
       AlignWithMargins = True
       Left = 7
       Top = 486
@@ -122,16 +122,16 @@ object FormMain: TFormMain
       Align = alBottom
       TabOrder = 2
     end
-    object btnImportUnsubscribed: TButton
+    object btnImportFromWeb: TButton
       AlignWithMargins = True
       Left = 7
       Top = 513
       Width = 360
       Height = 25
       Align = alBottom
-      Caption = 'Importuj [Unsubscribed]'
+      Caption = 'Importuj elementy do usuni'#281'cia z Internetu'
       TabOrder = 3
-      OnClick = btnImportUnsubscribedClick
+      OnClick = btnImportFromWebClick
     end
   end
   object GroupBox2: TGroupBox
