@@ -102,6 +102,7 @@ object FormMain: TFormMain
       Align = alTop
       ItemHeight = 13
       TabOrder = 0
+      OnDblClick = lbxFilesToAddDblClick
     end
     object lbxFilesToRemove: TListBox
       AlignWithMargins = True
@@ -112,6 +113,7 @@ object FormMain: TFormMain
       Align = alClient
       ItemHeight = 13
       TabOrder = 1
+      OnDblClick = lbxFilesToRemoveDblClick
     end
     object edtImportURL: TEdit
       AlignWithMargins = True

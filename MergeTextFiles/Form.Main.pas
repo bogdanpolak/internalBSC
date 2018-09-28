@@ -30,6 +30,8 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure lbxFilesToAddDblClick(Sender: TObject);
+    procedure lbxFilesToRemoveDblClick(Sender: TObject);
   private
     procedure fillStringsWithTextFileNames(sl: TStrings; const dir: string);
     function mergeEverything(filesToAdd, filesToRemove: TStrings): string;
@@ -51,10 +53,11 @@ implementation
 
 uses
   System.IOUtils, System.Types, Helper.TGroupBox, System.JSON,
-  Global.AppConfiguration;
+  Global.AppConfiguration, Form.PreviewItem;
 
 const
   LIST_WEB_PREFIX = '[WEB] ';
+
 procedure TFormMain.btnImportFromWebClick(Sender: TObject);
 var
   cmd: string;
@@ -66,14 +69,14 @@ begin
     'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; MAAU)';
   sl.Text := IdHTTP1.Get(edtImportURL.Text);
   lbWebImport.Caption := Format('Zaimportowano: %d linii', [sl.Count]);
-  cmd := LIST_WEB_PREFIX+edtImportURL.Text;
+  cmd := LIST_WEB_PREFIX + edtImportURL.Text;
   idx := lbxFilesToRemove.Items.IndexOf(cmd);
-  if idx>=0 then
+  if idx >= 0 then
   begin
     (lbxFilesToRemove.Items.Objects[idx] as TStringList).Free;
     lbxFilesToRemove.Items.Delete(idx);
   end;
-  lbxFilesToRemove.AddItem(cmd,sl);
+  lbxFilesToRemove.AddItem(cmd, sl);
 end;
 
 procedure TFormMain.btnMergeAllFilesClick(Sender: TObject);
@@ -119,9 +122,45 @@ procedure TFormMain.FormClose(Sender: TObject; var Action: TCloseAction);
 var
   i: Integer;
 begin
-  for i := 0 to lbxFilesToRemove.Count-1 do
+  for i := 0 to lbxFilesToRemove.Count - 1 do
     if lbxFilesToRemove.Items[i].StartsWith(LIST_WEB_PREFIX) then
       (lbxFilesToRemove.Items.Objects[i] as TStringList).Free;
+end;
+
+procedure TFormMain.lbxFilesToAddDblClick(Sender: TObject);
+var
+  idx: Integer;
+  ItemName: string;
+  ItemContent: string;
+begin
+  idx := lbxFilesToAdd.ItemIndex;
+  if idx >= 0 then
+  begin
+    ItemName := lbxFilesToAdd.Items[idx];
+    if ItemName.StartsWith(LIST_WEB_PREFIX) then
+      ItemContent := (lbxFilesToAdd.Items.Objects[idx] as TStringList).Text
+    else
+      ItemContent := TFile.ReadAllText(ItemName);
+    TFormPreview.Execute(ItemContent);
+  end;
+end;
+
+procedure TFormMain.lbxFilesToRemoveDblClick(Sender: TObject);
+var
+  idx: Integer;
+  ItemName: string;
+  ItemContent: string;
+begin
+  idx := lbxFilesToRemove.ItemIndex;
+  if idx >= 0 then
+  begin
+    ItemName := lbxFilesToRemove.Items[idx];
+    if ItemName.StartsWith(LIST_WEB_PREFIX) then
+      ItemContent := (lbxFilesToRemove.Items.Objects[idx] as TStringList).Text
+    else
+      ItemContent := TFile.ReadAllText(ItemName);
+    TFormPreview.Execute(ItemContent);
+  end;
 end;
 
 function TFormMain.mergeEverything(filesToAdd, filesToRemove: TStrings): string;
@@ -156,21 +195,21 @@ procedure TFormMain.mergeDeleteLinesFromRemoveFiles(slResultData: TStrings;
   removeItemsList: TStrings);
 var
   slContent: TStringList;
-  i: integer;
+  i: Integer;
   ItemName: string;
   isMemoryItem: boolean;
   memoryList: TStringList;
 begin
   slContent := TStringList.Create;
   try
-    for i:=0 to removeItemsList.Count-1 do
+    for i := 0 to removeItemsList.Count - 1 do
     begin
       ItemName := removeItemsList[i];
       isMemoryItem := ItemName.StartsWith(LIST_WEB_PREFIX);
       if isMemoryItem then
       begin
         memoryList := removeItemsList.Objects[i] as TStringList;
-        mergeDeleteLinesFromList(slResultData,memoryList);
+        mergeDeleteLinesFromList(slResultData, memoryList);
       end
       else
       begin
