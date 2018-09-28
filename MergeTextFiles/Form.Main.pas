@@ -24,6 +24,7 @@ type
     btnImportUnsubscribed: TButton;
     lbUnsubscribed: TLabel;
     IdHTTP1: TIdHTTP;
+    Splitter2: TSplitter;
     procedure btnImportUnsubscribedClick(Sender: TObject);
     procedure btnMergeAllFilesClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

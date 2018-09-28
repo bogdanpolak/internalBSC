@@ -16,6 +16,12 @@ object FormMain: TFormMain
   OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13
+  object Splitter2: TSplitter
+    Left = 377
+    Top = 0
+    Width = 5
+    Height = 567
+  end
   object GroupBox1: TGroupBox
     AlignWithMargins = True
     Left = 3
@@ -23,11 +29,14 @@ object FormMain: TFormMain
     Width = 374
     Height = 562
     Margins.Top = 2
+    Margins.Right = 0
     Align = alLeft
     Caption = 'Pliki:'
     Padding.Left = 2
     Padding.Right = 2
     TabOrder = 0
+    ExplicitLeft = 6
+    ExplicitTop = 7
     object lbTitleFilesToAdd: TLabel
       AlignWithMargins = True
       Left = 7
@@ -127,36 +136,41 @@ object FormMain: TFormMain
   end
   object GroupBox2: TGroupBox
     AlignWithMargins = True
-    Left = 383
+    Left = 382
     Top = 3
-    Width = 428
+    Width = 429
     Height = 561
+    Margins.Left = 0
     Align = alClient
     Caption = 'Wyniki scalania'
     TabOrder = 1
+    ExplicitLeft = 383
+    ExplicitWidth = 428
     object btnMergeAllFiles: TButton
       AlignWithMargins = True
       Left = 5
       Top = 21
-      Width = 418
+      Width = 419
       Height = 25
       Margins.Top = 6
       Align = alTop
       Caption = 'btnMergeAllFiles'
       TabOrder = 0
       OnClick = btnMergeAllFilesClick
+      ExplicitWidth = 418
     end
     object Memo1: TMemo
       AlignWithMargins = True
       Left = 5
       Top = 52
-      Width = 418
+      Width = 419
       Height = 504
       Align = alClient
       Lines.Strings = (
         'Memo1')
       ScrollBars = ssVertical
       TabOrder = 1
+      ExplicitWidth = 418
     end
   end
   object IdHTTP1: TIdHTTP
