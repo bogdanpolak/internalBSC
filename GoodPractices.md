@@ -49,11 +49,19 @@ DRY - Don't Repeat Yourself
     * Wydzielaj logikę na zewnątrz (do klasy lub przynajmniej do funkcji)
     * Staraj się wstrzykiwać wszelkie zależności do klasy (Prawo Demeter)
     
-###  czysty kod w Delphi
+### Czysty kod w Delphi
 
 1. Class helpers.
   - metody operujace na klsach VCL-a i RTL-a
-  - przykłady: TDDGrid.AutoWidthColumns
+  - przykłady: 
+    * TDDGrid.AutoWidthColumns
+    * TApplication.isDeveloperMode, 
+    * TGroupBox.ChildrensSumHeight(ControlsToExclude: TArray<TControl>): Integer, 
+    * TGroupBox.EqualCChildHeight(ControlsToResize: TArray<TControl>)
+    * TPanel.CreateAndShowFrameDocked (clFrame: TFrameClass; Caption: String): TFrame
+    * TPanel.FindControlsByClass
+    * TPanel.HideControlsByClass
+    * TChromeTabs.AddTabForFrame
   - ******* dopisz więcej przykładów! 
 2. Programowanie obiektowe.
   - Staraj się nie pisać samodzielnych funkcji i procedur 
