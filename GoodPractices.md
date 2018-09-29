@@ -48,6 +48,15 @@ DRY - Don't Repeat Yourself
 * Separacja logiki
     * Wydzielaj logikę na zewnątrz (do klasy lub przynajmniej do funkcji)
     * Staraj się wstrzykiwać wszelkie zależności do klasy (Prawo Demeter)
+    
+###  czysty kod w Delphi
+
+1. Class helpers.
+  - metody operujace na klsach VCL-a i RTL-a
+  - przykłady: TDDGrid.AutoWidthColumns
+  - ******* dopisz więcej przykładów! 
+2. Programowanie obiektowe.
+  - Staraj się nie pisać samodzielnych funkcji i procedur 
 
 ### Czysty kod wg wujka Bob-a
 
