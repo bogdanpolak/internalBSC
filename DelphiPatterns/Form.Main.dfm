@@ -23,16 +23,16 @@ object Form1: TForm1
     Caption = 'GroupBox1'
     Padding.Top = 10
     TabOrder = 0
-    object btnAnonymousMethosAsEvent: TButton
+    object btnAnonymousEvent: TButton
       AlignWithMargins = True
       Left = 5
       Top = 28
       Width = 204
       Height = 25
       Align = alTop
-      Caption = 'btnAnonymousMethosAsEvent'
+      Caption = 'btnAnonymousEvent'
       TabOrder = 0
-      OnClick = btnAnonymousMethosAsEventClick
+      OnClick = btnAnonymousEventClick
     end
     object btnCloseAllFrames: TButton
       AlignWithMargins = True
@@ -44,6 +44,20 @@ object Form1: TForm1
       Caption = 'btnCloseAllFrames'
       TabOrder = 1
       OnClick = btnCloseAllFramesClick
+    end
+    object btnDynamicButtonsDemo: TButton
+      AlignWithMargins = True
+      Left = 5
+      Top = 59
+      Width = 204
+      Height = 25
+      Align = alTop
+      Caption = 'btnDynamicButtonsDemo'
+      TabOrder = 2
+      OnClick = btnDynamicButtonsDemoClick
+      ExplicitLeft = 72
+      ExplicitTop = 152
+      ExplicitWidth = 75
     end
   end
   object PageControl1: TPageControl

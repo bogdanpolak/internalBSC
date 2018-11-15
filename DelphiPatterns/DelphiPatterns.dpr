@@ -5,7 +5,8 @@ uses
   Form.Main in 'Form.Main.pas' {Form1},
   MVC.Work in 'MVC.Work.pas',
   Work.CommandOne in 'Work.CommandOne.pas',
-  Frame.AnonymousMethodAsEvent in 'Frame.AnonymousMethodAsEvent.pas' {FrameAnonyMethodAsEvent: TFrame};
+  Frame.AnonymousEvent in 'Frame.AnonymousEvent.pas' {FrameAnonymousEvent: TFrame},
+  Frame.ButtonsGroup in 'Frame.ButtonsGroup.pas' {FrameButtonsGroup: TFrame};
 
 {$R *.res}
 

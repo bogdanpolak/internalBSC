@@ -11,13 +11,15 @@ uses
 type
   TForm1 = class(TForm)
     GroupBox1: TGroupBox;
-    btnAnonymousMethosAsEvent: TButton;
+    btnAnonymousEvent: TButton;
     PageControl1: TPageControl;
     tmrAppReady: TTimer;
     btnCloseAllFrames: TButton;
+    btnDynamicButtonsDemo: TButton;
     procedure tmrAppReadyTimer(Sender: TObject);
-    procedure btnAnonymousMethosAsEventClick(Sender: TObject);
+    procedure btnAnonymousEventClick(Sender: TObject);
     procedure btnCloseAllFramesClick(Sender: TObject);
+    procedure btnDynamicButtonsDemoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,11 +33,22 @@ implementation
 
 {$R *.dfm}
 
-uses Action.Main.Command1, Action.Main.Command2, MVC.Work, Work.CommandOne,
-  Frame.AnonymousMethodAsEvent;
+uses
+  Action.Main.Command1,
+  Action.Main.Command2,
+  MVC.Work,
+  Work.CommandOne,
+  Frame.AnonymousEvent,
+  Frame.ButtonsGroup;
+
+resourcestring
+  StrFrameCaption_AnonymousEvent =
+    'Use anonymous method as TNotifyEvent';
 
 type
   TClassWork = class of TWork;
+type
+  TClassFrame = class of TFrame;
 
 procedure FixChildrensTabOrder(Container: TWinControl);
 var
@@ -78,17 +91,26 @@ begin
   Result := btn;
 end;
 
-procedure TForm1.btnAnonymousMethosAsEventClick(Sender: TObject);
+procedure CreateNewFrameInsideNewTabSheet(PageControl: TPageControl;
+  const Caption: string; ClassFrame: TClassFrame);
 var
   TabSheet: TTabSheet;
   AFrame: TFrame;
 begin
-  TabSheet := TTabSheet.Create(PageControl1);
-  TabSheet.Caption := 'Use anonymous method as TNotifyEvent';
-  TabSheet.PageControl := PageControl1;
-  AFrame := TFrameAnonyMethodAsEvent.Create(TabSheet);
+  TabSheet := TTabSheet.Create(PageControl);
+  TabSheet.Caption := Caption;
+  TabSheet.PageControl := PageControl;
+  PageControl.ActivePage := TabSheet;
+  AFrame := ClassFrame.Create(TabSheet);
   AFrame.Parent := TabSheet;
   AFrame.Align := alClient;
+end;
+
+
+procedure TForm1.btnAnonymousEventClick(Sender: TObject);
+begin
+  CreateNewFrameInsideNewTabSheet(PageControl1, StrFrameCaption_AnonymousEvent,
+    TFrameAnonymousEvent);
 end;
 
 procedure TForm1.btnCloseAllFramesClick(Sender: TObject);
@@ -97,6 +119,12 @@ var
 begin
   for i := PageControl1.PageCount - 1 downto 0 do
     PageControl1.Pages[i].Free;
+end;
+
+procedure TForm1.btnDynamicButtonsDemoClick(Sender: TObject);
+begin
+  CreateNewFrameInsideNewTabSheet(PageControl1, 'Dynamic Buttons',
+    TFrameButtonsGroup);
 end;
 
 procedure TForm1.tmrAppReadyTimer(Sender: TObject);

@@ -1,4 +1,4 @@
-object FrameAnonyMethodAsEvent: TFrameAnonyMethodAsEvent
+object FrameAnonymousEvent: TFrameAnonymousEvent
   Left = 0
   Top = 0
   Width = 320

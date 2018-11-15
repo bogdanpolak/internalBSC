@@ -1,4 +1,4 @@
-unit Frame.AnonymousMethodAsEvent;
+unit Frame.AnonymousEvent;
 
 interface
 
@@ -9,7 +9,7 @@ uses
   Vcl.StdCtrls;
 
 type
-  TFrameAnonyMethodAsEvent = class(TFrame)
+  TFrameAnonymousEvent = class(TFrame)
     Button1: TButton;
     tmrFrameReady: TTimer;
     procedure tmrFrameReadyTimer(Sender: TObject);
@@ -50,7 +50,7 @@ begin
   Result := TNotifyEventWrapper.Create(Owner, Proc).Event;
 end;
 
-procedure TFrameAnonyMethodAsEvent.tmrFrameReadyTimer(Sender: TObject);
+procedure TFrameAnonymousEvent.tmrFrameReadyTimer(Sender: TObject);
 begin
   tmrFrameReady.Enabled := False;
   Button1.OnClick := AnonProc2NotifyEvent(Button1,
