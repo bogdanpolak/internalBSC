@@ -37,10 +37,6 @@ uses
   Frame.AnonymousEvent,
   Frame.ButtonsGroup;
 
-resourcestring
-  StrFrameCaption_AnonymousEvent =
-    'Use anonymous method as TNotifyEvent';
-
 type
   TClassFrame = class of TFrame;
 
@@ -62,7 +58,7 @@ end;
 
 procedure TForm1.btnAnonymousEventClick(Sender: TObject);
 begin
-  CreateNewFrameInsideNewTabSheet(PageControl1, StrFrameCaption_AnonymousEvent,
+  CreateNewFrameInsideNewTabSheet(PageControl1, 'Anonymous Event',
     TFrameAnonymousEvent);
 end;
 

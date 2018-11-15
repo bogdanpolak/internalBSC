@@ -55,9 +55,6 @@ object Form1: TForm1
       Caption = 'btnDynamicButtonsDemo'
       TabOrder = 2
       OnClick = btnDynamicButtonsDemoClick
-      ExplicitLeft = 72
-      ExplicitTop = 152
-      ExplicitWidth = 75
     end
   end
   object PageControl1: TPageControl
