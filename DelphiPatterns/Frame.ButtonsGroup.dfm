@@ -23,7 +23,6 @@ object FrameButtonsGroup: TFrameButtonsGroup
     Caption = 'GroupBox1'
     Padding.Top = 10
     TabOrder = 0
-    ExplicitHeight = 283
     object btnStaticTop: TButton
       AlignWithMargins = True
       Left = 5
@@ -34,9 +33,6 @@ object FrameButtonsGroup: TFrameButtonsGroup
       Caption = 'btnStaticTop'
       TabOrder = 0
       OnClick = btnStaticTopClick
-      ExplicitLeft = 64
-      ExplicitTop = 128
-      ExplicitWidth = 75
     end
     object btnStaticBottom: TButton
       AlignWithMargins = True
@@ -47,9 +43,6 @@ object FrameButtonsGroup: TFrameButtonsGroup
       Align = alBottom
       Caption = 'btnStaticBottom'
       TabOrder = 1
-      ExplicitLeft = 56
-      ExplicitTop = 128
-      ExplicitWidth = 75
     end
   end
   object tmrFrameReady: TTimer

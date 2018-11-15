@@ -3,8 +3,10 @@ unit Frame.ButtonsGroup;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
+  Winapi.Windows, Winapi.Messages,
+  System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
+  Vcl.ExtCtrls;
 
 type
   TFrameButtonsGroup = class(TFrame)
@@ -29,7 +31,7 @@ implementation
 
 uses
   MVC.Work,
-  Work.CommandOne;
+  Work.CommandOne, Utils.AnonymousEvent;
 
 type
   TClassWork = class of TWork;
@@ -75,10 +77,30 @@ begin
   Result := btn;
 end;
 
+function AddButtonAndEvent(Container: TWinControl; const ACaption: String;
+  EventMethod: TProc<TObject>): TButton;
+var
+  btn: TButton;
+begin
+  btn := TButton.Create(Container);
+  btn.Top := 10000;
+  btn.Align := alTop;
+  btn.AlignWithMargins := True;
+  btn.Caption := ACaption;
+  btn.Parent := Container;
+  Result := btn;
+  btn.OnClick := TNotifyEventWrapper.Create(btn,EventMethod).Event;
+end;
+
 constructor TFrameButtonsGroup.Create(AOwner: TComponent);
 begin
   inherited;
   AddButtonToContainer(GroupBox1, TCommandOneWork);
+  AddButtonAndEvent(GroupBox1, 'Adhoc Event Button',
+    procedure(Sender: TObject)
+    begin
+      (Sender as TButton).Caption := 'Use the Force Luke!'
+    end);
 end;
 
 destructor TFrameButtonsGroup.Destroy;
@@ -89,7 +111,7 @@ end;
 
 procedure TFrameButtonsGroup.btnStaticTopClick(Sender: TObject);
 begin
-  btnStaticTop.Caption :=  'Check Buttons Tab Order';
+  btnStaticTop.Caption := 'Check Buttons Tab Order';
 end;
 
 procedure TFrameButtonsGroup.tmrFrameReadyTimer(Sender: TObject);

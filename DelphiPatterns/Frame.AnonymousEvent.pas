@@ -23,37 +23,12 @@ implementation
 
 {$R *.dfm}
 
-type
-  TNotifyEventWrapper = class(TComponent)
-  private
-    FProc: TProc<TObject>;
-  public
-    constructor Create(Owner: TComponent; Proc: TProc<TObject>);
-  published
-    procedure Event(Sender: TObject);
-  end;
-
-constructor TNotifyEventWrapper.Create(Owner: TComponent; Proc: TProc<TObject>);
-begin
-  inherited Create(Owner);
-  FProc := Proc;
-end;
-
-procedure TNotifyEventWrapper.Event(Sender: TObject);
-begin
-  FProc(Sender);
-end;
-
-function AnonProc2NotifyEvent(Owner: TComponent; Proc: TProc<TObject>)
-  : TNotifyEvent;
-begin
-  Result := TNotifyEventWrapper.Create(Owner, Proc).Event;
-end;
+uses Utils.AnonymousEvent;
 
 procedure TFrameAnonymousEvent.tmrFrameReadyTimer(Sender: TObject);
 begin
   tmrFrameReady.Enabled := False;
-  Button1.OnClick := AnonProc2NotifyEvent(Button1,
+  Button1.OnClick := AnonymousMethodToTNotifyEvent(Button1,
     procedure(Sender: TObject)
     begin
       (Sender as TButton).Caption := 'Clicked';
