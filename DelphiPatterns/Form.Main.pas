@@ -34,10 +34,6 @@ implementation
 {$R *.dfm}
 
 uses
-  Action.Main.Command1,
-  Action.Main.Command2,
-  MVC.Work,
-  Work.CommandOne,
   Frame.AnonymousEvent,
   Frame.ButtonsGroup;
 
@@ -46,50 +42,7 @@ resourcestring
     'Use anonymous method as TNotifyEvent';
 
 type
-  TClassWork = class of TWork;
-type
   TClassFrame = class of TFrame;
-
-procedure FixChildrensTabOrder(Container: TWinControl);
-var
-  i: Integer;
-  sl: TStringList;
-  ControlPosition: string;
-  AControl: TControl;
-begin
-  sl := TStringList.Create;
-  try
-    for i := 0 to Container.ControlCount - 1 do
-    begin
-      AControl := Container.Controls[i];
-      ControlPosition := Format('%5d,%5d', [AControl.Top, AControl.Left]);
-      if AControl is TWinControl then
-        sl.AddObject(ControlPosition, AControl);
-    end;
-    sl.Sort;
-    for i := 0 to sl.Count - 1 do
-      (sl.Objects[i] as TWinControl).TabOrder := i;
-  finally
-    sl.Free;
-  end;
-end;
-
-function AddButtonToContainer(Container: TWinControl;
-  WorkClass: TClassWork): TButton;
-var
-  btn: TButton;
-  Work: TWork;
-begin
-  btn := TButton.Create(Container);
-  Work := WorkClass.Create(btn);
-  btn.Top := 10000;
-  btn.Align := alTop;
-  btn.AlignWithMargins := True;
-  btn.Caption := Work.Caption;
-  btn.Parent := Container;
-  btn.Action := Work.Action;
-  Result := btn;
-end;
 
 procedure CreateNewFrameInsideNewTabSheet(PageControl: TPageControl;
   const Caption: string; ClassFrame: TClassFrame);
@@ -133,8 +86,6 @@ var
   Container: Vcl.Controls.TWinControl;
 begin
   tmrAppReady.Enabled := false;
-  btn := AddButtonToContainer(GroupBox1, TCommandOneWork);
-  FixChildrensTabOrder(GroupBox1);
 end;
 
 end.
