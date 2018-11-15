@@ -6,7 +6,8 @@ uses
   MVC.Work in 'MVC.Work.pas',
   Work.CommandOne in 'Work.CommandOne.pas',
   Frame.AnonymousEvent in 'Frame.AnonymousEvent.pas' {FrameAnonymousEvent: TFrame},
-  Frame.ButtonsGroup in 'Frame.ButtonsGroup.pas' {FrameButtonsGroup: TFrame};
+  Frame.ButtonsGroup in 'Frame.ButtonsGroup.pas' {FrameButtonsGroup: TFrame},
+  Utils.AnonymousEvent in 'Utils.AnonymousEvent.pas';
 
 {$R *.res}
 
