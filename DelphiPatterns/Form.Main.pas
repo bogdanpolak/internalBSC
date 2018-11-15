@@ -16,6 +16,7 @@ type
     tmrAppReady: TTimer;
     btnCloseAllFrames: TButton;
     btnDynamicButtonsDemo: TButton;
+    RadioGroup1: TRadioGroup;
     procedure tmrAppReadyTimer(Sender: TObject);
     procedure btnAnonymousEventClick(Sender: TObject);
     procedure btnCloseAllFramesClick(Sender: TObject);
@@ -76,12 +77,25 @@ begin
     TFrameButtonsGroup);
 end;
 
+function inDeveloperMode: boolean;
+begin
+  { TODO : Needs implementation }
+  Result := True;
+end;
+
 procedure TForm1.tmrAppReadyTimer(Sender: TObject);
 var
   btn: Vcl.StdCtrls.TButton;
   Container: Vcl.Controls.TWinControl;
 begin
   tmrAppReady.Enabled := false;
+  if inDeveloperMode then
+  begin
+    case RadioGroup1.ItemIndex of
+      1: btnAnonymousEvent.Click;
+      2: begin btnDynamicButtonsDemo.Click; PageControl1.ActivePage.SetFocus end;
+    end;
+  end;
 end;
 
 end.

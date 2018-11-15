@@ -66,6 +66,20 @@ object Form1: TForm1
     Align = alClient
     TabOrder = 1
   end
+  object RadioGroup1: TRadioGroup
+    Left = 248
+    Top = 80
+    Width = 161
+    Height = 97
+    Caption = 'RadioGroup1'
+    ItemIndex = 2
+    Items.Strings = (
+      'No frame creation'
+      'Frame: AnonymousEvent'
+      'Frame: DynamicButton')
+    TabOrder = 2
+    Visible = False
+  end
   object tmrAppReady: TTimer
     Interval = 1
     OnTimer = tmrAppReadyTimer
