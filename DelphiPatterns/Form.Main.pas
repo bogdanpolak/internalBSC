@@ -5,15 +5,15 @@ interface
 uses
   Winapi.Windows, Winapi.Messages,
   System.SysUtils, System.Variants, System.Classes,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, VCL.ActnList,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.ActnList,
   Vcl.StdCtrls, Vcl.ComCtrls;
 
 type
   TForm1 = class(TForm)
     GroupBox1: TGroupBox;
-    tmrAppReady: TTimer;
     btnAnonymousMethosAsEvent: TButton;
     PageControl1: TPageControl;
+    tmrAppReady: TTimer;
     btnCloseAllFrames: TButton;
     procedure tmrAppReadyTimer(Sender: TObject);
     procedure btnAnonymousMethosAsEventClick(Sender: TObject);
@@ -37,19 +37,44 @@ uses Action.Main.Command1, Action.Main.Command2, MVC.Work, Work.CommandOne,
 type
   TClassWork = class of TWork;
 
-function AddButtonToContainer(Container: TWinControl;  WorkClass: TClassWork): TButton;
+procedure FixChildrensTabOrder(Container: TWinControl);
+var
+  i: Integer;
+  sl: TStringList;
+  ControlPosition: string;
+  AControl: TControl;
+begin
+  sl := TStringList.Create;
+  try
+    for i := 0 to Container.ControlCount - 1 do
+    begin
+      AControl := Container.Controls[i];
+      ControlPosition := Format('%5d,%5d', [AControl.Top, AControl.Left]);
+      if AControl is TWinControl then
+        sl.AddObject(ControlPosition, AControl);
+    end;
+    sl.Sort;
+    for i := 0 to sl.Count - 1 do
+      (sl.Objects[i] as TWinControl).TabOrder := i;
+  finally
+    sl.Free;
+  end;
+end;
+
+function AddButtonToContainer(Container: TWinControl;
+  WorkClass: TClassWork): TButton;
 var
   btn: TButton;
-  work: TWork;
+  Work: TWork;
 begin
   btn := TButton.Create(Container);
-  work := WorkClass.Create(btn);
+  Work := WorkClass.Create(btn);
   btn.Top := 10000;
   btn.Align := alTop;
   btn.AlignWithMargins := True;
-  btn.Caption := work.Caption;
+  btn.Caption := Work.Caption;
   btn.Parent := Container;
-  btn.Action := work.Action;
+  btn.Action := Work.Action;
   Result := btn;
 end;
 
@@ -70,7 +95,7 @@ procedure TForm1.btnCloseAllFramesClick(Sender: TObject);
 var
   i: Integer;
 begin
-  for i := pagecontrol1.PageCount-1 downto 0 do
+  for i := PageControl1.PageCount - 1 downto 0 do
     PageControl1.Pages[i].Free;
 end;
 
@@ -80,8 +105,8 @@ var
   Container: Vcl.Controls.TWinControl;
 begin
   tmrAppReady.Enabled := false;
-  btn := AddButtonToContainer (GroupBox1, TCommandOneWork);
-  btn.TabOrder := btnCloseAllFrames.TabOrder;
+  btn := AddButtonToContainer(GroupBox1, TCommandOneWork);
+  FixChildrensTabOrder(GroupBox1);
 end;
 
 end.

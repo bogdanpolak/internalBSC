@@ -33,9 +33,6 @@ object Form1: TForm1
       Caption = 'btnAnonymousMethosAsEvent'
       TabOrder = 0
       OnClick = btnAnonymousMethosAsEventClick
-      ExplicitLeft = 48
-      ExplicitTop = 128
-      ExplicitWidth = 75
     end
     object btnCloseAllFrames: TButton
       AlignWithMargins = True
@@ -47,9 +44,6 @@ object Form1: TForm1
       Caption = 'btnCloseAllFrames'
       TabOrder = 1
       OnClick = btnCloseAllFramesClick
-      ExplicitLeft = 72
-      ExplicitTop = 152
-      ExplicitWidth = 75
     end
   end
   object PageControl1: TPageControl
@@ -60,10 +54,6 @@ object Form1: TForm1
     Height = 334
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = 224
-    ExplicitTop = 96
-    ExplicitWidth = 289
-    ExplicitHeight = 193
   end
   object tmrAppReady: TTimer
     Interval = 1
