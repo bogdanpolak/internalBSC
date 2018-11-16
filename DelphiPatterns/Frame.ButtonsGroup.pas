@@ -32,7 +32,7 @@ implementation
 
 uses
   MVC.Work,
-  Work.CommandOne, Utils.AnonymousEvent;
+  Work.CommandOne, Utils.AnonymousEvent, Work.Messaging;
 
 type
   TClassWork = class of TWork;
@@ -133,7 +133,7 @@ begin
   AContainer := GroupBox1;
   AddButtonToContainer(AContainer, TCommandOneWork);
   AddBevel(AContainer);
-  AddButtonToContainer(AContainer, TWork);
+  AddButtonToContainer(AContainer, TMessagingWork);
   AddBevel(AContainer);
   AddButtonAndEvent(AContainer, 'Adhoc Event Button',
     procedure(Sender: TObject)
