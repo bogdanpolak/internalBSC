@@ -18,6 +18,7 @@ type
     procedure btnStaticTopClick(Sender: TObject);
     procedure tmrFrameReadyTimer(Sender: TObject);
   private
+    procedure CreateCommandButtons;
     { Private declarations }
   public
     { Public declarations }
@@ -67,13 +68,18 @@ var
   Work: TWork;
 begin
   btn := TButton.Create(Container);
-  Work := WorkClass.Create(btn);
   btn.Top := 10000;
   btn.Align := alTop;
   btn.AlignWithMargins := True;
-  btn.Caption := Work.Caption;
   btn.Parent := Container;
-  btn.Action := Work.Action;
+  if WorkClass <> TWork then
+  begin
+    Work := WorkClass.Create(btn);
+    btn.Action := Work.Action;
+    btn.Caption := Work.Caption;
+  end
+  else
+    btn.Caption := 'Nothing to work';
   Result := btn;
 end;
 
@@ -89,24 +95,51 @@ begin
   btn.Caption := ACaption;
   btn.Parent := Container;
   Result := btn;
-  btn.OnClick := TNotifyEventWrapper.Create(btn,EventMethod).Event;
+  btn.OnClick := TNotifyEventWrapper.Create(btn, EventMethod).Event;
+  Result := btn;
+end;
+
+function AddBevel(Container: TWinControl): TBevel;
+var
+  bevel: TBevel;
+begin
+  bevel := TBevel.Create(Container);
+  bevel.Height := 3;
+  bevel.Margins.Top := 5;
+  bevel.Margins.Bottom := 5;
+  bevel.Top := 10000;
+  bevel.Align := alTop;
+  bevel.AlignWithMargins := True;
+  bevel.Parent := Container;
+  Result := bevel;
 end;
 
 constructor TFrameButtonsGroup.Create(AOwner: TComponent);
 begin
   inherited;
-  AddButtonToContainer(GroupBox1, TCommandOneWork);
-  AddButtonAndEvent(GroupBox1, 'Adhoc Event Button',
-    procedure(Sender: TObject)
-    begin
-      (Sender as TButton).Caption := 'Use the Force Luke!'
-    end);
+
 end;
 
 destructor TFrameButtonsGroup.Destroy;
 begin
 
   inherited;
+end;
+
+procedure TFrameButtonsGroup.CreateCommandButtons;
+var
+  AContainer: TWinControl;
+begin
+  AContainer := GroupBox1;
+  AddButtonToContainer(AContainer, TCommandOneWork);
+  AddBevel(AContainer);
+  AddButtonToContainer(AContainer, TWork);
+  AddBevel(AContainer);
+  AddButtonAndEvent(AContainer, 'Adhoc Event Button',
+    procedure(Sender: TObject)
+    begin
+      (Sender as TButton).Caption := 'Use the Force Luke!'
+    end);
 end;
 
 procedure TFrameButtonsGroup.btnStaticTopClick(Sender: TObject);
@@ -117,6 +150,7 @@ end;
 procedure TFrameButtonsGroup.tmrFrameReadyTimer(Sender: TObject);
 begin
   tmrFrameReady.Enabled := False;
+  CreateCommandButtons();
   FixChildrensTabOrder(GroupBox1);
 end;
 
