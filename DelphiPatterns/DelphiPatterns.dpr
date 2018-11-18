@@ -9,7 +9,7 @@ uses
   Frame.ButtonsGroup in 'Frame.ButtonsGroup.pas' {FrameButtonsGroup: TFrame},
   Utils.AnonymousEvent in 'Utils.AnonymousEvent.pas',
   Work.Messaging in 'Work.Messaging.pas',
-  Module.MessagingWork in 'Module.MessagingWork.pas' {DataModule1: TDataModule};
+  Module.MessagingWork in 'Module.MessagingWork.pas' {ModuleOrders: TDataModule};
 
 {$R *.res}
 
@@ -17,6 +17,5 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TForm1, Form1);
-  Application.CreateForm(TDataModule1, DataModule1);
   Application.Run;
 end.

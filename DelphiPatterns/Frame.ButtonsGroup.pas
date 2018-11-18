@@ -31,6 +31,7 @@ implementation
 {$R *.dfm}
 
 uses
+  System.Messaging,
   MVC.Work,
   Work.CommandOne, Utils.AnonymousEvent, Work.Messaging;
 
@@ -79,7 +80,7 @@ begin
     btn.Caption := Work.Caption;
   end
   else
-    btn.Caption := 'Nothing to work';
+    btn.Caption := 'Nothing to do';
   Result := btn;
 end;
 
@@ -147,10 +148,39 @@ begin
   btnStaticTop.Caption := 'Check Buttons Tab Order';
 end;
 
+function StringArrayToString(arr: array of String): string;
+var
+  i: Integer;
+  arrSize: Integer;
+begin
+  arrSize := Length(arr);
+  for i := 0 to arrSize - 1 do
+  begin
+    if i = 0 then
+      Result := '[' + QuotedStr(arr[0])
+    else
+    begin
+      Result := Result + ', ' + QuotedStr(arr[i]);
+    end;
+  end;
+  if arrSize > 0 then
+    Result := Result + ']';
+end;
+
 procedure TFrameButtonsGroup.tmrFrameReadyTimer(Sender: TObject);
 begin
   tmrFrameReady.Enabled := False;
   CreateCommandButtons();
+
+  TMessageManager.DefaultManager.SubscribeToMessage(TMessage<TNotShippedOrders>,
+    procedure(const Sender: TObject; const M: TMessage)
+    var
+      Data: TNotShippedOrders;
+    begin
+      Data := (M as TMessage<TNotShippedOrders>).Value;
+      ShowMessage ('Orders not sipped yet: '+ StringArrayToString(Data.FOrdes) );
+    end);
+
   FixChildrensTabOrder(GroupBox1);
 end;
 
