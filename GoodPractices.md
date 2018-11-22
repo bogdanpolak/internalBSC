@@ -1,5 +1,7 @@
 # Dobre praktyki programowania
 
+TODO: Dopisać dobre praktyki dla C++Builder-a
+
 ### Testowanie
 
 * Testuj kod często
