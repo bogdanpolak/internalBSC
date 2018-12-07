@@ -72,7 +72,7 @@ object Form1: TForm1
     Width = 161
     Height = 97
     Caption = 'RadioGroup1'
-    ItemIndex = 2
+    ItemIndex = 0
     Items.Strings = (
       'No frame creation'
       'Frame: AnonymousEvent'

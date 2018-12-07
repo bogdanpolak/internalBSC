@@ -178,7 +178,7 @@ begin
       Data: TNotShippedOrders;
     begin
       Data := (M as TMessage<TNotShippedOrders>).Value;
-      ShowMessage ('Orders not sipped yet: '+ StringArrayToString(Data.FOrdes) );
+      ShowMessage('Orders not sipped yet: ' + StringArrayToString(Data.FOrdes));
     end);
 
   FixChildrensTabOrder(GroupBox1);
