@@ -8,10 +8,10 @@ uses
 type
   THelperDBGrid = class helper for TDBGrid
     /// <summary>
-    ///   Counts and sets the width of the grid columns in pixels
+    /// Counts and sets the width of the grid columns in pixels
     /// </summary>
     /// <param name="CalcForNumberOfRows">
-    ///   The number of rows for which widths are counted
+    /// The number of rows for which widths are counted
     /// </param>
     function AutoSizeColumns(const CalcForNumberOfRows: integer = 25): integer;
   end;
@@ -21,7 +21,8 @@ implementation
 uses
   Data.DB, System.Math, System.Classes;
 
-function THelperDBGrid.AutoSizeColumns (const CalcForNumberOfRows: integer = 25): integer;
+function THelperDBGrid.AutoSizeColumns(const CalcForNumberOfRows
+  : integer = 25): integer;
 var
   DataSet: TDataSet;
   Bookmark: TBookmark;

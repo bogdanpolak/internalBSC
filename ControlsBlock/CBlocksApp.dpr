@@ -2,7 +2,7 @@ program CBlocksApp;
 
 uses
   Vcl.Forms,
-  Form.Main in 'Form.Main.pas' {Form1},
+  Form.Main in 'Form.Main.pas' {Form1} ,
   Helper.TDBGrid in 'Helper.TDBGrid.pas';
 
 {$R *.res}
@@ -12,4 +12,5 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TForm1, Form1);
   Application.Run;
+
 end.
