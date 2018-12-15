@@ -10,16 +10,16 @@ uses
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.IB,
   FireDAC.Phys.IBDef, FireDAC.VCLUI.Wait, FireDAC.Phys.IBBase, Data.DB,
   FireDAC.Comp.Client, Vcl.StdCtrls, FireDAC.Stan.Param, FireDAC.DatS,
-  FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet;
+  FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet, Vcl.ExtCtrls;
 
 type
   TForm1 = class(TForm)
-    Button1: TButton;
-    GroupBox1: TGroupBox;
+    btnStart: TButton;
     FDConnection1: TFDConnection;
     FDPhysIBDriverLink1: TFDPhysIBDriverLink;
     FDQuery1: TFDQuery;
-    procedure Button1Click(Sender: TObject);
+    GridPanel1: TGridPanel;
+    procedure btnStartClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -50,32 +50,41 @@ const
     '  INNER JOIN {id Shippers} Shippers ' +
     '    ON Orders.ShipVia = Shippers.ShipperID';
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.btnStartClick(Sender: TObject);
 var
   AContainer: TWinControl;
   grbx: TGroupBox;
   btn1: TButton;
   ds: TDataSet;
   grid: TDBGrid;
+  mainPanel: TPanel;
 begin
   FDConnection1.ConnectionDefName := 'IB_Demo';
   FDConnection1.Open();
-  AContainer := GroupBox1;
+  GridPanel1.BevelOuter := bvNone;
+  btnStart.Parent := nil;
+  AContainer := GridPanel1;
 
-  grbx := TGroupBox.Create(AContainer);
+  mainPanel := TPanel.Create(AContainer);
+  mainPanel.BevelOuter := bvNone;
+  mainPanel.Align := alClient;
+  mainPanel.AlignWithMargins := True;
+  mainPanel.Parent := AContainer;
+
+  grbx := TGroupBox.Create(mainPanel);
   grbx.Caption := 'DB Grid Commands';
   grbx.AlignWithMargins := True;
   grbx.Align := alTop;
   grbx.Height := 48;
-  grbx.Parent := AContainer;
+  grbx.Parent := mainPanel;
 
   FDConnection1.ExecSQL(SQL_GetOrdersList, ds);
-  grid := Vcl.DBGrids.TDBGrid.Create(AContainer);
-  grid.DataSource := TDataSource.Create(AContainer);
+  grid := Vcl.DBGrids.TDBGrid.Create(mainPanel);
+  grid.DataSource := TDataSource.Create(mainPanel);
   grid.DataSource.DataSet := ds;
   grid.Align := alClient;
   grid.AlignWithMargins := True;
-  grid.Parent := AContainer;
+  grid.Parent := mainPanel;
 
   btn1 := TButton.Create(grbx);
   btn1.Caption := 'Edit';

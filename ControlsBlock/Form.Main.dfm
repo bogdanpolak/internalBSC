@@ -11,28 +11,43 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  DesignSize = (
-    681
-    418)
   PixelsPerInch = 96
   TextHeight = 13
-  object Button1: TButton
-    Left = 8
-    Top = 8
-    Width = 113
-    Height = 25
-    Caption = 'Button1'
+  object GridPanel1: TGridPanel
+    Left = 0
+    Top = 0
+    Width = 681
+    Height = 418
+    Align = alClient
+    Caption = 'GridPanel1'
+    ColumnCollection = <
+      item
+        Value = 100.000000000000000000
+      end>
+    ControlCollection = <
+      item
+        Column = 0
+        Control = btnStart
+        Row = 0
+      end>
+    RowCollection = <
+      item
+        Value = 100.000000000000000000
+      end>
     TabOrder = 0
-    OnClick = Button1Click
-  end
-  object GroupBox1: TGroupBox
-    Left = 8
-    Top = 39
-    Width = 665
-    Height = 371
-    Anchors = [akLeft, akTop, akRight, akBottom]
-    Caption = 'GroupBox1'
-    TabOrder = 1
+    DesignSize = (
+      681
+      418)
+    object btnStart: TButton
+      Left = 270
+      Top = 190
+      Width = 141
+      Height = 37
+      Anchors = []
+      Caption = 'btnStart'
+      TabOrder = 0
+      OnClick = btnStartClick
+    end
   end
   object FDConnection1: TFDConnection
     Params.Strings = (
@@ -41,12 +56,12 @@ object Form1: TForm1
     Top = 8
   end
   object FDPhysIBDriverLink1: TFDPhysIBDriverLink
-    Left = 272
+    Left = 280
     Top = 8
   end
   object FDQuery1: TFDQuery
     Connection = FDConnection1
-    Left = 336
-    Top = 216
+    Left = 424
+    Top = 8
   end
 end
