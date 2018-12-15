@@ -3,7 +3,8 @@ unit Form.Main;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.IB,
@@ -33,7 +34,21 @@ implementation
 {$R *.dfm}
 
 uses
-  Vcl.DBGrids, FireDAC.DApt;
+  Vcl.DBGrids, Helper.TDBGrid;
+
+const
+  SQL_GetOrdersList = 'SELECT Orders.OrderID, ' +
+    '  Orders.CustomerID, Customers.CompanyName, ' + '  Orders.EmployeeID, ' +
+    '  Employees.FirstName||'' ''||Employees.LastName EmployeeName, ' +
+    '  Orders.OrderDate, ' + '  Orders.RequiredDate, Orders.ShippedDate, ' +
+    '  Orders.ShipVia, Shippers.CompanyName ShipperCompany ' +
+    'FROM {id Orders} Orders ' + // -##-
+    '  INNER JOIN {id Employees} Employees ' +
+    '    ON Orders.EmployeeID = Employees.EmployeeID ' +
+    '  INNER JOIN {id Customers} Customers ' +
+    '    ON Orders.CustomerID = Customers.CustomerID' +
+    '  INNER JOIN {id Shippers} Shippers ' +
+    '    ON Orders.ShipVia = Shippers.ShipperID';
 
 procedure TForm1.Button1Click(Sender: TObject);
 var
@@ -54,24 +69,7 @@ begin
   grbx.Height := 48;
   grbx.Parent := AContainer;
 
-  FDConnection1.ExecSQL(
-
-  'SELECT Orders.OrderID, ' +
-  '  Orders.CustomerID, Customers.CompanyName, ' +
-  '  Orders.EmployeeID, '+
-  '  Employees.FirstName||'' ''||Employees.LastName EmployeeName, ' +
-  '  Orders.OrderDate, ' +
-  '  Orders.RequiredDate, Orders.ShippedDate, ' +
-  '  Orders.ShipVia, Shippers.CompanyName ShipperCompany ' +
-  'FROM {id Orders} Orders ' +
-  '  INNER JOIN {id Employees} Employees '+
-  '    ON Orders.EmployeeID = Employees.EmployeeID ' +
-  '  INNER JOIN {id Customers} Customers ON Orders.CustomerID = Customers.CustomerID' +
-  '  INNER JOIN {id Shippers} Shippers ON Orders.ShipVia = Shippers.ShipperID' +
-  '
-
-  ',
-   ds);
+  FDConnection1.ExecSQL(SQL_GetOrdersList, ds);
   grid := Vcl.DBGrids.TDBGrid.Create(AContainer);
   grid.DataSource := TDataSource.Create(AContainer);
   grid.DataSource.DataSet := ds;
@@ -79,12 +77,13 @@ begin
   grid.AlignWithMargins := True;
   grid.Parent := AContainer;
 
-
   btn1 := TButton.Create(grbx);
   btn1.Caption := 'Edit';
   btn1.AlignWithMargins := True;
   btn1.Align := alLeft;
   btn1.Parent := grbx;
+
+  grid.AutoSizeColumns();
 end;
 
 end.

@@ -37,7 +37,6 @@ object Form1: TForm1
   object FDConnection1: TFDConnection
     Params.Strings = (
       'ConnectionDef=IB_Demo')
-    Connected = True
     Left = 184
     Top = 8
   end
