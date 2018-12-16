@@ -1,4 +1,15 @@
 /* --------------------------------------------------------------------- */
+/* Skrypt aktualizaję bazę IB_Demo do celów warstatowych */
+/* UWAGA !!!!!  */
+/* ZMIEŃ RODZAJ TRANSAKCJI Z OPCJĄ ZAPISU: IB Console : Access Mode = Write */
+/* --------------------------------------------------------------------- */
+/*  * Usuwa table FDQA_xxx  */
+/*  * Dodaje generatory dla tabel bazy Northwind i aktualizuje wyzwalacze BEFORE INSERT  */
+/*  * Tworzy tabele użytkowników USERS  */
+/*  * Aktualizuje daty w tabeli Orders do dnia dzisiejszego */
+/* --------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
 DROP TABLE FDQA_ARRAY;
@@ -122,7 +133,9 @@ SET TERM ;^
 /* --------------------------------------------------------------------- */
 /* --------------------------------------------------------------------- */
 
-/* DROP TABLE Users; */
+/* 
+DROP TABLE Users; 
+*/
 
 CREATE TABLE Users (
    UserID VARCHAR(10) NOT NULL,
