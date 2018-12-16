@@ -7,6 +7,18 @@ uses
 
 type
   THelperWinControl = class helper for TWinControl
+    /// <summary>
+    ///   Closes all TFrame components on the container <br/> (sets Visible to False)
+    /// </summary>
+    /// <example>
+    ///   <code lang="Delphi">MainPanel.HideAllChildFrames();
+    /// CommandFrame := TCommandFrame.Create(MainPanel);
+    /// CommandFrame.Align := alTop;
+    /// CommandFrame.Parent := MainPanel;
+    /// gridFrame := TGridFrame.Create(MainPanel);
+    /// gridFrame.Align := alClient;
+    /// gridFrame.Parent := MainPanel; </code>
+    /// </example>
     procedure HideAllChildFrames;
     function SumHeightForChildrens(ControlsToExclude: TArray<TControl>)
       : integer;
