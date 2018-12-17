@@ -38,17 +38,19 @@ uses
 
 const
   SQL_GetOrdersList = 'SELECT Orders.OrderID, ' +
-    '  Orders.CustomerID, Customers.CompanyName, ' + '  Orders.EmployeeID, ' +
+    '  Orders.CustomerID, Customers.CompanyName, ' +
+    '  Orders.EmployeeID, ' + // -#-
     '  Employees.FirstName||'' ''||Employees.LastName EmployeeName, ' +
-    '  Orders.OrderDate, ' + '  Orders.RequiredDate, Orders.ShippedDate, ' +
+    '  Orders.OrderDate, Orders.RequiredDate, Orders.ShippedDate, ' +
     '  Orders.ShipVia, Shippers.CompanyName ShipperCompany ' +
-    'FROM {id Orders} Orders ' + // -##-
+    'FROM {id Orders} Orders ' + // -#-
     '  INNER JOIN {id Employees} Employees ' +
     '    ON Orders.EmployeeID = Employees.EmployeeID ' +
     '  INNER JOIN {id Customers} Customers ' +
-    '    ON Orders.CustomerID = Customers.CustomerID' +
+    '    ON Orders.CustomerID = Customers.CustomerID ' +
     '  INNER JOIN {id Shippers} Shippers ' +
-    '    ON Orders.ShipVia = Shippers.ShipperID';
+    '    ON Orders.ShipVia = Shippers.ShipperID ' +
+    'ORDER BY Orders.OrderID ';
 
 procedure TForm1.btnStartClick(Sender: TObject);
 var
