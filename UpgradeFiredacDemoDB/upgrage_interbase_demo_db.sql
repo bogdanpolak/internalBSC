@@ -163,5 +163,12 @@ UPDATE "Orders" SET
   SHIPPEDDATE = SHIPPEDDATE + 7163;
 
 
+/* ************************************************************************** */
+/*                                   Views                                    */
+/* ************************************************************************** */
+
+CREATE VIEW "PaidForOrders" (OrderID,Paid) AS
+SELECT OrderID, sum(UnitPrice * Quantity * (1-Discount)) FROM "OrderDetails"
+group by OrderID;
 
 
