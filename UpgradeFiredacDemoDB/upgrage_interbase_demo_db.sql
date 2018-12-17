@@ -1,4 +1,4 @@
-/* --------------------------------------------------------------------- */
+﻿/* --------------------------------------------------------------------- */
 /* Skrypt aktualizaję bazę IB_Demo do celów warstatowych */
 /* UWAGA !!!!!  */
 /* ZMIEŃ RODZAJ TRANSAKCJI Z OPCJĄ ZAPISU: IB Console : Access Mode = Write */
@@ -150,8 +150,18 @@ CREATE TABLE Users (
 
 CREATE UNIQUE INDEX IDX_Users_UserName ON Users COMPUTED BY (UPPER(UserName));
 
-/* --------------------------------------------------------------------- */
-/* --------------------------------------------------------------------- */
+/* ************************************************************************** */
+/*                                   Views                                    */
+/* ************************************************************************** */
+
+CREATE VIEW "PaidForOrders" (OrderID,Paid) AS
+SELECT OrderID, sum(UnitPrice * Quantity * (1-Discount)) FROM "Order Details"
+group by OrderID;
+
+
+/* ************************************************************************** */
+/*               Update dates in the "Order Details" table                    */
+/* ************************************************************************** */
 
 /*
 SELECT cast('now' as DATE) - MAX(OrderDate) - 1 FROM "Orders"
@@ -161,14 +171,5 @@ UPDATE "Orders" SET
   ORDERDATE =  ORDERDATE + 7163,  
   REQUIREDDATE = REQUIREDDATE + 7163, 
   SHIPPEDDATE = SHIPPEDDATE + 7163;
-
-
-/* ************************************************************************** */
-/*                                   Views                                    */
-/* ************************************************************************** */
-
-CREATE VIEW "PaidForOrders" (OrderID,Paid) AS
-SELECT OrderID, sum(UnitPrice * Quantity * (1-Discount)) FROM "OrderDetails"
-group by OrderID;
 
 
