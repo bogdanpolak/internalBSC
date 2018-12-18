@@ -19,15 +19,15 @@ object FrameHashes: TFrameHashes
     ExplicitWidth = 630
     object btnClose: TButton
       AlignWithMargins = True
-      Left = 489
+      Left = 518
       Top = 18
-      Width = 104
+      Width = 75
       Height = 25
       Align = alRight
-      Caption = 'btnClose'
+      Caption = 'Close'
       TabOrder = 0
       OnClick = btnCloseClick
-      ExplicitLeft = 521
+      ExplicitLeft = 489
     end
   end
   object pnLeftBar: TPanel

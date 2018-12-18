@@ -21,11 +21,15 @@ type
     GroupBox1: TGroupBox;
     btnHashesAndCiphers: TButton;
     tmrIdle: TTimer;
+    tmrReady: TTimer;
     procedure btnHashesAndCiphersClick(Sender: TObject);
     procedure btnOrdersClick(Sender: TObject);
     procedure tmrIdleTimer(Sender: TObject);
+    procedure tmrReadyTimer(Sender: TObject);
   private
     { Private declarations }
+    procedure StartMenuShow();
+    procedure StartMenuHide();
   public
     { Public declarations }
   end;
@@ -44,7 +48,7 @@ procedure TForm1.btnHashesAndCiphersClick(Sender: TObject);
 var
   AFrame: TFrameHashes;
 begin
-  GroupBox1.Parent := nil;
+  StartMenuHide;
   AFrame := Frame.HashAndCrypto.TFrameHashes.Create(self);
   AFrame.Align := alClient;
   AFrame.Parent := GridPanel1;
@@ -52,12 +56,21 @@ end;
 
 procedure TForm1.btnOrdersClick(Sender: TObject);
 begin
+  StartMenuHide;
+  FDConnection1.Close();
   FDConnection1.ConnectionDefName := 'IB_Demo';
   FDConnection1.Open();
-  GridPanel1.BevelOuter := bvNone;
-  GroupBox1.Parent := nil;
-
   View.OrderList.TOrdersListBlock.Create(GridPanel1,FDConnection1);
+end;
+
+procedure TForm1.StartMenuHide;
+begin
+  GroupBox1.Parent := nil;
+end;
+
+procedure TForm1.StartMenuShow;
+begin
+  GroupBox1.Parent := GridPanel1;
 end;
 
 procedure TForm1.tmrIdleTimer(Sender: TObject);
@@ -71,14 +84,22 @@ begin
     if AContainer.Components[i].Tag<0 then
     begin
       AContainer.Components[i].Free;
-      GroupBox1.Parent := GridPanel1;
+      StartMenuShow;
     end;
   for i := AContainer.ControlCount-1 downto 0 do
     if AContainer.Controls[i].Tag<0 then
     begin
       AContainer.Controls[i].Free;
-      GroupBox1.Parent := GridPanel1;
+      StartMenuShow;
     end;
+end;
+
+procedure TForm1.tmrReadyTimer(Sender: TObject);
+begin
+  tmrReady.Enabled := False;
+  GridPanel1.BevelOuter := bvNone;
+  StartMenuShow;
+  tmrIdle.Enabled := True;
 end;
 
 end.

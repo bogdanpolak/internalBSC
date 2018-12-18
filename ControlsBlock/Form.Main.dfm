@@ -84,7 +84,13 @@ object Form1: TForm1
   object tmrIdle: TTimer
     Interval = 100
     OnTimer = tmrIdleTimer
-    Left = 32
+    Left = 24
+    Top = 80
+  end
+  object tmrReady: TTimer
+    Interval = 1
+    OnTimer = tmrReadyTimer
+    Left = 24
     Top = 16
   end
 end
