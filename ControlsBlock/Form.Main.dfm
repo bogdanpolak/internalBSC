@@ -41,12 +41,13 @@ object Form1: TForm1
     object GroupBox1: TGroupBox
       Tag = 1
       Left = 240
-      Top = 126
+      Top = 107
       Width = 201
-      Height = 144
+      Height = 182
       Anchors = []
       Caption = 'Start'
       TabOrder = 0
+      ExplicitTop = 88
       object btnOrders: TButton
         AlignWithMargins = True
         Left = 5

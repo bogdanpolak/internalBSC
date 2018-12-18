@@ -30,6 +30,7 @@ type
     { Private declarations }
     procedure StartMenuShow();
     procedure StartMenuHide();
+    procedure CheckControlsAndComponentsToClose(AContainer: TWinControl);
   public
     { Public declarations }
   end;
@@ -44,23 +45,22 @@ implementation
 uses
   Frame.HashAndCrypto, View.OrderList;
 
-procedure TForm1.btnHashesAndCiphersClick(Sender: TObject);
+procedure TForm1.CheckControlsAndComponentsToClose(AContainer: TWinControl);
 var
-  AFrame: TFrameHashes;
+  i: Integer;
 begin
-  StartMenuHide;
-  AFrame := Frame.HashAndCrypto.TFrameHashes.Create(self);
-  AFrame.Align := alClient;
-  AFrame.Parent := GridPanel1;
-end;
-
-procedure TForm1.btnOrdersClick(Sender: TObject);
-begin
-  StartMenuHide;
-  FDConnection1.Close();
-  FDConnection1.ConnectionDefName := 'IB_Demo';
-  FDConnection1.Open();
-  View.OrderList.TOrdersListBlock.Create(GridPanel1,FDConnection1);
+  for i := AContainer.ComponentCount - 1 downto 0 do
+    if AContainer.Components[i].Tag < 0 then
+    begin
+      AContainer.Components[i].Free;
+      self.StartMenuShow;
+    end;
+  for i := AContainer.ControlCount - 1 downto 0 do
+    if AContainer.Controls[i].Tag < 0 then
+    begin
+      AContainer.Controls[i].Free;
+      self.StartMenuShow;
+    end;
 end;
 
 procedure TForm1.StartMenuHide;
@@ -73,32 +73,36 @@ begin
   GroupBox1.Parent := GridPanel1;
 end;
 
-procedure TForm1.tmrIdleTimer(Sender: TObject);
+procedure TForm1.btnHashesAndCiphersClick(Sender: TObject);
 var
-  AContainer: TWinControl;
-  i: Integer;
+  AFrame: TFrameHashes;
 begin
-  ReportMemoryLeaksOnShutdown := True;
-  AContainer := GridPanel1;
-  for i := AContainer.ComponentCount-1 downto 0 do
-    if AContainer.Components[i].Tag<0 then
-    begin
-      AContainer.Components[i].Free;
-      StartMenuShow;
-    end;
-  for i := AContainer.ControlCount-1 downto 0 do
-    if AContainer.Controls[i].Tag<0 then
-    begin
-      AContainer.Controls[i].Free;
-      StartMenuShow;
-    end;
+  self.StartMenuHide;
+  AFrame := Frame.HashAndCrypto.TFrameHashes.Create(self);
+  AFrame.Align := alClient;
+  AFrame.Parent := GridPanel1;
+end;
+
+procedure TForm1.btnOrdersClick(Sender: TObject);
+begin
+  self.StartMenuHide;
+  // FDConnection1.Close();
+  FDConnection1.ConnectionDefName := 'IB_Demo';
+  FDConnection1.Open();
+  TOrdersListBlock.Create(GridPanel1).BuildAndShow (FDConnection1);
+end;
+
+procedure TForm1.tmrIdleTimer(Sender: TObject);
+begin
+  self.CheckControlsAndComponentsToClose(GridPanel1);
 end;
 
 procedure TForm1.tmrReadyTimer(Sender: TObject);
 begin
   tmrReady.Enabled := False;
+  ReportMemoryLeaksOnShutdown := True;
   GridPanel1.BevelOuter := bvNone;
-  StartMenuShow;
+  self.StartMenuShow;
   tmrIdle.Enabled := True;
 end;
 

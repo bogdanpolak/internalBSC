@@ -12,31 +12,16 @@ type
     procedure ConstructComponents(AContainer: TWinControl;
       ConnFireDAC: TFDConnection);
   protected
-    procedure EventOnButtonCloseClick (Stnder: TObject);
+    procedure EventOnButtonCloseClick(Stnder: TObject);
   public
-    constructor Create(AContainer: TWinControl; ConnFireDAC: TFDConnection);
-      reintroduce;
-    destructor Destroy; override;
+    procedure BuildAndShow(ConnFireDAC: TFDConnection);
   end;
 
 implementation
 
 uses
-  Vcl.StdCtrls, Vcl.DBGrids, Vcl.ExtCtrls, Data.DB,
-  Helper.TDBGrid;
-
-constructor TOrdersListBlock.Create(AContainer: TWinControl;
-  ConnFireDAC: TFDConnection);
-begin
-  inherited Create(AContainer);
-  ConstructComponents(AContainer, ConnFireDAC);
-end;
-
-destructor TOrdersListBlock.Destroy;
-begin
-
-  inherited;
-end;
+  Vcl.StdCtrls, Vcl.DBGrids, Vcl.ExtCtrls, Data.DB, Helper.TDBGrid,
+  System.SysUtils;
 
 procedure TOrdersListBlock.EventOnButtonCloseClick(Stnder: TObject);
 begin
@@ -69,12 +54,14 @@ var
   mainPanel: Vcl.ExtCtrls.TPanel;
   btnClose: TButton;
   fdq: FireDAC.Comp.Client.TFDQuery;
+  i: Integer;
 begin
   mainPanel := TPanel.Create(self);
   mainPanel.Tag := 1;
   mainPanel.BevelOuter := bvNone;
   mainPanel.Align := alClient;
   mainPanel.AlignWithMargins := True;
+  mainPanel.Visible := False;
   mainPanel.Parent := AContainer;
 
   grbx := TGroupBox.Create(mainPanel);
@@ -102,7 +89,6 @@ begin
   btn1.Align := alLeft;
   btn1.Parent := grbx;
 
-
   btnClose := TButton.Create(grbx);
   btnClose.OnClick := EventOnButtonCloseClick;
   btnClose.Caption := 'Close';
@@ -111,6 +97,16 @@ begin
   btnClose.Parent := grbx;
 
   grid.AutoSizeColumns();
+
+  mainPanel.Visible := True;
+end;
+
+procedure TOrdersListBlock.BuildAndShow(ConnFireDAC: TFDConnection);
+begin
+  if not(self.Owner is TWinControl) then
+    raise Exception.Create
+      ('Invalid Parent Class! Expected TWinControl as Parent.');
+  ConstructComponents ((self.Owner as TWinControl), ConnFireDAC);
 end;
 
 end.
