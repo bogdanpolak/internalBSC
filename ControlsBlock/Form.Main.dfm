@@ -35,7 +35,6 @@ object Form1: TForm1
         Value = 100.000000000000000000
       end>
     TabOrder = 0
-    ExplicitHeight = 250
     DesignSize = (
       681
       397)
@@ -48,8 +47,6 @@ object Form1: TForm1
       Anchors = []
       Caption = 'Start'
       TabOrder = 0
-      ExplicitLeft = 72
-      ExplicitTop = 73
       object btnOrders: TButton
         AlignWithMargins = True
         Left = 5
@@ -82,11 +79,6 @@ object Form1: TForm1
   end
   object FDPhysIBDriverLink1: TFDPhysIBDriverLink
     Left = 280
-    Top = 8
-  end
-  object FDQuery1: TFDQuery
-    Connection = FDConnection1
-    Left = 424
     Top = 8
   end
   object tmrIdle: TTimer

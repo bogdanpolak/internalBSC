@@ -17,7 +17,6 @@ type
     btnOrders: TButton;
     FDConnection1: TFDConnection;
     FDPhysIBDriverLink1: TFDPhysIBDriverLink;
-    FDQuery1: TFDQuery;
     GridPanel1: TGridPanel;
     GroupBox1: TGroupBox;
     btnHashesAndCiphers: TButton;
@@ -39,22 +38,7 @@ implementation
 {$R *.dfm}
 
 uses
-  Vcl.DBGrids, Helper.TDBGrid, Frame.HashAndCrypto;
-
-const
-  SQL_GetOrdersList = 'SELECT Orders.OrderID, ' +
-    '  Orders.CustomerID, Customers.CompanyName, ' + '  Orders.EmployeeID, ' +
-  // -#-
-    '  Employees.FirstName||'' ''||Employees.LastName EmployeeName, ' +
-    '  Orders.OrderDate, Orders.RequiredDate, Orders.ShippedDate, ' +
-    '  Orders.ShipVia, Shippers.CompanyName ShipperCompany ' +
-    'FROM {id Orders} Orders ' + // -#-
-    '  INNER JOIN {id Employees} Employees ' +
-    '    ON Orders.EmployeeID = Employees.EmployeeID ' +
-    '  INNER JOIN {id Customers} Customers ' +
-    '    ON Orders.CustomerID = Customers.CustomerID ' +
-    '  INNER JOIN {id Shippers} Shippers ' +
-    '    ON Orders.ShipVia = Shippers.ShipperID ' + 'ORDER BY Orders.OrderID ';
+  Frame.HashAndCrypto, View.OrderList;
 
 procedure TForm1.btnHashesAndCiphersClick(Sender: TObject);
 var
@@ -66,49 +50,13 @@ begin
 end;
 
 procedure TForm1.btnOrdersClick(Sender: TObject);
-var
-  AContainer: TWinControl;
-  grbx: TGroupBox;
-  btn1: TButton;
-  ds: TDataSet;
-  grid: TDBGrid;
-  mainPanel: TPanel;
 begin
   FDConnection1.ConnectionDefName := 'IB_Demo';
   FDConnection1.Open();
   GridPanel1.BevelOuter := bvNone;
   GroupBox1.Parent := nil;
-  AContainer := GridPanel1;
 
-  mainPanel := TPanel.Create(AContainer);
-  mainPanel.Tag := 1;
-  mainPanel.BevelOuter := bvNone;
-  mainPanel.Align := alClient;
-  mainPanel.AlignWithMargins := True;
-  mainPanel.Parent := AContainer;
-
-  grbx := TGroupBox.Create(mainPanel);
-  grbx.Caption := 'DB Grid Commands';
-  grbx.AlignWithMargins := True;
-  grbx.Align := alTop;
-  grbx.Height := 48;
-  grbx.Parent := mainPanel;
-
-  FDConnection1.ExecSQL(SQL_GetOrdersList, ds);
-  grid := Vcl.DBGrids.TDBGrid.Create(mainPanel);
-  grid.DataSource := TDataSource.Create(mainPanel);
-  grid.DataSource.DataSet := ds;
-  grid.Align := alClient;
-  grid.AlignWithMargins := True;
-  grid.Parent := mainPanel;
-
-  btn1 := TButton.Create(grbx);
-  btn1.Caption := 'Edit';
-  btn1.AlignWithMargins := True;
-  btn1.Align := alLeft;
-  btn1.Parent := grbx;
-
-  grid.AutoSizeColumns();
+  View.OrderList.TOrdersListBlock.Create(GridPanel1,FDConnection1);
 end;
 
 procedure TForm1.tmrIdleTimer(Sender: TObject);
@@ -116,8 +64,15 @@ var
   AContainer: TWinControl;
   i: Integer;
 begin
+  ReportMemoryLeaksOnShutdown := True;
   AContainer := GridPanel1;
-  for i := 0 to AContainer.ControlCount-1 do
+  for i := AContainer.ComponentCount-1 downto 0 do
+    if AContainer.Components[i].Tag<0 then
+    begin
+      AContainer.Components[i].Free;
+      GroupBox1.Parent := GridPanel1;
+    end;
+  for i := AContainer.ControlCount-1 downto 0 do
     if AContainer.Controls[i].Tag<0 then
     begin
       AContainer.Controls[i].Free;
