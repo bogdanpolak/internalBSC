@@ -46,6 +46,7 @@ var
 begin
   GroupBox1.Parent := nil;
   AFrame := Frame.HashAndCrypto.TFrameHashes.Create(self);
+  AFrame.Align := alClient;
   AFrame.Parent := GridPanel1;
 end;
 
