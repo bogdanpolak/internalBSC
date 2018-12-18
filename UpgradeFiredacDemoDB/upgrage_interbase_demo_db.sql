@@ -130,12 +130,9 @@ BEGIN
 END^
 SET TERM ;^
 
-/* --------------------------------------------------------------------- */
-/* --------------------------------------------------------------------- */
-
-/* 
-DROP TABLE Users; 
-*/
+/* ************************************************************************** */
+/*                                 New tables                                 */
+/* ************************************************************************** */
 
 CREATE TABLE Users (
    UserID VARCHAR(10) NOT NULL,
@@ -148,7 +145,18 @@ CREATE TABLE Users (
    CONSTRAINT PK_Users PRIMARY KEY (UserID)
 );
 
+CREATE TABLE DatabaseInfo (
+    VersionNr  INTEGER NOT NULL,
+	UpgradeDate  TIMESTAMP
+);
+
+INSERT INTO Users (UserID, UserName, UserPassword, Status) VALUES ('ADM','admin','d033e22ae348aeb5660fc2140aec35850c4da997','A');
+INSERT INTO Users (UserID, UserName, UserPassword, Status) VALUES ('U01','user1','b3daa77b4c04a9551b8781d03191fe098f325e67','A');
+
+INSERT INTO DatabaseInfo (VersionNr, UpgradeDate) VALUES (1, cast('now' as DATE)-5);
+
 CREATE UNIQUE INDEX IDX_Users_UserName ON Users COMPUTED BY (UPPER(UserName));
+
 
 /* ************************************************************************** */
 /*                                   Views                                    */
