@@ -8,20 +8,20 @@ uses
 
 type
   TFrameHashes = class(TFrame)
-    Panel1: TPanel;
-    mmResults: TMemo;
-    GroupBox1: TGroupBox;
-    edtSha1: TEdit;
-    btnExecuteSHA1: TButton;
     tmrFrameReady: TTimer;
+    grbxTopBar: TGroupBox;
     btnClose: TButton;
+    pnLeftBar: TPanel;
     GroupBox2: TGroupBox;
+    btnExecuteSHA1: TButton;
+    edtSha1: TEdit;
     GroupBox3: TGroupBox;
-    mmUsers: TMemo;
     Label1: TLabel;
+    Label2: TLabel;
+    mmUsers: TMemo;
     edtKey: TEdit;
     btnEncrypt: TButton;
-    Label2: TLabel;
+    mmResults: TMemo;
     procedure btnCloseClick(Sender: TObject);
     procedure btnExecuteSHA1Click(Sender: TObject);
     procedure btnEncryptClick(Sender: TObject);
@@ -76,7 +76,7 @@ end;
 procedure TFrameHashes.tmrFrameReadyTimer(Sender: TObject);
 begin
   tmrFrameReady.Enabled := False;
-  Panel1.Align := alClient;
+  mmResults.Align := alClient;
   mmResults.Clear;
 end;
 
