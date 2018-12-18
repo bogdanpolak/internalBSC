@@ -14,12 +14,17 @@ uses
 
 type
   TForm1 = class(TForm)
-    btnStart: TButton;
+    btnOrders: TButton;
     FDConnection1: TFDConnection;
     FDPhysIBDriverLink1: TFDPhysIBDriverLink;
     FDQuery1: TFDQuery;
     GridPanel1: TGridPanel;
-    procedure btnStartClick(Sender: TObject);
+    GroupBox1: TGroupBox;
+    btnHashesAndCiphers: TButton;
+    tmrIdle: TTimer;
+    procedure btnHashesAndCiphersClick(Sender: TObject);
+    procedure btnOrdersClick(Sender: TObject);
+    procedure tmrIdleTimer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -34,12 +39,12 @@ implementation
 {$R *.dfm}
 
 uses
-  Vcl.DBGrids, Helper.TDBGrid;
+  Vcl.DBGrids, Helper.TDBGrid, Frame.HashAndCrypto;
 
 const
   SQL_GetOrdersList = 'SELECT Orders.OrderID, ' +
-    '  Orders.CustomerID, Customers.CompanyName, ' +
-    '  Orders.EmployeeID, ' + // -#-
+    '  Orders.CustomerID, Customers.CompanyName, ' + '  Orders.EmployeeID, ' +
+  // -#-
     '  Employees.FirstName||'' ''||Employees.LastName EmployeeName, ' +
     '  Orders.OrderDate, Orders.RequiredDate, Orders.ShippedDate, ' +
     '  Orders.ShipVia, Shippers.CompanyName ShipperCompany ' +
@@ -49,10 +54,18 @@ const
     '  INNER JOIN {id Customers} Customers ' +
     '    ON Orders.CustomerID = Customers.CustomerID ' +
     '  INNER JOIN {id Shippers} Shippers ' +
-    '    ON Orders.ShipVia = Shippers.ShipperID ' +
-    'ORDER BY Orders.OrderID ';
+    '    ON Orders.ShipVia = Shippers.ShipperID ' + 'ORDER BY Orders.OrderID ';
 
-procedure TForm1.btnStartClick(Sender: TObject);
+procedure TForm1.btnHashesAndCiphersClick(Sender: TObject);
+var
+  AFrame: TFrameHashes;
+begin
+  GroupBox1.Parent := nil;
+  AFrame := Frame.HashAndCrypto.TFrameHashes.Create(self);
+  AFrame.Parent := GridPanel1;
+end;
+
+procedure TForm1.btnOrdersClick(Sender: TObject);
 var
   AContainer: TWinControl;
   grbx: TGroupBox;
@@ -64,10 +77,11 @@ begin
   FDConnection1.ConnectionDefName := 'IB_Demo';
   FDConnection1.Open();
   GridPanel1.BevelOuter := bvNone;
-  btnStart.Parent := nil;
+  GroupBox1.Parent := nil;
   AContainer := GridPanel1;
 
   mainPanel := TPanel.Create(AContainer);
+  mainPanel.Tag := 1;
   mainPanel.BevelOuter := bvNone;
   mainPanel.Align := alClient;
   mainPanel.AlignWithMargins := True;
@@ -95,6 +109,20 @@ begin
   btn1.Parent := grbx;
 
   grid.AutoSizeColumns();
+end;
+
+procedure TForm1.tmrIdleTimer(Sender: TObject);
+var
+  AContainer: TWinControl;
+  i: Integer;
+begin
+  AContainer := GridPanel1;
+  for i := 0 to AContainer.ControlCount-1 do
+    if AContainer.Controls[i].Tag<0 then
+    begin
+      AContainer.Controls[i].Free;
+      GroupBox1.Parent := GridPanel1;
+    end;
 end;
 
 end.
