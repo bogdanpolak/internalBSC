@@ -17,7 +17,7 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 681
-    Height = 397
+    Height = 378
     Align = alClient
     Caption = ' '
     ColumnCollection = <
@@ -35,19 +35,20 @@ object Form1: TForm1
         Value = 100.000000000000000000
       end>
     TabOrder = 0
+    ExplicitHeight = 397
     DesignSize = (
       681
-      397)
+      378)
     object GroupBox1: TGroupBox
       Tag = 1
       Left = 240
-      Top = 107
+      Top = 98
       Width = 201
       Height = 182
       Anchors = []
       Caption = 'Start'
       TabOrder = 0
-      ExplicitTop = 88
+      ExplicitTop = 107
       object btnOrders: TButton
         AlignWithMargins = True
         Left = 5
@@ -71,6 +72,22 @@ object Form1: TForm1
         OnClick = btnHashesAndCiphersClick
       end
     end
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 378
+    Width = 681
+    Height = 19
+    Panels = <
+      item
+        Width = 200
+      end
+      item
+        Width = 50
+      end>
+    ExplicitLeft = 352
+    ExplicitTop = 208
+    ExplicitWidth = 0
   end
   object FDConnection1: TFDConnection
     Params.Strings = (

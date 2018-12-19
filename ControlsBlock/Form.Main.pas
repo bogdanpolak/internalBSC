@@ -10,7 +10,8 @@ uses
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.IB,
   FireDAC.Phys.IBDef, FireDAC.VCLUI.Wait, FireDAC.Phys.IBBase, Data.DB,
   FireDAC.Comp.Client, Vcl.StdCtrls, FireDAC.Stan.Param, FireDAC.DatS,
-  FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet, Vcl.ExtCtrls;
+  FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet, Vcl.ExtCtrls,
+  Vcl.ComCtrls;
 
 type
   TForm1 = class(TForm)
@@ -22,6 +23,7 @@ type
     btnHashesAndCiphers: TButton;
     tmrIdle: TTimer;
     tmrReady: TTimer;
+    StatusBar1: TStatusBar;
     procedure btnHashesAndCiphersClick(Sender: TObject);
     procedure btnOrdersClick(Sender: TObject);
     procedure tmrIdleTimer(Sender: TObject);
@@ -43,24 +45,12 @@ implementation
 {$R *.dfm}
 
 uses
-  Frame.HashAndCrypto, View.OrderList;
+  Frame.HashAndCrypto, View.OrderList, MVC.FrameBlock;
 
 procedure TForm1.CheckControlsAndComponentsToClose(AContainer: TWinControl);
-var
-  i: Integer;
 begin
-  for i := AContainer.ComponentCount - 1 downto 0 do
-    if AContainer.Components[i].Tag < 0 then
-    begin
-      AContainer.Components[i].Free;
-      self.StartMenuShow;
-    end;
-  for i := AContainer.ControlCount - 1 downto 0 do
-    if AContainer.Controls[i].Tag < 0 then
-    begin
-      AContainer.Controls[i].Free;
-      self.StartMenuShow;
-    end;
+  if AContainer.ComponentCount = 0 then
+    self.StartMenuShow;
 end;
 
 procedure TForm1.StartMenuHide;
@@ -74,13 +64,9 @@ begin
 end;
 
 procedure TForm1.btnHashesAndCiphersClick(Sender: TObject);
-var
-  AFrame: TFrameHashes;
 begin
   self.StartMenuHide;
-  AFrame := Frame.HashAndCrypto.TFrameHashes.Create(self);
-  AFrame.Align := alClient;
-  AFrame.Parent := GridPanel1;
+  TFrameBlock.Create(GridPanel1).BuildAndShow (TFrameHashes);
 end;
 
 procedure TForm1.btnOrdersClick(Sender: TObject);
@@ -95,6 +81,8 @@ end;
 procedure TForm1.tmrIdleTimer(Sender: TObject);
 begin
   self.CheckControlsAndComponentsToClose(GridPanel1);
+  StatusBar1.Panels[0].Text :=' GridPanel1.ComponentCount : '+
+    GridPanel1.ComponentCount.ToString;
 end;
 
 procedure TForm1.tmrReadyTimer(Sender: TObject);

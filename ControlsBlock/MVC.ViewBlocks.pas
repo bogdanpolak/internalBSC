@@ -3,7 +3,8 @@ unit MVC.ViewBlocks;
 interface
 
 uses
-  System.Classes, Data.DB;
+  System.Classes, Data.DB,
+  Vcl.Forms;
 
 type
   TViewBlock = class (TComponent)

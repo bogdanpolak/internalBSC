@@ -14,9 +14,6 @@ object FrameHashes: TFrameHashes
     Align = alTop
     Caption = 'Commands'
     TabOrder = 0
-    ExplicitLeft = 6
-    ExplicitTop = 11
-    ExplicitWidth = 630
     object btnClose: TButton
       AlignWithMargins = True
       Left = 518
@@ -27,7 +24,6 @@ object FrameHashes: TFrameHashes
       Caption = 'Close'
       TabOrder = 0
       OnClick = btnCloseClick
-      ExplicitLeft = 489
     end
   end
   object pnLeftBar: TPanel
@@ -39,7 +35,6 @@ object FrameHashes: TFrameHashes
     BevelOuter = bvNone
     Caption = ' '
     TabOrder = 1
-    ExplicitHeight = 368
     object GroupBox2: TGroupBox
       AlignWithMargins = True
       Left = 3
@@ -49,7 +44,6 @@ object FrameHashes: TFrameHashes
       Align = alTop
       Caption = 'Hash SHA1'
       TabOrder = 0
-      ExplicitWidth = 234
       object btnExecuteSHA1: TButton
         AlignWithMargins = True
         Left = 5
@@ -60,7 +54,6 @@ object FrameHashes: TFrameHashes
         Caption = 'btnExecuteSHA1'
         TabOrder = 0
         OnClick = btnExecuteSHA1Click
-        ExplicitWidth = 224
       end
       object edtSha1: TEdit
         AlignWithMargins = True
@@ -73,7 +66,6 @@ object FrameHashes: TFrameHashes
         Align = alTop
         TabOrder = 1
         Text = 'admin'
-        ExplicitWidth = 224
       end
     end
     object GroupBox3: TGroupBox
@@ -85,8 +77,6 @@ object FrameHashes: TFrameHashes
       Align = alTop
       Caption = 'Encrypt And Decrypt AES128'
       TabOrder = 1
-      ExplicitLeft = 7
-      ExplicitTop = 22
       object Label1: TLabel
         AlignWithMargins = True
         Left = 5
@@ -121,7 +111,6 @@ object FrameHashes: TFrameHashes
           'STD_USERS=masterkey')
         ScrollBars = ssVertical
         TabOrder = 0
-        ExplicitWidth = 224
       end
       object edtKey: TEdit
         AlignWithMargins = True
@@ -132,7 +121,6 @@ object FrameHashes: TFrameHashes
         Align = alTop
         TabOrder = 1
         Text = 'Moje-super-tajne-Has'#322'o'
-        ExplicitWidth = 224
       end
       object btnEncrypt: TButton
         AlignWithMargins = True
@@ -144,20 +132,24 @@ object FrameHashes: TFrameHashes
         Caption = 'btnEncrypt'
         TabOrder = 2
         OnClick = btnEncryptClick
-        ExplicitWidth = 224
       end
     end
   end
   object mmResults: TMemo
     AlignWithMargins = True
-    Left = 224
-    Top = 208
-    Width = 249
-    Height = 129
+    Left = 212
+    Top = 57
+    Width = 389
+    Height = 297
+    Align = alClient
     Lines.Strings = (
       '')
     ScrollBars = ssVertical
     TabOrder = 2
+    ExplicitLeft = 224
+    ExplicitTop = 208
+    ExplicitWidth = 249
+    ExplicitHeight = 129
   end
   object tmrFrameReady: TTimer
     Interval = 1

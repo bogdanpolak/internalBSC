@@ -11,6 +11,7 @@ type
   private
     procedure ConstructComponents(AContainer: TWinControl;
       ConnFireDAC: TFDConnection);
+    procedure CloseAndFreeViewBlock;
   protected
     procedure EventOnButtonCloseClick(Stnder: TObject);
   public
@@ -23,9 +24,14 @@ uses
   Vcl.StdCtrls, Vcl.DBGrids, Vcl.ExtCtrls, Data.DB, Helper.TDBGrid,
   System.SysUtils;
 
+procedure TOrdersListBlock.CloseAndFreeViewBlock;
+begin
+  self.Free;
+end;
+
 procedure TOrdersListBlock.EventOnButtonCloseClick(Stnder: TObject);
 begin
-  self.Tag := -1;
+  CloseAndFreeViewBlock;
 end;
 
 const

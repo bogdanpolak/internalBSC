@@ -7,7 +7,8 @@ uses
   Frame.HashAndCrypto in 'Frame.HashAndCrypto.pas' {FrameHashes: TFrame},
   Utils.CipherAES128 in 'Utils.CipherAES128.pas',
   MVC.ViewBlocks in 'MVC.ViewBlocks.pas',
-  View.OrderList in 'View.OrderList.pas';
+  View.OrderList in 'View.OrderList.pas',
+  MVC.FrameBlock in 'MVC.FrameBlock.pas';
 
 {$R *.res}
 
