@@ -1,13 +1,13 @@
-unit View.OrderList;
+ï»¿unit View.OrderList;
 
 interface
 
 uses MVC.ViewBlocks, Vcl.Controls,
-  // TODO: Usun¹æ zaleznoœæ od TFDConnection
+  // TODO: UsunÄ…Ä‡ zaleznoÅ›Ä‡ od TFDConnection
   FireDAC.Comp.Client;
 
   // ------------ ------------ ------------ ------------ ------------ --------
-  // Usuwanie zale¿noœci od TFDConection (koncepcja)
+  // Usuwanie zaleÅ¼noÅ›ci od TFDConection (koncepcja)
   //   * Singleton: function GetConnection: IDataConnection
   //   * Implementacja: TFireDacDataConnection = class (.., IDataConnection)
   //   * IDataConnection.GetAndOpenDataSet (ASQL, AParams, ATypes): TDataSet;
@@ -43,8 +43,8 @@ begin
 end;
 
 const
-  // TODO: Przenieœæ SELECT-a do fabryki datasetów (przy okazji usuwania
-  // zale¿noœci od TFDConnection
+  // TODO: PrzenieÅ›Ä‡ SELECT-a do fabryki datasetÃ³w (przy okazji usuwania
+  // zaleÅ¼noÅ›ci od TFDConnection
   SQL_GetOrdersList = 'SELECT Orders.OrderID, ' +
     '  Orders.CustomerID, Customers.CompanyName, ' + '  Orders.EmployeeID, ' +
   // -#-
