@@ -1,4 +1,4 @@
-unit Form.Main;
+﻿unit Form.Main;
 
 interface
 
@@ -87,6 +87,11 @@ end;
 
 procedure TForm1.tmrReadyTimer(Sender: TObject);
 begin
+  // {{ Переключиться на UTF-8 }} - Przełącza zapisywanie plików PAS na UTF-8
+  // 1. Wywoływane jednorazowo przy pierwszym wyświetleniu formatki
+  // 2. Incjalizuje aplikację i kontrolki formy głównej
+  // 3. Aktywuje tmrIdle
+  // TODO: Odseparować inicjalizację aplikacji od inicjalizacji kontrolek formatki głównej
   tmrReady.Enabled := False;
   ReportMemoryLeaksOnShutdown := True;
   GridPanel1.BevelOuter := bvNone;

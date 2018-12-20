@@ -1,4 +1,4 @@
-unit Frame.HashAndCrypto;
+ï»¿unit Frame.HashAndCrypto;
 
 interface
 
@@ -29,7 +29,7 @@ type
   private
     procedure CloseFrame;
   public
-    // TODO: Zamieniæ na notyfikacjê
+    // TODO: ZamieniÄ‡ na notyfikacjÄ™
     isFrameClosing: boolean;
   end;
 
@@ -72,8 +72,8 @@ begin
   s := mmUsers.Lines.Text;
   key := edtKey.Text;
   aes_b64 := Utils.CipherAES128.TCipherAES128.Encrypt(s,key);
-  mmResults.Lines.Add('Szyfrowanie zbioru hase³.');
-  mmResults.Lines.Add('  *** d³ugoœæ: '+length(aes_b64).ToString);
+  mmResults.Lines.Add('Szyfrowanie zbioru haseÅ‚.');
+  mmResults.Lines.Add('  *** dÅ‚ugoÅ›Ä‡: '+length(aes_b64).ToString);
   mmResults.Lines.Add(aes_b64);
   pass := Utils.CipherAES128.TCipherAES128.Decrypt(aes_b64,key);
   mmResults.Lines.Add('--');

@@ -1,6 +1,14 @@
-unit Utils.CipherAES128;
+﻿unit Utils.CipherAES128;
 
 interface
+
+  // ------------ ------------ ------------ ------------ ------------ --------
+  // {{ Переключиться на UTF-8 }}
+  // TODO: Zastanowić się czy przekonwertować na ClassHelper
+  // ------------ ------------ ------------ ------------ ------------ --------
+  // Przykład:
+  //
+  // ------------ ------------ ------------ ------------ ------------ --------
 
 type
   TCipherAES128 = class
@@ -11,6 +19,8 @@ type
 implementation
 
 uses
+  // TODO: Usunąć zależność od Indy (potrzebny algorytm Base-64
+  // Sprawdź: System.NetEncoding.TNetEncoding.Encode / Decode
   SysUtils, Windows, IdCoderMIME, IdGlobal;
 
 //-------------------------------------------------------------------------------------------------------------------------
@@ -52,6 +62,11 @@ type
   HCRYPTHASH  = Cardinal;
 
 const
+  // TODO: Dodać informację o zależności od systemu Windows
+  //   * Rozwiazania: ostrzeżenie kompilatora, kompilacja warunkowa ( na innych
+  //       platoframch kod się nie kompiluje)
+  //   * poniżej wyłączane są ostrzeżenia: $WARN SYMBOL_PLATFORM OFF
+
   _lib_ADVAPI32    = 'ADVAPI32.dll';
   CALG_SHA_256     = 32780;
   CALG_AES_128     = 26126;

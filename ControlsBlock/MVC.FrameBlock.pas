@@ -1,9 +1,15 @@
-unit MVC.FrameBlock;
+﻿unit MVC.FrameBlock;
 
 interface
 
 uses
   System.Classes, MVC.ViewBlocks, Vcl.Forms;
+
+  // ------------ ------------ ------------ ------------ ------------ --------
+  // {{ Переключиться на UTF-8 }}
+  // TODO: Dodać dokumentację do klasy TFrameBlock
+  //   * Uwaga dokumentacja powinna być przetłumaczona na jęz. angielski
+  // ------------ ------------ ------------ ------------ ------------ --------
 
 type
   TVclFrameClass = class of Vcl.Forms.TFrame;
