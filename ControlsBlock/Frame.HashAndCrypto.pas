@@ -27,9 +27,10 @@ type
     procedure btnEncryptClick(Sender: TObject);
     procedure tmrFrameReadyTimer(Sender: TObject);
   private
-    procedure CloseAndFreeOwnerViewBlock;
+    procedure CloseFrame;
   public
-    { Public declarations }
+    // TODO: Zamieniæ na notyfikacjê
+    isFrameClosing: boolean;
   end;
 
 implementation
@@ -39,15 +40,15 @@ implementation
 uses
   System.Hash, Utils.CipherAES128, MVC.ViewBlocks;
 
-procedure TFrameHashes.CloseAndFreeOwnerViewBlock;
+procedure TFrameHashes.CloseFrame;
 begin
-  if Owner is TViewBlock then
-    (Owner as TViewBlock).Free;
+  isFrameClosing := True;
+  Hide;
 end;
 
 procedure TFrameHashes.btnCloseClick(Sender: TObject);
 begin
-  self.CloseAndFreeOwnerViewBlock;
+  CloseFrame;
 end;
 
 procedure TFrameHashes.btnExecuteSHA1Click(Sender: TObject);

@@ -10,11 +10,11 @@ type
 
   TFrameBlock = class(TViewBlock)
   private
-    FFrameClass: TVclFrameClass;
-    procedure SetFrameClass(const Value: TVclFrameClass);
+    FFrame: TFrame;
+    procedure SetFrame(const Value: TFrame);
   public
-    procedure BuildAndShow(ViewFrameClass: TVclFrameClass);
-    property FrameClass: TVclFrameClass read FFrameClass write SetFrameClass;
+    procedure BuildAndShow(ViewFrameClass: TVclFrameClass); virtual;
+    property Frame: TFrame read FFrame write SetFrame;
   end;
 
 implementation
@@ -25,22 +25,20 @@ uses
 
 procedure TFrameBlock.BuildAndShow(ViewFrameClass: TVclFrameClass);
 var
-  frm: TFrame;
   AContainer: TWinControl;
 begin
   if not(self.Owner is Vcl.Controls.TWinControl) then
     raise Exception.Create
       ('Invalid Parent Class! Expected TWinControl as Parent.');
   AContainer := (self.Owner as TWinControl);
-  frm := ViewFrameClass.Create(self);
-  frm.Align := alClient;
-  frm.Parent := AContainer;
-  self.FrameClass := ViewFrameClass;
+  Frame := ViewFrameClass.Create(self);
+  Frame.Align := alClient;
+  Frame.Parent := AContainer;
 end;
 
-procedure TFrameBlock.SetFrameClass(const Value: TVclFrameClass);
+procedure TFrameBlock.SetFrame(const Value: TFrame);
 begin
-  FFrameClass := Value;
+  FFrame := Value;
 end;
 
 end.

@@ -146,10 +146,6 @@ object FrameHashes: TFrameHashes
       '')
     ScrollBars = ssVertical
     TabOrder = 2
-    ExplicitLeft = 224
-    ExplicitTop = 208
-    ExplicitWidth = 249
-    ExplicitHeight = 129
   end
   object tmrFrameReady: TTimer
     Interval = 1

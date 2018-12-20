@@ -35,7 +35,6 @@ object Form1: TForm1
         Value = 100.000000000000000000
       end>
     TabOrder = 0
-    ExplicitHeight = 397
     DesignSize = (
       681
       378)
@@ -48,7 +47,6 @@ object Form1: TForm1
       Anchors = []
       Caption = 'Start'
       TabOrder = 0
-      ExplicitTop = 107
       object btnOrders: TButton
         AlignWithMargins = True
         Left = 5
@@ -85,9 +83,6 @@ object Form1: TForm1
       item
         Width = 50
       end>
-    ExplicitLeft = 352
-    ExplicitTop = 208
-    ExplicitWidth = 0
   end
   object FDConnection1: TFDConnection
     Params.Strings = (

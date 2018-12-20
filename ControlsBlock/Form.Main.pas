@@ -45,7 +45,7 @@ implementation
 {$R *.dfm}
 
 uses
-  Frame.HashAndCrypto, View.OrderList, MVC.FrameBlock;
+  View.OrderList, View.HashAndCrypto;
 
 procedure TForm1.CheckControlsAndComponentsToClose(AContainer: TWinControl);
 begin
@@ -66,7 +66,7 @@ end;
 procedure TForm1.btnHashesAndCiphersClick(Sender: TObject);
 begin
   self.StartMenuHide;
-  TFrameBlock.Create(GridPanel1).BuildAndShow (TFrameHashes);
+  THashAndCryptoBlock.Create(GridPanel1).BuildAndShow ();
 end;
 
 procedure TForm1.btnOrdersClick(Sender: TObject);
