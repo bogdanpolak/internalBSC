@@ -6,6 +6,14 @@ uses MVC.ViewBlocks, Vcl.Controls,
   // TODO: Usun¹æ zaleznoœæ od TFDConnection
   FireDAC.Comp.Client;
 
+  // ------------ ------------ ------------ ------------ ------------ --------
+  // Usuwanie zale¿noœci od TFDConection (koncepcja)
+  //   * Singleton: function GetConnection: IDataConnection
+  //   * Implementacja: TFireDacDataConnection = class (.., IDataConnection)
+  //   * IDataConnection.GetAndOpenDataSet (ASQL, AParams, ATypes): TDataSet;
+  //   * IDataConnection.GetAndOpenDataSet (ASQL, AParams, ATypes): TDataSet;
+  // ------------ ------------ ------------ ------------ ------------ --------
+
 type
   TOrdersListBlock = class(TDataSetBlock)
   private
@@ -60,7 +68,6 @@ var
   mainPanel: Vcl.ExtCtrls.TPanel;
   btnClose: TButton;
   fdq: FireDAC.Comp.Client.TFDQuery;
-  i: Integer;
 begin
   mainPanel := TPanel.Create(self);
   mainPanel.Tag := 1;
