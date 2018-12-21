@@ -94,6 +94,10 @@ begin
   grid.DataSource.DataSet := fdq;
   grid.Align := alClient;
   grid.AlignWithMargins := True;
+  grid.Options := [dgTitles, dgIndicator, dgColumnResize, dgColLines,
+    dgRowLines, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete,
+    dgTitleClick, dgTitleHotTrack ];
+  grid.ReadOnly := True;
   grid.Parent := mainPanel;
 
   btn1 := TButton.Create(grbx);
