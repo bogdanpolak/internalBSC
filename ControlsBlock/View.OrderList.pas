@@ -6,13 +6,13 @@ uses MVC.ViewBlocks, Vcl.Controls,
   // TODO: Usunąć zalezność od TFDConnection
   FireDAC.Comp.Client;
 
-  // ------------ ------------ ------------ ------------ ------------ --------
-  // Usuwanie zależności od TFDConection (koncepcja)
-  //   * Singleton: function GetConnection: IDataConnection
-  //   * Implementacja: TFireDacDataConnection = class (.., IDataConnection)
-  //   * IDataConnection.GetAndOpenDataSet (ASQL, AParams, ATypes): TDataSet;
-  //   * IDataConnection.GetAndOpenDataSet (ASQL, AParams, ATypes): TDataSet;
-  // ------------ ------------ ------------ ------------ ------------ --------
+// ------------ ------------ ------------ ------------ ------------ --------
+// Usuwanie zależności od TFDConection (koncepcja)
+// * Singleton: function GetConnection: IDataConnection
+// * Implementacja: TFireDacDataConnection = class (.., IDataConnection)
+// * IDataConnection.GetAndOpenDataSet (ASQL, AParams, ATypes): TDataSet;
+// * IDataConnection.GetAndOpenDataSet (ASQL, AParams, ATypes): TDataSet;
+// ------------ ------------ ------------ ------------ ------------ --------
 
 type
   TOrdersListBlock = class(TDataSetBlock)
@@ -46,12 +46,12 @@ const
   // TODO: Przenieść SELECT-a do fabryki datasetów (przy okazji usuwania
   // zależności od TFDConnection
   SQL_GetOrdersList = 'SELECT Orders.OrderID, ' +
-    '  Orders.CustomerID, Customers.CompanyName, ' + '  Orders.EmployeeID, ' +
-  // -#-
+    '  Orders.CustomerID, Customers.CompanyName, ' + // -
+    '  Orders.EmployeeID, ' + // -
     '  Employees.FirstName||'' ''||Employees.LastName EmployeeName, ' +
     '  Orders.OrderDate, Orders.RequiredDate, Orders.ShippedDate, ' +
     '  Orders.ShipVia, Shippers.CompanyName ShipperCompany ' +
-    'FROM {id Orders} Orders ' + // -#-
+    'FROM {id Orders} Orders ' + // -
     '  INNER JOIN {id Employees} Employees ' +
     '    ON Orders.EmployeeID = Employees.EmployeeID ' +
     '  INNER JOIN {id Customers} Customers ' +
@@ -96,7 +96,7 @@ begin
   grid.AlignWithMargins := True;
   grid.Options := [dgTitles, dgIndicator, dgColumnResize, dgColLines,
     dgRowLines, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete,
-    dgTitleClick, dgTitleHotTrack ];
+    dgTitleClick, dgTitleHotTrack];
   grid.ReadOnly := True;
   grid.Parent := mainPanel;
 
@@ -123,7 +123,7 @@ begin
   if not(self.Owner is TWinControl) then
     raise Exception.Create
       ('Invalid Parent Class! Expected TWinControl as Parent.');
-  ConstructComponents ((self.Owner as TWinControl), ConnFireDAC);
+  ConstructComponents((self.Owner as TWinControl), ConnFireDAC);
 end;
 
 end.
