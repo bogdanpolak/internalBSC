@@ -21,6 +21,7 @@ type
       ConnFireDAC: TFDConnection);
     procedure CloseAndFreeViewBlock;
   protected
+    procedure EventOnButtonEditClick(Stnder: TObject);
     procedure EventOnButtonCloseClick(Stnder: TObject);
   public
     procedure BuildAndShow(ConnFireDAC: TFDConnection);
@@ -30,11 +31,29 @@ implementation
 
 uses
   Vcl.StdCtrls, Vcl.DBGrids, Vcl.ExtCtrls, Data.DB, Helper.TDBGrid,
-  System.SysUtils;
+  System.SysUtils, Frame.OrderEdit;
 
 procedure TOrdersListBlock.CloseAndFreeViewBlock;
 begin
   self.Free;
+end;
+
+procedure TOrdersListBlock.EventOnButtonEditClick(Stnder: TObject);
+var
+  AConnection: TFDConnection;
+  OrderID: Integer;
+  AContainer: TWinControl;
+  mainPanel: TPanel;
+begin
+  AContainer := (Self.Owner as TWinControl);
+  mainPanel := (AContainer.Controls[0] as TPanel);
+  // TODO: Zależność od TFDQuery i TFDConnnection
+  AConnection := (self.MainDataSet as TFDQuery).Connection as TFDConnection;
+  // TODO: Nie ma obsługu NULL (gdy lista zamówień jest pusta)
+  OrderID := self.MainDataSet.FieldByName('OrderID').AsInteger;
+  mainPanel.Parent := nil;
+  TFrameOrderEdit.ShowFrame (AContainer, AConnection, OrderID);
+  mainPanel.Parent := AContainer;
 end;
 
 procedure TOrdersListBlock.EventOnButtonCloseClick(Stnder: TObject);
@@ -101,6 +120,7 @@ begin
   grid.Parent := mainPanel;
 
   btn1 := TButton.Create(grbx);
+  btn1.OnClick := EventOnButtonEditClick;
   btn1.Caption := 'Edit';
   btn1.AlignWithMargins := True;
   btn1.Align := alLeft;

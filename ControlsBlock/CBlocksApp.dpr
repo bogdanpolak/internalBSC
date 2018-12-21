@@ -9,7 +9,8 @@ uses
   MVC.ViewBlocks in 'MVC.ViewBlocks.pas',
   View.OrderList in 'View.OrderList.pas',
   MVC.FrameBlock in 'MVC.FrameBlock.pas',
-  View.HashAndCrypto in 'View.HashAndCrypto.pas';
+  View.HashAndCrypto in 'View.HashAndCrypto.pas',
+  Frame.OrderEdit in 'Frame.OrderEdit.pas' {FrameOrderEdit: TFrame};
 
 {$R *.res}
 
