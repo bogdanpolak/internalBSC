@@ -20,8 +20,10 @@ type
     procedure ConstructComponents(AContainer: TWinControl;
       ConnFireDAC: TFDConnection);
     procedure CloseAndFreeViewBlock;
+    procedure EditCurrentOrder;
   protected
     procedure EventOnButtonEditClick(Stnder: TObject);
+    procedure EventOnDblClick_DBGrid(Stnder: TObject);
     procedure EventOnButtonCloseClick(Stnder: TObject);
   public
     procedure BuildAndShow(ConnFireDAC: TFDConnection);
@@ -38,7 +40,7 @@ begin
   self.Free;
 end;
 
-procedure TOrdersListBlock.EventOnButtonEditClick(Stnder: TObject);
+procedure TOrdersListBlock.EditCurrentOrder;
 var
   AConnection: TFDConnection;
   OrderID: Integer;
@@ -54,6 +56,17 @@ begin
   mainPanel.Parent := nil;
   TFrameOrderEdit.ShowFrame (AContainer, AConnection, OrderID);
   mainPanel.Parent := AContainer;
+  (MainDataSet as TFDQuery).RefreshRecord;
+end;
+
+procedure TOrdersListBlock.EventOnButtonEditClick(Stnder: TObject);
+begin
+  EditCurrentOrder;
+end;
+
+procedure TOrdersListBlock.EventOnDblClick_DBGrid(Stnder: TObject);
+begin
+  EditCurrentOrder;
 end;
 
 procedure TOrdersListBlock.EventOnButtonCloseClick(Stnder: TObject);
@@ -111,6 +124,7 @@ begin
   grid := Vcl.DBGrids.TDBGrid.Create(mainPanel);
   grid.DataSource := TDataSource.Create(mainPanel);
   grid.DataSource.DataSet := fdq;
+  grid.OnDblClick := EventOnDblClick_DBGrid;
   grid.Align := alClient;
   grid.AlignWithMargins := True;
   grid.Options := [dgTitles, dgIndicator, dgColumnResize, dgColLines,
