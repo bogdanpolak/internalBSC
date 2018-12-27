@@ -5,7 +5,7 @@ object FrameOrderEdit: TFrameOrderEdit
   Height = 341
   TabOrder = 0
   object GridPanel1: TGridPanel
-    Left = 67
+    Left = 59
     Top = 57
     Width = 497
     Height = 238
@@ -261,7 +261,6 @@ object FrameOrderEdit: TFrameOrderEdit
     Align = alTop
     Caption = 'GroupBox4'
     TabOrder = 1
-    ExplicitWidth = 667
     object btnClose: TButton
       AlignWithMargins = True
       Left = 5

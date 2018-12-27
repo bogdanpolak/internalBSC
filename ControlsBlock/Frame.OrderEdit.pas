@@ -49,6 +49,7 @@ type
     // TODO: Usuń zalezność od FDConnection
     CurrentConnection: TFDConnection;
     isClosing: Boolean;
+    fldOrderDate: TField;
     procedure UpdateDatePickerValue(fld: TField);
     procedure dtpOrderDate_EventOnChange(Sender: TObject);
     procedure cbxDateNull_EventOnClick(Sender: TObject);
@@ -61,7 +62,6 @@ type
 implementation
 
 {$R *.dfm}
-
 {$REGION 'DB aware DateTimePicker with NULL CheckBox'}
 
 var
@@ -133,20 +133,9 @@ begin
 end;
 
 procedure TFrameOrderEdit.DataSource1DataChange(Sender: TObject; Field: TField);
-var
-  fld: TField;
 begin
-  if Assigned(DataSource1.DataSet) then
-  begin
-    fld := DataSource1.DataSet.FieldByName('OrderDate');
-    if Assigned(fld) then
-    begin
-      if Field = nil then
-        UpdateDatePickerValue(fld)
-      else if Field = fld then
-        UpdateDatePickerValue(fld);
-    end;
-  end;
+  if Assigned(fldOrderDate) and ((Field = nil) or (Field = fldOrderDate)) then
+    UpdateDatePickerValue(fldOrderDate)
 end;
 
 procedure TFrameOrderEdit.tmrReadyTimer(Sender: TObject);
@@ -154,7 +143,6 @@ var
   // TODO: Usuń zalezność od TFDQuery (powinien wystarczyć TDataSet)
   fdq1: TFDQuery;
   fdq2: TFDQuery;
-  fldOrderDate: TField;
 begin
   tmrReady.Enabled := False;
   // --------------------------------------------------------------
@@ -167,9 +155,9 @@ begin
   fdq1.Open('select OrderID,CustomerID, EmployeeID, OrderDate, ' +
     'RequiredDate, ShippedDate, Freight from {id Orders} where ' +
     'OrderID = :OrderID', [OrderID]);
+  fldOrderDate := fdq1.FieldByName('OrderDate');
   // --------------------------------------------------------------
   // Konfiguruj dtpOrderDate
-  fldOrderDate := fdq1.FieldByName('OrderDate');
   FieldOrderDate := fldOrderDate;
   DataSourceOrderDate := DataSource1;
   cbxNullOrderDate := CheckBox1;
