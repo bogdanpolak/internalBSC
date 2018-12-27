@@ -1,12 +1,12 @@
 object FrameOrderEdit: TFrameOrderEdit
   Left = 0
   Top = 0
-  Width = 673
-  Height = 375
+  Width = 600
+  Height = 341
   TabOrder = 0
   object GridPanel1: TGridPanel
-    Left = 16
-    Top = 59
+    Left = 67
+    Top = 57
     Width = 497
     Height = 238
     BevelOuter = bvNone
@@ -193,7 +193,6 @@ object FrameOrderEdit: TFrameOrderEdit
         Date = 43456.011368877310000000
         Time = 43456.011368877310000000
         TabOrder = 2
-        OnChange = DateTimePicker1Change
       end
       object CheckBox1: TCheckBox
         AlignWithMargins = True
@@ -207,7 +206,6 @@ object FrameOrderEdit: TFrameOrderEdit
         Checked = True
         State = cbChecked
         TabOrder = 3
-        OnClick = CheckBox1Click
       end
     end
     object GroupBox3: TGroupBox
@@ -258,11 +256,12 @@ object FrameOrderEdit: TFrameOrderEdit
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 667
+    Width = 594
     Height = 48
     Align = alTop
     Caption = 'GroupBox4'
     TabOrder = 1
+    ExplicitWidth = 667
     object btnClose: TButton
       AlignWithMargins = True
       Left = 5
@@ -285,79 +284,19 @@ object FrameOrderEdit: TFrameOrderEdit
       TabOrder = 1
     end
   end
-  object FDQuery1: TFDQuery
-    SQL.Strings = (
-      
-        'select OrderID,CustomerID, EmployeeID, OrderDate, RequiredDate, ' +
-        'ShippedDate, Freight from {id Orders}'
-      'where OrderID = :OrderID')
-    Left = 512
-    Top = 56
-    ParamData = <
-      item
-        Name = 'ORDERID'
-        DataType = ftWideString
-        ParamType = ptInput
-        Value = '10248'
-      end>
-    object FDQuery1ORDERID: TIntegerField
-      FieldName = 'ORDERID'
-      Origin = 'ORDERID'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object FDQuery1CUSTOMERID: TStringField
-      FieldName = 'CUSTOMERID'
-      Origin = 'CUSTOMERID'
-      Size = 5
-    end
-    object FDQuery1EMPLOYEEID: TIntegerField
-      FieldName = 'EMPLOYEEID'
-      Origin = 'EMPLOYEEID'
-    end
-    object FDQuery1ORDERDATE: TDateField
-      FieldName = 'ORDERDATE'
-      Origin = 'ORDERDATE'
-    end
-    object FDQuery1REQUIREDDATE: TDateField
-      FieldName = 'REQUIREDDATE'
-      Origin = 'REQUIREDDATE'
-    end
-    object FDQuery1SHIPPEDDATE: TDateField
-      FieldName = 'SHIPPEDDATE'
-      Origin = 'SHIPPEDDATE'
-    end
-    object FDQuery1FREIGHT: TBCDField
-      FieldName = 'FREIGHT'
-      Origin = 'FREIGHT'
-      Precision = 18
-    end
-  end
   object DataSource1: TDataSource
-    DataSet = FDQuery1
     OnDataChange = DataSource1DataChange
-    Left = 576
-    Top = 56
-  end
-  object FDQuery2: TFDQuery
-    SQL.Strings = (
-      
-        'select EmployeeID, FirstName||'#39' '#39'||LastName||'#39'  (ID:'#39'||EmployeeI' +
-        'D||'#39')'#39' as EmployeeName '
-      'from {id Employees} '
-      'order by EmployeeID')
-    Left = 512
-    Top = 104
+    Left = 16
+    Top = 120
   end
   object DataSource2: TDataSource
-    DataSet = FDQuery2
-    Left = 576
-    Top = 104
+    Left = 16
+    Top = 176
   end
   object tmrReady: TTimer
     Interval = 1
     OnTimer = tmrReadyTimer
-    Left = 544
-    Top = 168
+    Left = 16
+    Top = 64
   end
 end
