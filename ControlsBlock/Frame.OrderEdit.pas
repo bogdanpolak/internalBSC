@@ -56,6 +56,7 @@ type
     procedure CheckBox1Click(Sender: TObject);
   private
     isClosing: Boolean;
+    procedure UpdateDatePickerValue(fld: TField);
     { Private declarations }
   public
     { Public declarations }
@@ -67,12 +68,7 @@ implementation
 
 {$R *.dfm}
 
-procedure TFrameOrderEdit.btnCloseClick(Sender: TObject);
-begin
-  isClosing := True;
-end;
-
-{ TFrameOrderEdit }
+{$REGION 'DB aware DateTimePicker with NULL CheckBox'}
 
 procedure TFrameOrderEdit.CheckBox1Click(Sender: TObject);
 var
@@ -94,19 +90,26 @@ begin
   DataSource1.OnDataChange := DataSource1DataChange;
 end;
 
-procedure TFrameOrderEdit.DataSource1DataChange(Sender: TObject; Field: TField);
+procedure TFrameOrderEdit.UpdateDatePickerValue(fld: TField);
 var
   frmSettings: TFormatSettings;
 begin
   frmSettings := TFormatSettings.Create;
   DateTimePicker1.Format := frmSettings.ShortDateFormat;
-  DateTimePicker1.Date := FDQuery1.FieldByName('OrderDate').AsDateTime;
+  DateTimePicker1.Date := fld.AsDateTime;
 end;
 
 procedure TFrameOrderEdit.DateTimePicker1Change(Sender: TObject);
 begin
   FDQuery1.Edit;
   FDQuery1.FieldByName('OrderDate').AsDateTime := DateTimePicker1.Date;
+end;
+
+{$ENDREGION}
+
+procedure TFrameOrderEdit.btnCloseClick(Sender: TObject);
+begin
+  isClosing := True;
 end;
 
 class procedure TFrameOrderEdit.ShowFrame(AContainer: TWinControl;
@@ -127,6 +130,17 @@ begin
   while not frm.isClosing do
     Application.ProcessMessages;
   frm.Free;
+end;
+
+procedure TFrameOrderEdit.DataSource1DataChange(Sender: TObject; Field: TField);
+var
+  fldOrderDate: TField;
+begin
+  fldOrderDate := FDQuery1.FieldByName('OrderDate');
+  if Field = nil then
+    UpdateDatePickerValue(fldOrderDate)
+  else if Field = fldOrderDate then
+    UpdateDatePickerValue(fldOrderDate);
 end;
 
 procedure TFrameOrderEdit.tmrReadyTimer(Sender: TObject);

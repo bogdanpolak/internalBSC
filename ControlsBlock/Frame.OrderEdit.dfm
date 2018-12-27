@@ -56,10 +56,6 @@ object FrameOrderEdit: TFrameOrderEdit
       Caption = 'GroupBox1'
       Padding.Top = 5
       TabOrder = 0
-      ExplicitLeft = 4
-      ExplicitTop = 4
-      ExplicitWidth = 153
-      ExplicitHeight = 190
       object Label1: TLabel
         AlignWithMargins = True
         Left = 5
@@ -105,7 +101,6 @@ object FrameOrderEdit: TFrameOrderEdit
         DataSource = DataSource1
         ReadOnly = True
         TabOrder = 0
-        ExplicitWidth = 143
       end
       object DBEdit2: TDBEdit
         AlignWithMargins = True
@@ -117,7 +112,6 @@ object FrameOrderEdit: TFrameOrderEdit
         DataField = 'CUSTOMERID'
         DataSource = DataSource1
         TabOrder = 1
-        ExplicitWidth = 143
       end
       object DBLookupComboBox1: TDBLookupComboBox
         AlignWithMargins = True
@@ -132,7 +126,6 @@ object FrameOrderEdit: TFrameOrderEdit
         ListField = 'EMPLOYEENAME'
         ListSource = DataSource2
         TabOrder = 2
-        ExplicitWidth = 143
       end
     end
     object GroupBox2: TGroupBox
@@ -145,10 +138,6 @@ object FrameOrderEdit: TFrameOrderEdit
       Caption = 'GroupBox2'
       Padding.Top = 5
       TabOrder = 1
-      ExplicitLeft = 163
-      ExplicitTop = 4
-      ExplicitWidth = 153
-      ExplicitHeight = 190
       object Label5: TLabel
         AlignWithMargins = True
         Left = 5
@@ -158,7 +147,6 @@ object FrameOrderEdit: TFrameOrderEdit
         Align = alTop
         Caption = 'REQUIREDDATE'
         FocusControl = DBEdit5
-        ExplicitTop = 69
         ExplicitWidth = 78
       end
       object Label6: TLabel
@@ -170,7 +158,6 @@ object FrameOrderEdit: TFrameOrderEdit
         Align = alTop
         Caption = 'SHIPPEDDATE'
         FocusControl = DBEdit6
-        ExplicitTop = 115
         ExplicitWidth = 68
       end
       object DBEdit5: TDBEdit
@@ -183,8 +170,6 @@ object FrameOrderEdit: TFrameOrderEdit
         DataField = 'REQUIREDDATE'
         DataSource = DataSource1
         TabOrder = 0
-        ExplicitTop = 88
-        ExplicitWidth = 143
       end
       object DBEdit6: TDBEdit
         AlignWithMargins = True
@@ -196,8 +181,6 @@ object FrameOrderEdit: TFrameOrderEdit
         DataField = 'SHIPPEDDATE'
         DataSource = DataSource1
         TabOrder = 1
-        ExplicitTop = 134
-        ExplicitWidth = 143
       end
       object DateTimePicker1: TDateTimePicker
         AlignWithMargins = True
@@ -211,8 +194,6 @@ object FrameOrderEdit: TFrameOrderEdit
         Time = 43456.011368877310000000
         TabOrder = 2
         OnChange = DateTimePicker1Change
-        ExplicitLeft = 3
-        ExplicitTop = 69
       end
       object CheckBox1: TCheckBox
         AlignWithMargins = True
@@ -227,8 +208,6 @@ object FrameOrderEdit: TFrameOrderEdit
         State = cbChecked
         TabOrder = 3
         OnClick = CheckBox1Click
-        ExplicitLeft = 3
-        ExplicitTop = 69
       end
     end
     object GroupBox3: TGroupBox
@@ -241,10 +220,6 @@ object FrameOrderEdit: TFrameOrderEdit
       Caption = 'GroupBox3'
       Padding.Top = 5
       TabOrder = 2
-      ExplicitLeft = 322
-      ExplicitTop = 4
-      ExplicitWidth = 155
-      ExplicitHeight = 190
       object Label7: TLabel
         AlignWithMargins = True
         Left = 5
@@ -266,7 +241,6 @@ object FrameOrderEdit: TFrameOrderEdit
         DataField = 'FREIGHT'
         DataSource = DataSource1
         TabOrder = 0
-        ExplicitWidth = 145
       end
       object btnCalcFreight: TButton
         AlignWithMargins = True
@@ -277,7 +251,6 @@ object FrameOrderEdit: TFrameOrderEdit
         Align = alTop
         Caption = 'btnCalcFreight'
         TabOrder = 1
-        ExplicitWidth = 145
       end
     end
   end
@@ -290,7 +263,6 @@ object FrameOrderEdit: TFrameOrderEdit
     Align = alTop
     Caption = 'GroupBox4'
     TabOrder = 1
-    ExplicitWidth = 636
     object btnClose: TButton
       AlignWithMargins = True
       Left = 5
@@ -301,8 +273,6 @@ object FrameOrderEdit: TFrameOrderEdit
       Caption = 'btnClose'
       TabOrder = 0
       OnClick = btnCloseClick
-      ExplicitLeft = 3
-      ExplicitTop = 3
     end
     object DBNavigator1: TDBNavigator
       AlignWithMargins = True
@@ -313,8 +283,6 @@ object FrameOrderEdit: TFrameOrderEdit
       DataSource = DataSource1
       Align = alLeft
       TabOrder = 1
-      ExplicitLeft = 112
-      ExplicitTop = 3
     end
   end
   object FDQuery1: TFDQuery

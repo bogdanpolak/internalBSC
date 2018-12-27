@@ -131,6 +131,7 @@ begin
     dgRowLines, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete,
     dgTitleClick, dgTitleHotTrack];
   grid.ReadOnly := True;
+  grid.OnDblClick := EventOnButtonEditClick;
   grid.Parent := mainPanel;
 
   btn1 := TButton.Create(grbx);
