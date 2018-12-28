@@ -10,7 +10,8 @@ uses
   View.OrderList in 'View.OrderList.pas',
   MVC.FrameBlock in 'MVC.FrameBlock.pas',
   View.HashAndCrypto in 'View.HashAndCrypto.pas',
-  Frame.OrderEdit in 'Frame.OrderEdit.pas' {FrameOrderEdit: TFrame};
+  Frame.OrderEdit in 'Frame.OrderEdit.pas' {FrameOrderEdit: TFrame},
+  Wrapper.Vcl.DBDatePicker in 'Wrapper.Vcl.DBDatePicker.pas';
 
 {$R *.res}
 
