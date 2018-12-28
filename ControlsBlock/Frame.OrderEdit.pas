@@ -27,10 +27,6 @@ type
     DBEdit2: TDBEdit;
     DBLookupComboBox1: TDBLookupComboBox;
     GroupBox2: TGroupBox;
-    Label5: TLabel;
-    Label6: TLabel;
-    DBEdit5: TDBEdit;
-    DBEdit6: TDBEdit;
     GroupBox3: TGroupBox;
     Label7: TLabel;
     DBEdit7: TDBEdit;
@@ -41,6 +37,10 @@ type
     DBNavigator1: TDBNavigator;
     tmrReady: TTimer;
     CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
+    DateTimePicker2: TDateTimePicker;
+    CheckBox3: TCheckBox;
+    DateTimePicker3: TDateTimePicker;
     procedure btnCloseClick(Sender: TObject);
     procedure DataSource1DataChange(Sender: TObject; Field: TField);
     procedure tmrReadyTimer(Sender: TObject);
@@ -51,6 +51,8 @@ type
     CurrentConnection: TFDConnection;
     isClosing: Boolean;
     OrderDateWrapper: TDBDatePickerWrapper;
+    RequiredDateWrapper: TDBDatePickerWrapper;
+    ShippedDateWrapper: TDBDatePickerWrapper;
   public
     { Public declarations }
     class procedure ShowFrame(AContainer: TWinControl;
@@ -87,6 +89,10 @@ procedure TFrameOrderEdit.DataSource1DataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(OrderDateWrapper) then
     OrderDateWrapper.DataSourceOnChange(Sender, Field);
+  if Assigned(RequiredDateWrapper) then
+    RequiredDateWrapper.DataSourceOnChange(Sender, Field);
+  if Assigned(ShippedDateWrapper) then
+    ShippedDateWrapper.DataSourceOnChange(Sender, Field);
 end;
 
 procedure TFrameOrderEdit.tmrReadyTimer(Sender: TObject);
@@ -121,6 +127,12 @@ begin
   OrderDateWrapper := TDBDatePickerWrapper.Create(DateTimePicker1);
   OrderDateWrapper.SetDBDatePickerControls(CheckBox1, DateTimePicker1);
   OrderDateWrapper.ConnectToDataSource(DataSource1, 'OrderDate');
+  RequiredDateWrapper := TDBDatePickerWrapper.Create(DateTimePicker2);
+  RequiredDateWrapper.SetDBDatePickerControls(CheckBox2, DateTimePicker2);
+  RequiredDateWrapper.ConnectToDataSource(DataSource1, 'RequiredDate');
+  ShippedDateWrapper := TDBDatePickerWrapper.Create(DateTimePicker2);
+  ShippedDateWrapper.SetDBDatePickerControls(CheckBox3, DateTimePicker3);
+  ShippedDateWrapper.ConnectToDataSource(DataSource1, 'ShippedDate');
 end;
 
 end.

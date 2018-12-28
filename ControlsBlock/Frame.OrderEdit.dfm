@@ -2,13 +2,13 @@ object FrameOrderEdit: TFrameOrderEdit
   Left = 0
   Top = 0
   Width = 600
-  Height = 341
+  Height = 340
   TabOrder = 0
   object GridPanel1: TGridPanel
     Left = 59
     Top = 57
     Width = 497
-    Height = 238
+    Height = 216
     BevelOuter = bvNone
     Caption = ' '
     ColumnCollection = <
@@ -51,11 +51,12 @@ object FrameOrderEdit: TFrameOrderEdit
       Left = 9
       Top = 9
       Width = 151
-      Height = 220
+      Height = 198
       Align = alClient
       Caption = 'GroupBox1'
       Padding.Top = 5
       TabOrder = 0
+      ExplicitHeight = 220
       object Label1: TLabel
         AlignWithMargins = True
         Left = 5
@@ -63,7 +64,7 @@ object FrameOrderEdit: TFrameOrderEdit
         Width = 141
         Height = 13
         Align = alTop
-        Caption = 'ORDERID'
+        Caption = 'Order ID:'
         FocusControl = DBEdit1
         ExplicitWidth = 46
       end
@@ -74,9 +75,9 @@ object FrameOrderEdit: TFrameOrderEdit
         Width = 141
         Height = 13
         Align = alTop
-        Caption = 'CUSTOMERID'
+        Caption = 'Customer ID:'
         FocusControl = DBEdit2
-        ExplicitWidth = 66
+        ExplicitWidth = 64
       end
       object Label3: TLabel
         AlignWithMargins = True
@@ -85,8 +86,8 @@ object FrameOrderEdit: TFrameOrderEdit
         Width = 141
         Height = 13
         Align = alTop
-        Caption = 'EMPLOYEEID'
-        ExplicitWidth = 62
+        Caption = 'Employee:'
+        ExplicitWidth = 50
       end
       object DBEdit1: TDBEdit
         AlignWithMargins = True
@@ -133,55 +134,14 @@ object FrameOrderEdit: TFrameOrderEdit
       Left = 172
       Top = 9
       Width = 151
-      Height = 220
+      Height = 198
       Align = alClient
       Caption = 'GroupBox2'
       Padding.Top = 5
       TabOrder = 1
-      object Label5: TLabel
-        AlignWithMargins = True
-        Left = 5
-        Top = 68
-        Width = 141
-        Height = 13
-        Align = alTop
-        Caption = 'REQUIREDDATE'
-        FocusControl = DBEdit5
-        ExplicitWidth = 78
-      end
-      object Label6: TLabel
-        AlignWithMargins = True
-        Left = 5
-        Top = 114
-        Width = 141
-        Height = 13
-        Align = alTop
-        Caption = 'SHIPPEDDATE'
-        FocusControl = DBEdit6
-        ExplicitWidth = 68
-      end
-      object DBEdit5: TDBEdit
-        AlignWithMargins = True
-        Left = 5
-        Top = 87
-        Width = 141
-        Height = 21
-        Align = alTop
-        DataField = 'REQUIREDDATE'
-        DataSource = DataSource1
-        TabOrder = 2
-      end
-      object DBEdit6: TDBEdit
-        AlignWithMargins = True
-        Left = 5
-        Top = 133
-        Width = 141
-        Height = 21
-        Align = alTop
-        DataField = 'SHIPPEDDATE'
-        DataSource = DataSource1
-        TabOrder = 3
-      end
+      ExplicitLeft = 178
+      ExplicitTop = 0
+      ExplicitHeight = 382
       object DateTimePicker1: TDateTimePicker
         AlignWithMargins = True
         Left = 5
@@ -190,8 +150,8 @@ object FrameOrderEdit: TFrameOrderEdit
         Height = 21
         Margins.Top = 1
         Align = alTop
-        Date = 43456.011368877310000000
-        Time = 43456.011368877310000000
+        Date = 43456.000000000000000000
+        Time = 43456.000000000000000000
         TabOrder = 1
       end
       object CheckBox1: TCheckBox
@@ -202,10 +162,68 @@ object FrameOrderEdit: TFrameOrderEdit
         Height = 17
         Margins.Bottom = 0
         Align = alTop
-        Caption = 'Order Date'
-        Checked = True
-        State = cbChecked
+        Caption = 'Order date'
         TabOrder = 0
+      end
+      object CheckBox2: TCheckBox
+        AlignWithMargins = True
+        Left = 5
+        Top = 70
+        Width = 141
+        Height = 17
+        Margins.Top = 5
+        Margins.Bottom = 0
+        Align = alTop
+        Caption = 'Required date:'
+        TabOrder = 2
+        ExplicitLeft = 24
+        ExplicitTop = 184
+        ExplicitWidth = 97
+      end
+      object DateTimePicker2: TDateTimePicker
+        AlignWithMargins = True
+        Left = 5
+        Top = 88
+        Width = 141
+        Height = 21
+        Margins.Top = 1
+        Align = alTop
+        Date = 43458.000000000000000000
+        Time = 43458.000000000000000000
+        TabOrder = 3
+        ExplicitLeft = -6
+        ExplicitTop = 245
+        ExplicitWidth = 186
+      end
+      object CheckBox3: TCheckBox
+        AlignWithMargins = True
+        Left = 5
+        Top = 117
+        Width = 141
+        Height = 17
+        Margins.Top = 5
+        Margins.Bottom = 0
+        Align = alTop
+        Caption = 'Shipped date:'
+        TabOrder = 4
+        ExplicitLeft = 16
+        ExplicitTop = 272
+        ExplicitWidth = 97
+      end
+      object DateTimePicker3: TDateTimePicker
+        AlignWithMargins = True
+        Left = 5
+        Top = 135
+        Width = 141
+        Height = 21
+        Margins.Top = 1
+        Align = alTop
+        Date = 43458.000000000000000000
+        Time = 43458.000000000000000000
+        TabOrder = 5
+        ExplicitLeft = 3
+        ExplicitTop = 312
+        ExplicitWidth = 186
       end
     end
     object GroupBox3: TGroupBox
@@ -213,11 +231,12 @@ object FrameOrderEdit: TFrameOrderEdit
       Left = 335
       Top = 9
       Width = 153
-      Height = 220
+      Height = 198
       Align = alClient
       Caption = 'GroupBox3'
       Padding.Top = 5
       TabOrder = 2
+      ExplicitHeight = 220
       object Label7: TLabel
         AlignWithMargins = True
         Left = 5
