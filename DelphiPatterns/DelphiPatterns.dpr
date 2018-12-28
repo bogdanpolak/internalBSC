@@ -9,7 +9,9 @@ uses
   Frame.ButtonsGroup in 'Frame.ButtonsGroup.pas' {FrameButtonsGroup: TFrame},
   Utils.AnonymousEvent in 'Utils.AnonymousEvent.pas',
   Work.Messaging in 'Work.Messaging.pas',
-  Module.MessagingWork in 'Module.MessagingWork.pas' {ModuleOrders: TDataModule};
+  Module.MessagingWork in 'Module.MessagingWork.pas' {ModuleOrders: TDataModule},
+  Frame.DAO in 'Frame.DAO.pas' {FrameDAO: TFrame},
+  DAO.Orders in 'DAO.Orders.pas';
 
 {$R *.res}
 

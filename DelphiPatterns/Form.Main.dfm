@@ -56,6 +56,17 @@ object Form1: TForm1
       TabOrder = 2
       OnClick = btnDynamicButtonsDemoClick
     end
+    object btnDAO: TButton
+      AlignWithMargins = True
+      Left = 5
+      Top = 90
+      Width = 204
+      Height = 25
+      Align = alTop
+      Caption = 'btnDAO'
+      TabOrder = 3
+      OnClick = btnDAOClick
+    end
   end
   object PageControl1: TPageControl
     AlignWithMargins = True

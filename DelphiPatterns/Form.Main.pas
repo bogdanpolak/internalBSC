@@ -17,9 +17,11 @@ type
     btnCloseAllFrames: TButton;
     btnDynamicButtonsDemo: TButton;
     RadioGroup1: TRadioGroup;
+    btnDAO: TButton;
     procedure tmrAppReadyTimer(Sender: TObject);
     procedure btnAnonymousEventClick(Sender: TObject);
     procedure btnCloseAllFramesClick(Sender: TObject);
+    procedure btnDAOClick(Sender: TObject);
     procedure btnDynamicButtonsDemoClick(Sender: TObject);
   private
     { Private declarations }
@@ -36,7 +38,7 @@ implementation
 
 uses
   Frame.AnonymousEvent,
-  Frame.ButtonsGroup;
+  Frame.ButtonsGroup, Frame.DAO;
 
 type
   TClassFrame = class of TFrame;
@@ -77,6 +79,12 @@ begin
     TFrameButtonsGroup);
 end;
 
+procedure TForm1.btnDAOClick(Sender: TObject);
+begin
+  CreateNewFrameInsideNewTabSheet(PageControl1, 'Delphi Classic DAO',
+    TFrameDAO);
+end;
+
 function inDeveloperMode: boolean;
 begin
   { TODO : Needs implementation }
@@ -84,9 +92,6 @@ begin
 end;
 
 procedure TForm1.tmrAppReadyTimer(Sender: TObject);
-var
-  btn: Vcl.StdCtrls.TButton;
-  Container: Vcl.Controls.TWinControl;
 begin
   tmrAppReady.Enabled := false;
   if inDeveloperMode then
