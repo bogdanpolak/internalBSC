@@ -94,7 +94,6 @@ var
   // TODO: Usuń zalezność od TFDQuery (powinien wystarczyć TDataSet)
   fdq1: TFDQuery;
   fdq2: TFDQuery;
-  fldOrderDate: TField;
 begin
   tmrReady.Enabled := False;
   // --------------------------------------------------------------
@@ -119,11 +118,9 @@ begin
   DataSource2.DataSet := fdq2;
   // --------------------------------------------------------------
   // Konfiguracja OrderDateWrapper: TDBDatePickerWrapper
-  fldOrderDate :=fdq1.FieldByName('OrderDate');
   OrderDateWrapper := TDBDatePickerWrapper.Create(DateTimePicker1);
-  OrderDateWrapper.chkNullDate := CheckBox1;
-  OrderDateWrapper.dtp := DateTimePicker1;
-  OrderDateWrapper.ConnectToDataSource(DataSource1, fldOrderDate);
+  OrderDateWrapper.SetDBDatePickerControls(CheckBox1, DateTimePicker1);
+  OrderDateWrapper.ConnectToDataSource(DataSource1, 'OrderDate');
 end;
 
 end.

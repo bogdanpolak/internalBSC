@@ -1,4 +1,4 @@
-unit Wrapper.Vcl.DBDatePicker;
+﻿unit Wrapper.Vcl.DBDatePicker;
 
 interface
 
@@ -11,22 +11,28 @@ type
 type
   TDBDatePickerWrapper = class(TComponent)
   public
-    chkNullDate: TCheckBox;
-    dtp: TDateTimePicker;
+    procedure SetDBDatePickerControls(CheckBox: TCheckBox;
+      DatePicker: TDateTimePicker);
     procedure ConnectToDataSource(DataSource: TDataSource;
       Field: TField); overload;
     procedure ConnectToDataSource(DataSource: TDataSource;
       const FieldName: String); overload;
     procedure DataSourceOnChange(Sender: TObject; Field: TField);
   private
-    DateField: TField;
+    CheckBox: TCheckBox;
+    DatePicker: TDateTimePicker;
+    DBField: TField;
     DataSource: TDataSource;
+    DisableControlsUpdate: boolean;
     procedure chkOnClick(Sender: TObject);
     procedure dtpOnChange(Sender: TObject);
     procedure setPickerDefaultDateFormat;
   end;
 
 implementation
+
+uses
+  Vcl.Graphics;
 
 resourcestring
   MsgInvalidDBDatePicker = 'Invalid DBDatePicker Wrapper configuration. No' +
@@ -39,6 +45,13 @@ resourcestring
   MsgCantConnectFieldRequired = 'Can''t connect DBDatePicker Wrapper.' +
     ' Field is required';
 
+procedure TDBDatePickerWrapper.SetDBDatePickerControls(CheckBox: TCheckBox;
+  DatePicker: TDateTimePicker);
+begin
+  self.CheckBox := CheckBox;
+  self.DatePicker := DatePicker;
+end;
+
 procedure TDBDatePickerWrapper.ConnectToDataSource(DataSource: TDataSource;
   Field: TField);
 begin
@@ -48,13 +61,13 @@ begin
     raise EWraperInvalidConfiguration.Create(MsgCantConnectDataSetRequired);
   if not Assigned(Field) then
     raise EWraperInvalidConfiguration.Create(MsgCantConnectFieldRequired);
-  if not Assigned(chkNullDate) or not Assigned(dtp) then
+  if not Assigned(CheckBox) or not Assigned(DatePicker) then
     raise EWraperInvalidConfiguration.Create(MsgInvalidDBDatePicker);
   self.DataSource := DataSource;
-  self.DateField := Field;
-  dtp.OnChange := dtpOnChange;
-  chkNullDate.OnClick := chkOnClick;
-  DataSourceOnChange(self, DateField);
+  self.DBField := Field;
+  DatePicker.OnChange := dtpOnChange;
+  CheckBox.OnClick := chkOnClick;
+  DataSourceOnChange(self, DBField);
 end;
 
 procedure TDBDatePickerWrapper.ConnectToDataSource(DataSource: TDataSource;
@@ -66,33 +79,46 @@ begin
   if Assigned(DataSource) and Assigned(DataSource.DataSet) then
   begin
     // TODO: Zmiana wyjatku EDatabaseError na EWraperInvalidConfiguration
-    //   * Komunikat: Nie znaleziono pola
+    // * Komunikat: Nie znaleziono pola
     fld := DataSource.DataSet.FieldByName(FieldName);
   end;
-  ConnectToDataSource (DataSource, fld);
+  ConnectToDataSource(DataSource, fld);
 end;
 
 procedure TDBDatePickerWrapper.DataSourceOnChange(Sender: TObject;
   Field: TField);
 begin
-  if Assigned(DateField) and ((Field = nil) or (Field = DateField)) then
+  if DisableControlsUpdate then
+    exit;
+  if Assigned(DBField) and ((Field = nil) or (Field = DBField)) then
   begin
-    dtp.OnChange := nil;
-    chkNullDate.OnClick := nil;
-    if DateField.IsNull then
+    DatePicker.OnChange := nil;
+    CheckBox.OnClick := nil;
+    if DBField.IsNull then
     begin
-      dtp.Format := ' ';
-      chkNullDate.Checked := False;
+      if DatePicker.Format <> ' ' then
+      begin
+        DatePicker.Format := ' ';
+        // {{ Переключиться на UTF-8 }} - Przełącza na UTF-8
+        // TODO: Sprawdzić jak zmieniać kolor w TDateTimePicker
+        // dtp.Color := Vcl.Graphics.clBtnFace;
+        DatePicker.Enabled := False;
+      end;
+      CheckBox.Checked := False;
     end
     else
     begin
-      if dtp.Format = ' ' then
+      if DatePicker.Format = ' ' then
+      begin
         setPickerDefaultDateFormat();
-      chkNullDate.Checked := True;
-      dtp.Date := DateField.AsDateTime;
+        DatePicker.Enabled := True;
+        // dtp.Color := Vcl.Graphics.clWindow;
+      end;
+      CheckBox.Checked := True;
+      DatePicker.Date := DBField.AsDateTime;
     end;
-    dtp.OnChange := dtpOnChange;
-    chkNullDate.OnClick := chkOnClick;
+    DatePicker.OnChange := dtpOnChange;
+    CheckBox.OnClick := chkOnClick;
   end;
 end;
 
@@ -103,25 +129,35 @@ var
 begin
   fs := TFormatSettings.Create;
   s := fs.ShortDateFormat;
-  s := StringReplace(s,'/',fs.DateSeparator,[rfReplaceAll]);
-  dtp.Format := s;
+  s := StringReplace(s, '/', fs.DateSeparator, [rfReplaceAll]);
+  DatePicker.Format := s;
 end;
 
 procedure TDBDatePickerWrapper.chkOnClick(Sender: TObject);
-var
-  frmSettings: TFormatSettings;
 begin
-    DateField.DataSet.Edit;
-  if chkNullDate.Checked then
-    DateField.AsDateTime := Now()
-  else
-    DateField.Clear;
+  DisableControlsUpdate := True;
+  try
+    DBField.DataSet.Edit;
+    if CheckBox.Checked then
+      DBField.AsDateTime := Now()
+    else
+      DBField.Clear;
+  finally
+    DisableControlsUpdate := False;
+  end;
+  DataSourceOnChange(self, DBField);
 end;
 
 procedure TDBDatePickerWrapper.dtpOnChange(Sender: TObject);
 begin
-  DateField.DataSet.Edit;
-  DateField.AsDateTime := dtp.Date;
+  DisableControlsUpdate := True;
+  try
+    DBField.DataSet.Edit;
+    DBField.AsDateTime := DatePicker.Date;
+  finally
+    DisableControlsUpdate := False;
+  end;
+  DataSourceOnChange(self, DBField);
 end;
 
 end.
