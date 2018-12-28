@@ -169,7 +169,7 @@ object FrameOrderEdit: TFrameOrderEdit
         Align = alTop
         DataField = 'REQUIREDDATE'
         DataSource = DataSource1
-        TabOrder = 0
+        TabOrder = 2
       end
       object DBEdit6: TDBEdit
         AlignWithMargins = True
@@ -180,7 +180,7 @@ object FrameOrderEdit: TFrameOrderEdit
         Align = alTop
         DataField = 'SHIPPEDDATE'
         DataSource = DataSource1
-        TabOrder = 1
+        TabOrder = 3
       end
       object DateTimePicker1: TDateTimePicker
         AlignWithMargins = True
@@ -192,7 +192,7 @@ object FrameOrderEdit: TFrameOrderEdit
         Align = alTop
         Date = 43456.011368877310000000
         Time = 43456.011368877310000000
-        TabOrder = 2
+        TabOrder = 1
       end
       object CheckBox1: TCheckBox
         AlignWithMargins = True
@@ -205,7 +205,7 @@ object FrameOrderEdit: TFrameOrderEdit
         Caption = 'Order Date'
         Checked = True
         State = cbChecked
-        TabOrder = 3
+        TabOrder = 0
       end
     end
     object GroupBox3: TGroupBox
