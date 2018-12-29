@@ -23,6 +23,8 @@ type
     GroupBox2: TGroupBox;
     Button2: TButton;
     ListBox2: TListBox;
+    Label1: TLabel;
+    Edit2: TEdit;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
   private
@@ -74,9 +76,11 @@ var
   Orders: TOrdersDAO;
   i: Integer;
   s: string;
+  year: Integer;
 begin
   Orders := TOrdersDAO.Create(GroupBox2);
-  Orders.Open(FDConnection1);
+  year := StrToInt(Edit2.Text);
+  Orders.Open(FDConnection1, year);
   ListBox2.Clear;
   Orders.ForEach(
     procedure(o: TOrdersDAO)

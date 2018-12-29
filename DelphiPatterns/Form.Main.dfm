@@ -78,23 +78,24 @@ object Form1: TForm1
     TabOrder = 1
   end
   object RadioGroup1: TRadioGroup
-    Left = 248
-    Top = 80
+    Left = 264
+    Top = 144
     Width = 161
-    Height = 97
+    Height = 121
     Caption = 'RadioGroup1'
     ItemIndex = 0
     Items.Strings = (
       'No frame creation'
       'Frame: AnonymousEvent'
-      'Frame: DynamicButton')
+      'Frame: DynamicButton'
+      'Frame: DAO')
     TabOrder = 2
     Visible = False
   end
   object tmrAppReady: TTimer
     Interval = 1
     OnTimer = tmrAppReadyTimer
-    Left = 241
+    Left = 257
     Top = 24
   end
 end

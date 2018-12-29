@@ -17,7 +17,7 @@ type
     ShippedDate: TDateField;
     ShipVia: TIntegerField;
     Freight: TBCDField;
-    procedure Open(AConnection: TFDConnection);
+    procedure Open(AConnection: TFDConnection; Year: Integer);
     procedure Next;
     function Eof: boolean;
     function ToString: String;
@@ -40,6 +40,7 @@ const
     '    ON Orders.EmployeeID = Employees.EmployeeID ' +
     '  INNER JOIN {id Customers} Customers ' +
     '    ON Orders.CustomerID = Customers.CustomerID ' +
+    'WHERE {year(OrderDate)} = :YEAR ' +  // -
     'ORDER BY Orders.OrderID ';
 
   { OrdersDAO }
@@ -59,7 +60,7 @@ begin
   fdq.Next;
 end;
 
-procedure TOrdersDAO.ForEach (proc: TProc<TOrdersDAO>);
+procedure TOrdersDAO.ForEach(proc: TProc<TOrdersDAO>);
 var
   Bookmark: TBookmark;
 begin
@@ -81,11 +82,11 @@ begin
   end;
 end;
 
-procedure TOrdersDAO.Open(AConnection: TFDConnection);
+procedure TOrdersDAO.Open(AConnection: TFDConnection; Year: Integer);
 begin
   fdq := TFDQuery.Create(self);
   fdq.Connection := AConnection;
-  fdq.Open(SQL_GetOrdersList);
+  fdq.Open(SQL_GetOrdersList,[Year]);
   OrderID := fdq.FieldByName('OrderID') as TIntegerField;
   CompanyName := fdq.FieldByName('CompanyName') as TStringField;
   EmployeeID := fdq.FieldByName('EmployeeID') as TIntegerField;

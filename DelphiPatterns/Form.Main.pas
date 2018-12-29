@@ -58,7 +58,6 @@ begin
   AFrame.Align := alClient;
 end;
 
-
 procedure TForm1.btnAnonymousEventClick(Sender: TObject);
 begin
   CreateNewFrameInsideNewTabSheet(PageControl1, 'Anonymous Event',
@@ -96,9 +95,17 @@ begin
   tmrAppReady.Enabled := false;
   if inDeveloperMode then
   begin
-    case RadioGroup1.ItemIndex of
-      1: btnAnonymousEvent.Click;
-      2: begin btnDynamicButtonsDemo.Click; PageControl1.ActivePage.SetFocus end;
+    if RadioGroup1.ItemIndex > 0 then
+    begin
+      case RadioGroup1.ItemIndex of
+        1:
+          btnAnonymousEvent.Click;
+        2:
+          btnDynamicButtonsDemo.Click;
+        3:
+          btnDAO.Click;
+      end;
+      PageControl1.ActivePage.SetFocus
     end;
   end;
 end;

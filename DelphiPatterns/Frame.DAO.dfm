@@ -34,8 +34,6 @@ object FrameDAO: TFrameDAO
         Value = 100.000000000000000000
       end>
     TabOrder = 0
-    ExplicitLeft = 344
-    ExplicitWidth = 453
     object GroupBox1: TGroupBox
       AlignWithMargins = True
       Left = 4
@@ -45,10 +43,6 @@ object FrameDAO: TFrameDAO
       Align = alClient
       Caption = 'GroupBox1'
       TabOrder = 0
-      ExplicitLeft = 3
-      ExplicitTop = 3
-      ExplicitWidth = 243
-      ExplicitHeight = 261
       object Button1: TButton
         AlignWithMargins = True
         Left = 5
@@ -59,7 +53,6 @@ object FrameDAO: TFrameDAO
         Caption = 'Button1'
         TabOrder = 0
         OnClick = Button1Click
-        ExplicitWidth = 233
       end
       object ListBox1: TListBox
         AlignWithMargins = True
@@ -70,8 +63,6 @@ object FrameDAO: TFrameDAO
         Align = alClient
         ItemHeight = 13
         TabOrder = 1
-        ExplicitWidth = 233
-        ExplicitHeight = 207
       end
     end
     object GroupBox2: TGroupBox
@@ -83,10 +74,17 @@ object FrameDAO: TFrameDAO
       Align = alClient
       Caption = 'GroupBox2'
       TabOrder = 1
-      ExplicitLeft = 290
-      ExplicitTop = 81
-      ExplicitWidth = 185
-      ExplicitHeight = 105
+      object Label1: TLabel
+        AlignWithMargins = True
+        Left = 5
+        Top = 49
+        Width = 239
+        Height = 13
+        Margins.Bottom = 0
+        Align = alTop
+        Caption = 'Pobierz zam'#243'wienia z roku:'
+        ExplicitWidth = 129
+      end
       object Button2: TButton
         AlignWithMargins = True
         Left = 5
@@ -97,22 +95,31 @@ object FrameDAO: TFrameDAO
         Caption = 'Button2'
         TabOrder = 0
         OnClick = Button2Click
-        ExplicitLeft = 56
-        ExplicitWidth = 75
       end
       object ListBox2: TListBox
         AlignWithMargins = True
         Left = 5
-        Top = 49
+        Top = 92
         Width = 239
-        Height = 205
+        Height = 162
         Align = alClient
         ItemHeight = 13
         TabOrder = 1
-        ExplicitLeft = 56
-        ExplicitTop = 80
+        ExplicitTop = 49
+        ExplicitHeight = 205
+      end
+      object Edit2: TEdit
+        AlignWithMargins = True
+        Left = 5
+        Top = 65
+        Width = 239
+        Height = 21
+        Align = alTop
+        TabOrder = 2
+        Text = '2019'
+        ExplicitLeft = 64
+        ExplicitTop = 120
         ExplicitWidth = 121
-        ExplicitHeight = 97
       end
     end
   end
