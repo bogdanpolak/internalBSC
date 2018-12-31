@@ -32,17 +32,25 @@ type
     DBEdit7: TDBEdit;
     btnCalcFreight: TButton;
     DateTimePicker1: TDateTimePicker;
-    GroupBox4: TGroupBox;
+    grbxCommands: TGroupBox;
     btnClose: TButton;
-    DBNavigator1: TDBNavigator;
     tmrReady: TTimer;
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
     DateTimePicker2: TDateTimePicker;
     CheckBox3: TCheckBox;
     DateTimePicker3: TDateTimePicker;
+    btnEdit: TButton;
+    btnPost: TButton;
+    btnCancel: TButton;
+    btnRefresh: TButton;
+    procedure btnCancelClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure btnEditClick(Sender: TObject);
+    procedure btnPostClick(Sender: TObject);
+    procedure btnRefreshClick(Sender: TObject);
     procedure DataSource1DataChange(Sender: TObject; Field: TField);
+    procedure FrameResize(Sender: TObject);
     procedure tmrReadyTimer(Sender: TObject);
   private
     OrderID: integer;
@@ -53,6 +61,8 @@ type
     OrderDateWrapper: TDBDatePickerWrapper;
     RequiredDateWrapper: TDBDatePickerWrapper;
     ShippedDateWrapper: TDBDatePickerWrapper;
+    prevDataSetState: TDataSetState;
+    procedure UpdateNavigationButtonsState;
   public
     { Public declarations }
     class procedure ShowFrame(AContainer: TWinControl;
@@ -63,9 +73,29 @@ implementation
 
 {$R *.dfm}
 
+procedure TFrameOrderEdit.btnCancelClick(Sender: TObject);
+begin
+  DataSource1.DataSet.Cancel;
+end;
+
 procedure TFrameOrderEdit.btnCloseClick(Sender: TObject);
 begin
   isClosing := True;
+end;
+
+procedure TFrameOrderEdit.btnEditClick(Sender: TObject);
+begin
+  DataSource1.DataSet.Edit;
+end;
+
+procedure TFrameOrderEdit.btnPostClick(Sender: TObject);
+begin
+  DataSource1.DataSet.Post;
+end;
+
+procedure TFrameOrderEdit.btnRefreshClick(Sender: TObject);
+begin
+  DataSource1.DataSet.Refresh;
 end;
 
 class procedure TFrameOrderEdit.ShowFrame(AContainer: TWinControl;
@@ -87,12 +117,35 @@ end;
 
 procedure TFrameOrderEdit.DataSource1DataChange(Sender: TObject; Field: TField);
 begin
+  if prevDataSetState <> DataSource1.DataSet.State then
+  begin
+    UpdateNavigationButtonsState;
+    prevDataSetState := DataSource1.DataSet.State;
+  end;
   if Assigned(OrderDateWrapper) then
     OrderDateWrapper.DataSourceOnChange(Sender, Field);
   if Assigned(RequiredDateWrapper) then
     RequiredDateWrapper.DataSourceOnChange(Sender, Field);
   if Assigned(ShippedDateWrapper) then
     ShippedDateWrapper.DataSourceOnChange(Sender, Field);
+end;
+
+procedure TFrameOrderEdit.FrameResize(Sender: TObject);
+begin
+  if (self.ClientWidth > 800) and (GridPanel1.Align = alTop) then
+  begin
+    GridPanel1.Align := alNone;
+    GridPanel1.Width := 800;
+    GridPanel1.Left := GridPanel1.Margins.Left;
+    GridPanel1.Width := ClientWidth - GridPanel1.Margins.Left -
+      GridPanel1.Margins.Right;
+    GridPanel1.Anchors := [akTop];
+  end
+  else if (self.ClientWidth < 800) and (GridPanel1.Align = alNone) then
+  begin
+    GridPanel1.Align := alTop;
+    GridPanel1.Anchors := [akLeft,akTop];
+  end;
 end;
 
 procedure TFrameOrderEdit.tmrReadyTimer(Sender: TObject);
@@ -133,6 +186,34 @@ begin
   ShippedDateWrapper := TDBDatePickerWrapper.Create(DateTimePicker2);
   ShippedDateWrapper.SetDBDatePickerControls(CheckBox3, DateTimePicker3);
   ShippedDateWrapper.ConnectToDataSource(DataSource1, 'ShippedDate');
+end;
+
+procedure TFrameOrderEdit.UpdateNavigationButtonsState;
+var
+  State: TDataSetState;
+begin
+  State := DataSource1.DataSet.State;
+  if State = dsBrowse then
+  begin
+    btnEdit.Enabled := True;
+    btnPost.Enabled := False;
+    btnCancel.Enabled := False;
+    btnRefresh.Enabled := True;
+  end
+  else if State in [dsEdit, dsInsert, dsSetKey] then
+  begin
+    btnEdit.Enabled := False;
+    btnPost.Enabled := True;
+    btnCancel.Enabled := True;
+    btnRefresh.Enabled := True;
+  end
+  else
+  begin
+    btnEdit.Enabled := False;
+    btnPost.Enabled := False;
+    btnCancel.Enabled := False;
+    btnRefresh.Enabled := False;
+  end;
 end;
 
 end.

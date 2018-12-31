@@ -4,6 +4,7 @@ object FrameOrderEdit: TFrameOrderEdit
   Width = 600
   Height = 340
   TabOrder = 0
+  OnResize = FrameResize
   object GridPanel1: TGridPanel
     Left = 59
     Top = 57
@@ -56,7 +57,6 @@ object FrameOrderEdit: TFrameOrderEdit
       Caption = 'GroupBox1'
       Padding.Top = 5
       TabOrder = 0
-      ExplicitHeight = 220
       object Label1: TLabel
         AlignWithMargins = True
         Left = 5
@@ -139,9 +139,6 @@ object FrameOrderEdit: TFrameOrderEdit
       Caption = 'GroupBox2'
       Padding.Top = 5
       TabOrder = 1
-      ExplicitLeft = 178
-      ExplicitTop = 0
-      ExplicitHeight = 382
       object DateTimePicker1: TDateTimePicker
         AlignWithMargins = True
         Left = 5
@@ -176,9 +173,6 @@ object FrameOrderEdit: TFrameOrderEdit
         Align = alTop
         Caption = 'Required date:'
         TabOrder = 2
-        ExplicitLeft = 24
-        ExplicitTop = 184
-        ExplicitWidth = 97
       end
       object DateTimePicker2: TDateTimePicker
         AlignWithMargins = True
@@ -191,9 +185,6 @@ object FrameOrderEdit: TFrameOrderEdit
         Date = 43458.000000000000000000
         Time = 43458.000000000000000000
         TabOrder = 3
-        ExplicitLeft = -6
-        ExplicitTop = 245
-        ExplicitWidth = 186
       end
       object CheckBox3: TCheckBox
         AlignWithMargins = True
@@ -206,9 +197,6 @@ object FrameOrderEdit: TFrameOrderEdit
         Align = alTop
         Caption = 'Shipped date:'
         TabOrder = 4
-        ExplicitLeft = 16
-        ExplicitTop = 272
-        ExplicitWidth = 97
       end
       object DateTimePicker3: TDateTimePicker
         AlignWithMargins = True
@@ -221,9 +209,6 @@ object FrameOrderEdit: TFrameOrderEdit
         Date = 43458.000000000000000000
         Time = 43458.000000000000000000
         TabOrder = 5
-        ExplicitLeft = 3
-        ExplicitTop = 312
-        ExplicitWidth = 186
       end
     end
     object GroupBox3: TGroupBox
@@ -236,7 +221,6 @@ object FrameOrderEdit: TFrameOrderEdit
       Caption = 'GroupBox3'
       Padding.Top = 5
       TabOrder = 2
-      ExplicitHeight = 220
       object Label7: TLabel
         AlignWithMargins = True
         Left = 5
@@ -271,35 +255,75 @@ object FrameOrderEdit: TFrameOrderEdit
       end
     end
   end
-  object GroupBox4: TGroupBox
+  object grbxCommands: TGroupBox
     AlignWithMargins = True
     Left = 3
     Top = 3
     Width = 594
     Height = 48
     Align = alTop
-    Caption = 'GroupBox4'
+    Caption = 'Order Editor Commands:'
     TabOrder = 1
     object btnClose: TButton
       AlignWithMargins = True
-      Left = 5
+      Left = 514
       Top = 18
       Width = 75
       Height = 25
-      Align = alLeft
-      Caption = 'btnClose'
-      TabOrder = 0
+      Align = alRight
+      Caption = 'Close'
+      TabOrder = 4
       OnClick = btnCloseClick
+      ExplicitLeft = 529
     end
-    object DBNavigator1: TDBNavigator
+    object btnEdit: TButton
       AlignWithMargins = True
-      Left = 86
+      Left = 5
       Top = 18
-      Width = 240
+      Width = 60
       Height = 25
-      DataSource = DataSource1
       Align = alLeft
+      Caption = 'Edit'
+      TabOrder = 0
+      OnClick = btnEditClick
+      ExplicitLeft = 91
+    end
+    object btnPost: TButton
+      AlignWithMargins = True
+      Left = 71
+      Top = 18
+      Width = 60
+      Height = 25
+      Align = alLeft
+      Caption = 'Post'
       TabOrder = 1
+      OnClick = btnPostClick
+      ExplicitLeft = 157
+      ExplicitTop = 20
+    end
+    object btnCancel: TButton
+      AlignWithMargins = True
+      Left = 137
+      Top = 18
+      Width = 60
+      Height = 25
+      Align = alLeft
+      Caption = 'Cancel'
+      TabOrder = 2
+      OnClick = btnCancelClick
+      ExplicitLeft = 223
+    end
+    object btnRefresh: TButton
+      AlignWithMargins = True
+      Left = 203
+      Top = 18
+      Width = 60
+      Height = 25
+      Align = alLeft
+      Caption = 'Refresh'
+      TabOrder = 3
+      OnClick = btnRefreshClick
+      ExplicitLeft = 289
     end
   end
   object DataSource1: TDataSource
