@@ -1,0 +1,43 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Messaging.EventBus;
+
+type
+  TForm1 = class(TForm)
+    GroupBox1: TGroupBox;
+    ListBox1: TListBox;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
+  private
+    procedure OnMessage(MessageID: Integer; const AMessagee: TEventMessage);
+  public
+  end;
+
+implementation
+
+{$R *.dfm}
+
+uses Global.MessagesID;
+
+procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  GetDefaultEventBus().UnregisterMethod(EB_BOARD_StartScroll, OnMessage);
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  GetDefaultEventBus().RegisterMethod(EB_BOARD_StartScroll, OnMessage);
+end;
+
+procedure TForm1.OnMessage(MessageID: Integer; const AMessagee: TEventMessage);
+begin
+  ListBox1.Items.Add(AMessagee.TagString);
+end;
+
+end.
