@@ -43,7 +43,7 @@ implementation
 
 {$R *.dfm}
 
-uses Messaging.EventBus, Global.MessagesID, Unit1;
+uses Messaging.EventBus, Global.MessagesID, Unit1, Unit2;
 
 
 procedure TFormMain.UpdateControlsEnable (Registered: boolean);
@@ -60,6 +60,7 @@ end;
 procedure TFormMain.btnShowSubscribersClick(Sender: TObject);
 var
 	frm1: TForm1;
+  frm2: TForm2;
 begin
   UpdateControlsEnable(true);
 	// ---
@@ -69,15 +70,11 @@ begin
 	frm1.Top := Top;
 	frm1.Show();
 	// ---
-  {
-	TForm2* frm2;
-	Application->CreateForm(__classid(TForm2), &frm2);
-	// TForm2* frm2 = new TForm2(this);
-	frm2->Visible = true;
-	frm2->Left = frm1->Left + frm1->Width;
-	frm2->Top = this->Top;
-	frm2->Show();
-  }
+	frm2 := TForm2.Create(Application);
+	frm2.Visible := true;
+	frm2.Left := frm1.Left + frm1.Width;
+	frm2.Top := Top;
+	frm2.Show();
 end;
 
 procedure TFormMain.btnPostMessage1Click(Sender: TObject);
@@ -90,22 +87,19 @@ end;
 
 
 procedure TFormMain.chkFastAnimataionClick(Sender: TObject);
+var
+  AMessage: TEventMessage;
 begin
-	{
-  std::unique_ptr<TEventMessage>AMessage(new TEventMessage);
-	AMessage->TagBoolean = chkFastAnimataion->Checked;
-	GetDefaultEventBus()->PostMessage(EB_BOARD_ChangeSpeed, AMessage.get());
-  }
+  AMessage.TagBoolean := chkFastAnimataion.Checked;
+  GetDefaultEventBus().PostMessage(EB_BOARD_ChangeSpeed, AMessage);
 end;
 
 procedure TFormMain.ColorBox1Change(Sender: TObject);
+var
+  AMessage: TEventMessage;
 begin
-  {
-	TColor col = ColorBox1->Selected;
-	std::unique_ptr<TEventMessage>AMessage(new TEventMessage);
-	AMessage->TagInt = col;
-	GetDefaultEventBus()->PostMessage(EB_BOARD_ChangeColor, AMessage.get());
-  }
+  AMessage.TagInt := ColorBox1.Selected;
+  GetDefaultEventBus().PostMessage(EB_BOARD_ChangeColor, AMessage);
 end;
 
 procedure TFormMain.btnPauseClick(Sender: TObject);
