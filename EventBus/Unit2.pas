@@ -90,26 +90,21 @@ begin
 end;
 
 procedure TForm2.FormShow(Sender: TObject);
-var
-  bus: TEventBus;
 begin
-  bus := GetDefaultEventBus();
-  bus.RegisterMethod(EB_BOARD_StartScroll, self.EvenBusOnStartScroll);
-  bus.RegisterMethod(EB_BOARD_ChangeSpeed, self.EvenBusOnChangeSpeed);
-  bus.RegisterMethod(EB_BOARD_ChangeColor, self.EvenBusOnChangeColor);
-  bus.RegisterMethod(EB_BOARD_Animate, self.EvenBusOnAnimate);
-  bus.RegisterMethod(EB_BOARD_Pause, self.EvenBusOnPause);
+  TEventBus._Register(EB_BOARD_StartScroll, self.EvenBusOnStartScroll);
+  TEventBus._Register(EB_BOARD_ChangeSpeed, self.EvenBusOnChangeSpeed);
+  TEventBus._Register(EB_BOARD_ChangeColor, self.EvenBusOnChangeColor);
+  TEventBus._Register(EB_BOARD_Animate, self.EvenBusOnAnimate);
+  TEventBus._Register(EB_BOARD_Pause, self.EvenBusOnPause);
 end;
 
 procedure TForm2.FormClose(Sender: TObject; var Action: TCloseAction);
-var
-  bus: TEventBus;
 begin
-  bus := GetDefaultEventBus();
-  bus.UnregisterMethod(EB_BOARD_ChangeSpeed, self.EvenBusOnChangeSpeed);
-  bus.UnregisterMethod(EB_BOARD_ChangeColor, self.EvenBusOnChangeColor);
-  bus.UnregisterMethod(EB_BOARD_Animate, self.EvenBusOnAnimate);
-  bus.UnregisterMethod(EB_BOARD_Pause, self.EvenBusOnPause);
+  TEventBus._Unregister(EB_BOARD_StartScroll, self.EvenBusOnStartScroll);
+  TEventBus._Unregister(EB_BOARD_ChangeSpeed, self.EvenBusOnChangeSpeed);
+  TEventBus._Unregister(EB_BOARD_ChangeColor, self.EvenBusOnChangeColor);
+  TEventBus._Unregister(EB_BOARD_Animate, self.EvenBusOnAnimate);
+  TEventBus._Unregister(EB_BOARD_Pause, self.EvenBusOnPause);
 end;
 
 procedure TForm2.tmrAnimateTimer(Sender: TObject);

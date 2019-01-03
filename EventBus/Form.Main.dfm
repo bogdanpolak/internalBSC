@@ -11,6 +11,7 @@ object FormMain: TFormMain
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object GroupBox1: TGroupBox
@@ -23,6 +24,8 @@ object FormMain: TFormMain
     Caption = 'GroupBox1'
     Padding.Top = 10
     TabOrder = 0
+    ExplicitLeft = -2
+    ExplicitTop = -2
     object Bevel1: TBevel
       AlignWithMargins = True
       Left = 5
@@ -105,6 +108,7 @@ object FormMain: TFormMain
       Align = alTop
       TabOrder = 1
       Text = 'Wiadomo'#347#263' z okna g'#322#243'wnego'
+      OnDblClick = Edit1DblClick
     end
     object chkFastAnimataion: TCheckBox
       AlignWithMargins = True
@@ -126,7 +130,7 @@ object FormMain: TFormMain
       Height = 25
       Align = alBottom
       Caption = 'Exit'
-      TabOrder = 4
+      TabOrder = 6
       OnClick = btnExitClick
     end
     object ColorBox1: TColorBox
@@ -138,7 +142,7 @@ object FormMain: TFormMain
       Margins.Left = 15
       Margins.Right = 15
       Align = alTop
-      TabOrder = 5
+      TabOrder = 4
       OnChange = ColorBox1Change
     end
     object GridPanel1: TGridPanel
@@ -171,7 +175,7 @@ object FormMain: TFormMain
           Value = 100.000000000000000000
         end>
       ShowCaption = False
-      TabOrder = 6
+      TabOrder = 5
       object btnPause: TButton
         AlignWithMargins = True
         Left = 4
@@ -195,5 +199,11 @@ object FormMain: TFormMain
         OnClick = btnAnimateClick
       end
     end
+  end
+  object tmrReady: TTimer
+    Interval = 1
+    OnTimer = tmrReadyTimer
+    Left = 16
+    Top = 256
   end
 end

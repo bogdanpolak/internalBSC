@@ -3,8 +3,9 @@ unit Form.Main;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
+  Vcl.ExtCtrls, Vcl.StdCtrls;
 
 type
   TFormMain = class(TForm)
@@ -22,6 +23,8 @@ type
     GridPanel1: TGridPanel;
     btnPause: TButton;
     btnAnimate: TButton;
+    tmrReady: TTimer;
+    procedure FormCreate(Sender: TObject);
     procedure btnAnimateClick(Sender: TObject);
     procedure btnExitClick(Sender: TObject);
     procedure btnPauseClick(Sender: TObject);
@@ -29,8 +32,10 @@ type
     procedure btnShowSubscribersClick(Sender: TObject);
     procedure chkFastAnimataionClick(Sender: TObject);
     procedure ColorBox1Change(Sender: TObject);
+    procedure Edit1DblClick(Sender: TObject);
+    procedure tmrReadyTimer(Sender: TObject);
   private
-    procedure UpdateControlsEnable(Registered: boolean);
+    procedure UpdateControlsActivity(IsEnable: boolean);
     { Private declarations }
   public
     { Public declarations }
@@ -45,36 +50,40 @@ implementation
 
 uses Messaging.EventBus, Global.MessagesID, Unit1, Unit2;
 
-
-procedure TFormMain.UpdateControlsEnable (Registered: boolean);
+procedure TFormMain.FormCreate(Sender: TObject);
 begin
-	btnShowSubscribers.Enabled := not Registered;
-	btnPostMessage1.Enabled := Registered;
-	Edit1.Enabled := Registered;
-	chkFastAnimataion.Enabled := Registered;
-	ColorBox1.Enabled := Registered;
-	btnPause.Enabled := Registered;
-	btnAnimate.Enabled := Registered;
+  ReportMemoryLeaksOnShutdown := True;
+end;
+
+procedure TFormMain.UpdateControlsActivity(IsEnable: boolean);
+begin
+  btnShowSubscribers.Enabled := not IsEnable;
+  btnPostMessage1.Enabled := IsEnable;
+  Edit1.Enabled := IsEnable;
+  chkFastAnimataion.Enabled := IsEnable;
+  ColorBox1.Enabled := IsEnable;
+  btnPause.Enabled := IsEnable;
+  btnAnimate.Enabled := IsEnable;
 end;
 
 procedure TFormMain.btnShowSubscribersClick(Sender: TObject);
 var
-	frm1: TForm1;
+  frm1: TForm1;
   frm2: TForm2;
 begin
-  UpdateControlsEnable(true);
-	// ---
-	frm1 := TForm1.Create(Application);
-	frm1.Visible := true;
-	frm1.Left := Left + Width;
-	frm1.Top := Top;
-	frm1.Show();
-	// ---
-	frm2 := TForm2.Create(Application);
-	frm2.Visible := true;
-	frm2.Left := frm1.Left + frm1.Width;
-	frm2.Top := Top;
-	frm2.Show();
+  UpdateControlsActivity(True);
+  // ---
+  frm1 := TForm1.Create(Application);
+  frm1.Visible := True;
+  frm1.Left := Left + Width;
+  frm1.Top := Top;
+  frm1.Show();
+  // ---
+  frm2 := TForm2.Create(Application);
+  frm2.Visible := True;
+  frm2.Left := frm1.Left + frm1.Width;
+  frm2.Top := Top;
+  frm2.Show();
 end;
 
 procedure TFormMain.btnPostMessage1Click(Sender: TObject);
@@ -82,16 +91,15 @@ var
   AMessage: TEventMessage;
 begin
   AMessage.TagString := Edit1.Text;
-  GetDefaultEventBus().PostMessage(EB_BOARD_StartScroll, AMessage);
+  TEventBus._Post(EB_BOARD_StartScroll, AMessage);
 end;
-
 
 procedure TFormMain.chkFastAnimataionClick(Sender: TObject);
 var
   AMessage: TEventMessage;
 begin
   AMessage.TagBoolean := chkFastAnimataion.Checked;
-  GetDefaultEventBus().PostMessage(EB_BOARD_ChangeSpeed, AMessage);
+  TEventBus._Post(EB_BOARD_ChangeSpeed, AMessage);
 end;
 
 procedure TFormMain.ColorBox1Change(Sender: TObject);
@@ -99,22 +107,33 @@ var
   AMessage: TEventMessage;
 begin
   AMessage.TagInt := ColorBox1.Selected;
-  GetDefaultEventBus().PostMessage(EB_BOARD_ChangeColor, AMessage);
+  TEventBus._Post(EB_BOARD_ChangeColor, AMessage);
 end;
 
 procedure TFormMain.btnPauseClick(Sender: TObject);
 begin
-	GetDefaultEventBus().PostPing(EB_BOARD_Pause);
+  TEventBus._Ping(EB_BOARD_Pause);
 end;
 
 procedure TFormMain.btnAnimateClick(Sender: TObject);
 begin
-	GetDefaultEventBus().PostPing(EB_BOARD_Animate);
+  TEventBus._Ping(EB_BOARD_Animate);
 end;
 
 procedure TFormMain.btnExitClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TFormMain.Edit1DblClick(Sender: TObject);
+begin
+  Edit1.SelectAll;
+end;
+
+procedure TFormMain.tmrReadyTimer(Sender: TObject);
+begin
+  tmrReady.Enabled := False;
+  Self.UpdateControlsActivity(False);
 end;
 
 end.

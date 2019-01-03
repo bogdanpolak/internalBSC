@@ -27,17 +27,18 @@ uses Global.MessagesID;
 
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  GetDefaultEventBus().UnregisterMethod(EB_BOARD_StartScroll, OnMessage);
+  TEventBus._Unregister(EB_BOARD_StartScroll, OnMessage);
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  GetDefaultEventBus().RegisterMethod(EB_BOARD_StartScroll, OnMessage);
+  TEventBus._Register(EB_BOARD_StartScroll, OnMessage);
 end;
 
 procedure TForm1.OnMessage(MessageID: Integer; const AMessagee: TEventMessage);
 begin
-  ListBox1.Items.Add(AMessagee.TagString);
+
+  ListBox1.Items.Add('['+TimeToStr( Now )+'] '+AMessagee.TagString);
 end;
 
 end.
