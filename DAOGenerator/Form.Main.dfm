@@ -23,9 +23,6 @@ object FormMain: TFormMain
     Align = alTop
     Caption = 'Generator Commands'
     TabOrder = 0
-    ExplicitLeft = 248
-    ExplicitTop = 168
-    ExplicitWidth = 185
     object btnConnectWithDB: TButton
       AlignWithMargins = True
       Left = 5
@@ -48,8 +45,6 @@ object FormMain: TFormMain
     TabOrder = 1
     object tshDataSet: TTabSheet
       Caption = 'SQL Statement'
-      ExplicitLeft = 0
-      ExplicitWidth = 474
       object Label2: TLabel
         AlignWithMargins = True
         Left = 3
@@ -87,9 +82,6 @@ object FormMain: TFormMain
         ParentFont = False
         ScrollBars = ssVertical
         TabOrder = 0
-        ExplicitLeft = 144
-        ExplicitTop = 112
-        ExplicitWidth = 185
       end
       object GridPanel1: TGridPanel
         Left = 0
@@ -100,13 +92,13 @@ object FormMain: TFormMain
         Caption = ' '
         ColumnCollection = <
           item
-            Value = 33.333333333333340000
+            Value = 33.333333333333330000
           end
           item
-            Value = 33.333333333333340000
+            Value = 33.333333333333330000
           end
           item
-            Value = 33.333333333333340000
+            Value = 33.333333333333330000
           end>
         ControlCollection = <
           item
@@ -133,10 +125,6 @@ object FormMain: TFormMain
           Action = actGenerateDAO
           Align = alClient
           TabOrder = 0
-          ExplicitLeft = 56
-          ExplicitTop = 8
-          ExplicitWidth = 75
-          ExplicitHeight = 25
         end
         object Label1: TLabel
           AlignWithMargins = True
@@ -176,8 +164,6 @@ object FormMain: TFormMain
     object tshDaoCode: TTabSheet
       Caption = 'Generated DAO Code'
       ImageIndex = 1
-      ExplicitWidth = 281
-      ExplicitHeight = 165
       object mmDaoCode: TMemo
         AlignWithMargins = True
         Left = 3
@@ -201,7 +187,7 @@ object FormMain: TFormMain
   object FDConnection1: TFDConnection
     Params.Strings = (
       'ConnectionDef=IB_Demo')
-    Connected = True
+    LoginPrompt = False
     Left = 48
     Top = 64
   end
