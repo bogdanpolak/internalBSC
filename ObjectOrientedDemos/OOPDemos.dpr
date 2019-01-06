@@ -8,7 +8,8 @@ uses
   System.SysUtils,
   Main.VirtualMetods in 'Main.VirtualMetods.pas',
   Main.GenericCollection in 'Main.GenericCollection.pas',
-  DataModule.CenericCollection in 'DataModule.CenericCollection.pas' {DataModule1: TDataModule};
+  DataModule.CenericCollection in 'DataModule.CenericCollection.pas' {DataModule1: TDataModule},
+  Helper.TDataSet in 'Helper.TDataSet.pas';
 
 begin
   try
