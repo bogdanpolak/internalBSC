@@ -71,9 +71,11 @@ var
   Orders: TOrderList;
   OrdersForShipment: TList<TOrder>;
   Order: TOrder;
+  ResverShippedDateComparer: IComparer<TOrder>;
 begin
   dm := TDataModule1.Create(nil);
   Orders := TOrderList.Create();
+  dm.dsOrders.FetchAll;
   dm.dsOrders.WhileNotEof(
     procedure()
     var
@@ -90,15 +92,24 @@ begin
       Orders.Add(Order);
     end);
   OrdersForShipment := Orders.GetOrdersExpectedToShip;
-  Writeln ('Total orders: ',Orders.Count);
-  Writeln ('Orders for shippment: ',OrdersForShipment.Count);
-  for Order in OrdersForShipment do
-  begin
-    Writeln ('  ',Order.OrderID, ' ', Order.CustomerID, ' ',
-      DateToStr(Order.OrderDate), ' ', DateToStr(Order.RequiredDate));
-  end;
+  Writeln('Total orders: ', Orders.Count);
+  Writeln('Orders for shippment: ', OrdersForShipment.Count);
 
-  
+  // -----------------------------------------------------------------
+  // Sortowanie kolekcji zamówieñ
+  // -----------------------------------------------------------------
+  ResverShippedDateComparer := TComparer<TOrder>.Construct(
+    function(const Left, Right: TOrder): Integer
+    begin
+      Result := Round(Int(Right.RequiredDate) - Int(Left.RequiredDate));
+    end);
+  OrdersForShipment.Sort(ResverShippedDateComparer);
+  // -----------------------------------------------------------------
+
+  for Order in OrdersForShipment do
+    Writeln('  ', Order.OrderID, ' ', Order.CustomerID, ' ',
+      DateToStr(Order.OrderDate), ' ', DateToStr(Order.RequiredDate));
+
   Orders.Free;
   OrdersForShipment.Free;
   dm.Free;

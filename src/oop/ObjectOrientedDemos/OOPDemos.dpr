@@ -10,15 +10,18 @@ uses
   Main.GenericCollection in 'Main.GenericCollection.pas',
   DataModule.CenericCollection in 'DataModule.CenericCollection.pas' {DataModule1: TDataModule},
   Helper.TDataSet in 'Helper.TDataSet.pas',
-  Main.DependencyInjectionContainer in 'Main.DependencyInjectionContainer.pas';
+  Main.DependencyInjectionContainer in 'Main.DependencyInjectionContainer.pas',
+  Main.ClassMembers in 'Main.ClassMembers.pas';
 
 begin
   try
     // 1 --------------------------------------
     // Execute_VirtualMetodsDemo;
     // 2 --------------------------------------
-    // Execute_GenericCollectionDemo;
+    // Execute_ClassMembersDemo;
     // 3 --------------------------------------
+    // Execute_GenericCollectionDemo;
+    // 4 --------------------------------------
     Execute_DependencyInjectionContainerDemo;
     // ----------------------------------------
     Write('+--> Press Enter to close ...');
