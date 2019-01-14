@@ -82,13 +82,7 @@ object Form1: TForm1
     Top = 139
   end
   object DataSource1: TDataSource
-    Left = 312
-    Top = 176
-  end
-  object Timer1: TTimer
-    Interval = 50
-    OnTimer = Timer1Timer
-    Left = 320
-    Top = 80
+    Left = 224
+    Top = 200
   end
 end

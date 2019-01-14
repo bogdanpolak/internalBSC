@@ -13,10 +13,11 @@ uses
   Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.DBCtrls, Vcl.Grids, Vcl.DBGrids,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Mask,
   // -----
-  Action.DataSet;
+  Action.DataSet,
+  VclPlus.FormPlusReady;
 
 type
-  TForm1 = class(TForm)
+  TForm1 = class(TFormWithReadyEvent)
     FDConnection1: TFDConnection;
     fdqCustomers: TFDQuery;
     DataSource1: TDataSource;
@@ -25,12 +26,13 @@ type
     DBEdit1: TDBEdit;
     GroupBox1: TGroupBox;
     lblHandlesTarget: TLabel;
-    Timer1: TTimer;
     DBGrid1: TDBGrid;
     procedure FormCreate(Sender: TObject);
-    procedure Timer1Timer(Sender: TObject);
+  protected
+    // procedure FormReady; override;
   private
     actDataSetFirst: TDataSetFirstAction;
+    procedure FormReady(Sender: TObject);
   public
     { Public declarations }
   end;
@@ -42,9 +44,12 @@ implementation
 
 {$R *.dfm}
 
+uses VclPlus.Timer;
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TForm1.FormReady(Sender: TObject);
 begin
+  FDConnection1.Open();
+
   DBGrid1.DataSource := DataSource1;
   DBEdit1.DataSource := DataSource1;
   DBEdit1.DataField := 'CompanyName';
@@ -52,15 +57,21 @@ begin
   DataSource1.DataSet := fdqCustomers;
   fdqCustomers.Open();
 
-  actDataSetFirst := TDataSetFirstAction.Create(Button1);
   actDataSetFirst.DataSource := DataSource1;
   actDataSetFirst.Caption := 'First';
   Button1.Action := actDataSetFirst;
+
+  TEvenOnTimer.SetupRepeat(Self, 1000,
+    procedure
+    begin
+      lblHandlesTarget.Caption := actDataSetFirst.FCountHandlesTarget.ToString;
+    end);
 end;
 
-procedure TForm1.Timer1Timer(Sender: TObject);
+procedure TForm1.FormCreate(Sender: TObject);
 begin
-  lblHandlesTarget.Caption := actDataSetFirst.FCountHandlesTarget.ToString;
+  actDataSetFirst := TDataSetFirstAction.Create(Button1);
+  OnFormReady := FormReady;
 end;
 
 end.
