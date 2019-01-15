@@ -1,0 +1,72 @@
+object FormMain: TFormMain
+  Left = 0
+  Top = 0
+  Caption = 'FormMain'
+  ClientHeight = 336
+  ClientWidth = 239
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object GroupBox1: TGroupBox
+    AlignWithMargins = True
+    Left = 3
+    Top = 3
+    Width = 233
+    Height = 182
+    Align = alTop
+    Caption = 'GroupBox1'
+    TabOrder = 0
+    object Label1: TLabel
+      AlignWithMargins = True
+      Left = 5
+      Top = 18
+      Width = 223
+      Height = 13
+      Align = alTop
+      Caption = 'Label1'
+      ExplicitWidth = 31
+    end
+    object Bevel1: TBevel
+      AlignWithMargins = True
+      Left = 5
+      Top = 64
+      Width = 223
+      Height = 3
+      Align = alTop
+    end
+    object Edit1: TEdit
+      AlignWithMargins = True
+      Left = 5
+      Top = 37
+      Width = 223
+      Height = 21
+      Align = alTop
+      TabOrder = 0
+      Text = 'Edit1'
+      ExplicitLeft = 32
+      ExplicitTop = 56
+      ExplicitWidth = 121
+    end
+  end
+  object btnShowForm2: TButton
+    AlignWithMargins = True
+    Left = 3
+    Top = 191
+    Width = 233
+    Height = 25
+    Align = alTop
+    Caption = 'btnShowForm2'
+    TabOrder = 1
+    OnClick = btnShowForm2Click
+    ExplicitLeft = 56
+    ExplicitTop = 56
+    ExplicitWidth = 75
+  end
+end
