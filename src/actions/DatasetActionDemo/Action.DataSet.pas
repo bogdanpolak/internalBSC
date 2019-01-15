@@ -11,10 +11,10 @@ type
   TDataSetFirstAction = class(TAction)
   private
     FDataSource: TDataSource;
-    procedure SetDataSource(Value: TDataSource);
-    function GetDataSetFromActionTarget(Target: TObject): TDataSet;
+    procedure SetDataSource(DataSource: TDataSource);
   protected
-    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
+    procedure Notification(AComponent: TComponent;
+      Operation: TOperation); override;
   public
     FCountHandlesTarget: integer;
     function HandlesTarget(Target: TObject): Boolean; override;
@@ -31,26 +31,23 @@ implementation
 
 procedure TDataSetFirstAction.ExecuteTarget(Target: TObject);
 begin
-  // inherited;
-  GetDataSetFromActionTarget(Target).First;
+  FDataSource.DataSet.First;
 end;
 
 procedure TDataSetFirstAction.UpdateTarget(Target: TObject);
-var
-  LDataSet: TDataSet;
 begin
-  // inherited;
-  LDataSet := GetDataSetFromActionTarget(Target);
-  Enabled := LDataSet.Active and not LDataSet.Bof;
+  Enabled := (FDataSource <> nil) and FDataSource.DataSet.Active and
+    not FDataSource.DataSet.Bof;
 end;
 
-// *** ----------- from: Vcl.DBActns.TDataSetAction
+// TDataSource specyfic code
 
 function TDataSetFirstAction.HandlesTarget(Target: TObject): Boolean;
 var
   isAccepted: Boolean;
 begin
-  isAccepted := (Target = FDataSource) and (FDataSource.DataSet <> nil);
+  isAccepted := (FDataSource <> nil) and (Target = FDataSource) and
+    (FDataSource.DataSet <> nil);
   if isAccepted then
     FCountHandlesTarget := FCountHandlesTarget + 1;
   Result := isAccepted;
@@ -60,23 +57,19 @@ procedure TDataSetFirstAction.Notification(AComponent: TComponent;
   Operation: TOperation);
 begin
   inherited Notification(AComponent, Operation);
-  if (Operation = opRemove) and (AComponent = DataSource) then DataSource := nil;
+  if (Operation = opRemove) and (AComponent = DataSource) then
+    DataSource := nil;
 end;
 
-procedure TDataSetFirstAction.SetDataSource(Value: TDataSource);
+procedure TDataSetFirstAction.SetDataSource(DataSource: TDataSource);
 begin
-  if Value <> FDataSource then
+  if DataSource <> FDataSource then
   begin
-    FDataSource := Value;
-    if Value <> nil then
-      Value.FreeNotification(Self);
+    FDataSource := DataSource;
+    // TODO: Check this. Not sure why it's required
+    if DataSource <> nil then
+      DataSource.FreeNotification(Self);
   end;
 end;
-
-function TDataSetFirstAction.GetDataSetFromActionTarget(Target: TObject): TDataSet;
-begin
-  Result := (Target as TDataSource).DataSet;
-end;
-
 
 end.

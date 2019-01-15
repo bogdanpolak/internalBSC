@@ -1,4 +1,4 @@
-unit Form.Main;
+﻿unit Form.Main;
 
 interface
 
@@ -14,27 +14,29 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Mask,
   // -----
   Action.DataSet,
-  VclPlus.FormPlusReady;
+  VclPlus.FormPlusReady, Vcl.AppEvnts;
 
 type
   TForm1 = class(TFormWithReadyEvent)
     FDConnection1: TFDConnection;
     fdqCustomers: TFDQuery;
-    DataSource1: TDataSource;
     DBNavigator1: TDBNavigator;
-    Button1: TButton;
     DBEdit1: TDBEdit;
-    GroupBox1: TGroupBox;
-    lblHandlesTarget: TLabel;
     DBGrid1: TDBGrid;
+    tmrReady: TTimer;
+    Button1: TButton;
+    GroupBox1: TGroupBox;
+    btnDataSourceRemove: TButton;
+    btnDataSourceCreate: TButton;
+    btnBindAction: TButton;
+    procedure btnBindActionClick(Sender: TObject);
+    procedure btnDataSourceCreateClick(Sender: TObject);
+    procedure btnDataSourceRemoveClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-  protected
-    // procedure FormReady; override;
+    procedure tmrReadyTimer(Sender: TObject);
   private
     actDataSetFirst: TDataSetFirstAction;
-    procedure FormReady(Sender: TObject);
-  public
-    { Public declarations }
+    procedure BindDBControlsToDataSet (DataSet: TDataSet);
   end;
 
 var
@@ -46,32 +48,54 @@ implementation
 
 uses VclPlus.Timer;
 
-procedure TForm1.FormReady(Sender: TObject);
-begin
-  FDConnection1.Open();
-
-  DBGrid1.DataSource := DataSource1;
-  DBEdit1.DataSource := DataSource1;
-  DBEdit1.DataField := 'CompanyName';
-  DBNavigator1.DataSource := DataSource1;
-  DataSource1.DataSet := fdqCustomers;
-  fdqCustomers.Open();
-
-  actDataSetFirst.DataSource := DataSource1;
-  actDataSetFirst.Caption := 'First';
-  Button1.Action := actDataSetFirst;
-
-  TEvenOnTimer.SetupRepeat(Self, 1000,
-    procedure
-    begin
-      lblHandlesTarget.Caption := actDataSetFirst.FCountHandlesTarget.ToString;
-    end);
-end;
-
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   actDataSetFirst := TDataSetFirstAction.Create(Button1);
-  OnFormReady := FormReady;
+  actDataSetFirst.Caption := '⏪ First';
+  Button1.Action := actDataSetFirst;
+end;
+
+procedure TForm1.tmrReadyTimer(Sender: TObject);
+begin
+  tmrReady.Enabled := False;
+
+  FDConnection1.Open();
+  fdqCustomers.Open();
+  BindDBControlsToDataSet(fdqCustomers);
+
+  actDataSetFirst.DataSource := DBNavigator1.DataSource;
+end;
+
+procedure TForm1.BindDBControlsToDataSet (DataSet: TDataSet);
+begin
+  DBGrid1.DataSource := TDataSource.Create(Self);
+  DBEdit1.DataSource := DBGrid1.DataSource;
+  DBEdit1.DataField := 'CompanyName';
+  DBNavigator1.DataSource := DBGrid1.DataSource;
+  DBGrid1.DataSource.DataSet := DataSet;
+end;
+
+procedure TForm1.btnBindActionClick(Sender: TObject);
+begin
+  if DBGrid1.DataSource <> nil then
+    actDataSetFirst.DataSource := DBGrid1.DataSource;
+end;
+
+procedure TForm1.btnDataSourceCreateClick(Sender: TObject);
+begin
+  if DBGrid1.DataSource = nil then
+    BindDBControlsToDataSet(fdqCustomers);
+end;
+
+procedure TForm1.btnDataSourceRemoveClick(Sender: TObject);
+var
+  aDataSource: TDataSource;
+begin
+  if DBGrid1.DataSource <> nil then
+  begin
+    aDataSource := DBGrid1.DataSource;
+    aDataSource.Free;
+  end;
 end;
 
 end.

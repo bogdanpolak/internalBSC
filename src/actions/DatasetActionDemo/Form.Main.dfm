@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 336
-  ClientWidth = 635
+  ClientHeight = 404
+  ClientWidth = 545
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,77 +12,114 @@ object Form1: TForm1
   Font.Style = []
   OldCreateOrder = False
   OnCreate = FormCreate
+  DesignSize = (
+    545
+    404)
   PixelsPerInch = 96
   TextHeight = 13
   object DBNavigator1: TDBNavigator
-    Left = 8
-    Top = 40
+    Left = 79
+    Top = 88
     Width = 240
     Height = 25
-    TabOrder = 0
-  end
-  object Button1: TButton
-    Left = 8
-    Top = 9
-    Width = 75
-    Height = 25
-    Caption = 'Button1'
     TabOrder = 1
   end
   object DBEdit1: TDBEdit
     Left = 8
-    Top = 71
-    Width = 121
+    Top = 119
+    Width = 240
     Height = 21
     TabOrder = 2
   end
-  object GroupBox1: TGroupBox
-    Left = 270
-    Top = 8
-    Width = 171
-    Height = 65
-    Caption = 'Number of HandlesTarget calls:'
-    TabOrder = 3
-    object lblHandlesTarget: TLabel
-      AlignWithMargins = True
-      Left = 5
-      Top = 18
-      Width = 161
-      Height = 13
-      Align = alTop
-      Alignment = taCenter
-      Caption = 'lblHandlesTarget'
-      ExplicitWidth = 80
-    end
-  end
   object DBGrid1: TDBGrid
     Left = 8
-    Top = 98
-    Width = 619
-    Height = 230
-    TabOrder = 4
+    Top = 146
+    Width = 529
+    Height = 250
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    TabOrder = 3
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
   end
+  object Button1: TButton
+    Left = 8
+    Top = 88
+    Width = 65
+    Height = 25
+    Caption = 'Button1'
+    TabOrder = 0
+  end
+  object GroupBox1: TGroupBox
+    Left = 352
+    Top = 8
+    Width = 185
+    Height = 132
+    Caption = 'GroupBox1'
+    TabOrder = 4
+    object btnDataSourceRemove: TButton
+      AlignWithMargins = True
+      Left = 5
+      Top = 18
+      Width = 175
+      Height = 25
+      Align = alTop
+      Caption = 'btnDataSourceRemove'
+      TabOrder = 0
+      OnClick = btnDataSourceRemoveClick
+      ExplicitLeft = -55
+      ExplicitTop = 8
+      ExplicitWidth = 240
+    end
+    object btnDataSourceCreate: TButton
+      AlignWithMargins = True
+      Left = 5
+      Top = 49
+      Width = 175
+      Height = 25
+      Align = alTop
+      Caption = 'btnDataSourceCreate'
+      TabOrder = 1
+      OnClick = btnDataSourceCreateClick
+      ExplicitLeft = 56
+      ExplicitTop = 32
+      ExplicitWidth = 75
+    end
+    object btnBindAction: TButton
+      AlignWithMargins = True
+      Left = 5
+      Top = 80
+      Width = 175
+      Height = 25
+      Align = alTop
+      Caption = 'btnBindAction'
+      TabOrder = 2
+      OnClick = btnBindActionClick
+      ExplicitLeft = 48
+      ExplicitTop = 64
+      ExplicitWidth = 75
+    end
+  end
   object FDConnection1: TFDConnection
     Params.Strings = (
       'ConnectionDef=SQLite_Demo')
     LoginPrompt = False
-    Left = 223
-    Top = 91
+    Left = 88
+    Top = 8
   end
   object fdqCustomers: TFDQuery
     Connection = FDConnection1
     SQL.Strings = (
       'SELECT * FROM Customers')
-    Left = 223
-    Top = 139
+    Left = 168
+    Top = 8
   end
-  object DataSource1: TDataSource
-    Left = 224
-    Top = 200
+  object tmrReady: TTimer
+    Interval = 1
+    OnTimer = tmrReadyTimer
+    Left = 16
+    Top = 8
   end
 end
