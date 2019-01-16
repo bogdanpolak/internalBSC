@@ -69,9 +69,6 @@ object Form1: TForm1
       Caption = 'btnDataSourceRemove'
       TabOrder = 0
       OnClick = btnDataSourceRemoveClick
-      ExplicitLeft = -55
-      ExplicitTop = 8
-      ExplicitWidth = 240
     end
     object btnDataSourceCreate: TButton
       AlignWithMargins = True
@@ -83,9 +80,6 @@ object Form1: TForm1
       Caption = 'btnDataSourceCreate'
       TabOrder = 1
       OnClick = btnDataSourceCreateClick
-      ExplicitLeft = 56
-      ExplicitTop = 32
-      ExplicitWidth = 75
     end
     object btnBindAction: TButton
       AlignWithMargins = True
@@ -97,9 +91,6 @@ object Form1: TForm1
       Caption = 'btnBindAction'
       TabOrder = 2
       OnClick = btnBindActionClick
-      ExplicitLeft = 48
-      ExplicitTop = 64
-      ExplicitWidth = 75
     end
   end
   object FDConnection1: TFDConnection

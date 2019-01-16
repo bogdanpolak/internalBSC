@@ -14,10 +14,10 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Mask,
   // -----
   Action.DataSet,
-  VclPlus.FormPlusReady, Vcl.AppEvnts;
+  Vcl.AppEvnts;
 
 type
-  TForm1 = class(TFormWithReadyEvent)
+  TForm1 = class(TForm)
     FDConnection1: TFDConnection;
     fdqCustomers: TFDQuery;
     DBNavigator1: TDBNavigator;
@@ -45,8 +45,6 @@ var
 implementation
 
 {$R *.dfm}
-
-uses VclPlus.Timer;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin

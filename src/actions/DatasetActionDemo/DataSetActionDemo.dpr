@@ -1,4 +1,4 @@
-program TDataSetActionDemo;
+program DataSetActionDemo;
 
 uses
   Vcl.Forms,
