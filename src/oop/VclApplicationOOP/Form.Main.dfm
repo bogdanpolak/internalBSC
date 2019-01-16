@@ -2,8 +2,8 @@ object FormMain: TFormMain
   Left = 0
   Top = 0
   Caption = 'FormMain'
-  ClientHeight = 336
-  ClientWidth = 239
+  ClientHeight = 372
+  ClientWidth = 233
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,55 +18,88 @@ object FormMain: TFormMain
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 233
-    Height = 182
+    Width = 227
+    Height = 144
     Align = alTop
-    Caption = 'GroupBox1'
+    Caption = 'VCL+ TimerEvents Demo'
     TabOrder = 0
     object Label1: TLabel
       AlignWithMargins = True
       Left = 5
       Top = 18
-      Width = 223
-      Height = 13
+      Width = 217
+      Height = 26
       Align = alTop
-      Caption = 'Label1'
-      ExplicitWidth = 31
+      Caption = 
+        'Review the OnCreate event to get the code for TEventOnFirstShow ' +
+        'and  TEvenOnTimer'
+      WordWrap = True
+      ExplicitWidth = 215
     end
     object Bevel1: TBevel
       AlignWithMargins = True
       Left = 5
-      Top = 64
-      Width = 223
+      Top = 77
+      Width = 217
       Height = 3
       Align = alTop
+      ExplicitTop = 64
+      ExplicitWidth = 223
     end
     object Edit1: TEdit
       AlignWithMargins = True
       Left = 5
-      Top = 37
-      Width = 223
+      Top = 50
+      Width = 217
       Height = 21
       Align = alTop
       TabOrder = 0
       Text = 'Edit1'
-      ExplicitLeft = 32
-      ExplicitTop = 56
-      ExplicitWidth = 121
+      ExplicitTop = 37
+      ExplicitWidth = 223
     end
   end
-  object btnShowForm2: TButton
+  object GroupBox2: TGroupBox
     AlignWithMargins = True
     Left = 3
-    Top = 191
-    Width = 233
-    Height = 25
+    Top = 153
+    Width = 227
+    Height = 64
     Align = alTop
-    Caption = 'btnShowForm2'
+    Caption = 'GroupBox2'
     TabOrder = 1
-    OnClick = btnShowForm2Click
-    ExplicitLeft = 56
-    ExplicitTop = 56
-    ExplicitWidth = 75
+    object btnShowForm2: TButton
+      AlignWithMargins = True
+      Left = 5
+      Top = 18
+      Width = 217
+      Height = 25
+      Align = alTop
+      Caption = 'btnShowForm2'
+      TabOrder = 0
+      OnClick = btnShowForm2Click
+    end
+  end
+  object GroupBox3: TGroupBox
+    AlignWithMargins = True
+    Left = 3
+    Top = 223
+    Width = 227
+    Height = 66
+    Align = alTop
+    Caption = 'GroupBox3'
+    TabOrder = 2
+    ExplicitTop = 231
+    object Button1: TButton
+      AlignWithMargins = True
+      Left = 5
+      Top = 18
+      Width = 217
+      Height = 25
+      Align = alTop
+      Caption = 'Button1'
+      TabOrder = 0
+      ExplicitTop = 49
+    end
   end
 end

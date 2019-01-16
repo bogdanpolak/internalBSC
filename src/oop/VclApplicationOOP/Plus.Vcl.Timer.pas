@@ -1,4 +1,4 @@
-unit VclPlus.Timer;
+unit Plus.Vcl.Timer;
 
 interface
 

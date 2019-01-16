@@ -5,15 +5,19 @@ interface
 uses
   Winapi.Windows, Winapi.Messages,
   System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
+  Vcl.ExtCtrls;
 
 type
   TFormMain = class(TForm)
     GroupBox1: TGroupBox;
     Label1: TLabel;
     Edit1: TEdit;
-    btnShowForm2: TButton;
     Bevel1: TBevel;
+    GroupBox2: TGroupBox;
+    Button1: TButton;
+    btnShowForm2: TButton;
+    GroupBox3: TGroupBox;
     procedure btnShowForm2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -30,12 +34,15 @@ implementation
 
 {$R *.dfm}
 
-uses VclPlus.Timer, Form.Form2;
+uses
+  Plus.Vcl.Timer,
+  Plus.System.AnonymousEvent,
+  Form.Form2;
 
 procedure TFormMain.FormCreate(Sender: TObject);
 begin
   Edit1.Text := '';
-  VclPlus.Timer.TEventOnFirstShow.Setup(Self,
+  TEventOnFirstShow.Setup(Self,
     procedure()
     begin
       btnShowForm2.SetFocus;
@@ -55,6 +62,12 @@ begin
             end);
         end);
     end);
+  Button1.OnClick := AnonymousMethodToTNotifyEvent(Button1,
+    procedure(Sender: TObject)
+    begin
+      (Sender as TButton).Caption := 'Clicked !';
+      Self.Caption := 'Changed form caption';
+    end);
 end;
 
 function TFormMain.AddLabel(aParent: TGroupBox; aCaption: string): TLabel;
@@ -68,13 +81,12 @@ begin
 end;
 
 procedure TFormMain.btnShowForm2Click(Sender: TObject);
-var
-  frm2: TForm2;
 begin
-  frm2 := TForm2.Create(Application);
-  frm2.Left := Self.Left + Self.Width + 1;
-  frm2.Top := Self.Top;
-  frm2.Show;
+  with TForm2.Create(Application) do begin
+    Left := Self.Left + Self.Width + 1;
+    Top := Self.Top;
+    Show;
+  end;
 end;
 
 end.
