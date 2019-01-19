@@ -23,9 +23,6 @@ object Form1: TForm1
     Align = alLeft
     Caption = 'GroupBox1'
     TabOrder = 0
-    ExplicitLeft = 8
-    ExplicitTop = 8
-    ExplicitHeight = 193
     object lblResults: TLabel
       AlignWithMargins = True
       Left = 5
@@ -46,9 +43,6 @@ object Form1: TForm1
       Align = alTop
       Caption = 'Button1'
       TabOrder = 0
-      ExplicitLeft = 96
-      ExplicitTop = 88
-      ExplicitWidth = 75
     end
     object Button2: TButton
       AlignWithMargins = True
@@ -59,9 +53,6 @@ object Form1: TForm1
       Align = alTop
       Caption = 'Button2'
       TabOrder = 1
-      ExplicitLeft = 96
-      ExplicitTop = 88
-      ExplicitWidth = 75
     end
   end
 end

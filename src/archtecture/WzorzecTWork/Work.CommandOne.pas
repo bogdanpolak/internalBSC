@@ -17,7 +17,7 @@ type
   public
     State: TCommandOneState;
     constructor Create(AOwner: TComponent); override;
-    function DoWork: boolean;  override;
+    function Execute: boolean;  override;
   end;
 
 implementation
@@ -35,7 +35,7 @@ begin
   FDisableTimer.OnTimer := DisableTimerEvent;
 end;
 
-function TCommandOneWork.DoWork: boolean;
+function TCommandOneWork.Execute: boolean;
 begin
   if State=csReady then
   begin
@@ -46,7 +46,7 @@ begin
   begin
     State := csWorking;
     self.Caption := 'Working for 3 seconds';
-    Self.SetActionEnable(False);
+    WorkAction.Enabled := False;
     FDisableTimer.Interval := 3000;
     FDisableTimer.Enabled := True;
   end;
@@ -58,7 +58,7 @@ begin
   FDisableTimer.Enabled := False;
   State := csReady;
   Caption := 'Click to preapre';
-  Self.SetActionEnable(True);
+  WorkAction.Enabled := True;
 end;
 
 end.

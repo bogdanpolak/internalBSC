@@ -7,6 +7,7 @@ uses
   System.SysUtils, System.Variants, System.Classes, System.Actions,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ActnList,
   Vcl.DBActns, Vcl.StdCtrls,
+  Plus.TWork,
   Work.CommandOne,
   Work.Async.NotShippedOrders;
 
@@ -18,8 +19,7 @@ type
     lblResults: TLabel;
     procedure FormCreate(Sender: TObject);
   private
-    Work1: TCommandOneWork;
-    Work2: TNotShippedOrdersWork;
+    Work2 :TNotShippedOrdersWork;
     procedure EventWork2Start(Sender: TObject);
     procedure EventWork2Done(Sender: TObject);
   public
@@ -50,14 +50,14 @@ procedure TForm1.FormCreate(Sender: TObject);
 begin
   // --------------------------------------------------------------------
   // --------------------------------------------------------------------
-  Work1 := TCommandOneWork.Create(Button1);
-  Button1.Action := Work1.Action;
+  Button1.Action := TWorkAction.Create(Button1)
+    .AddWork<TCommandOneWork>.WorkAction;
   // --------------------------------------------------------------------
   // --------------------------------------------------------------------
-  Work2 := TNotShippedOrdersWork.Create(Button2);
+  Work2 := TWorkAction.Create(Button1).AddWork<TNotShippedOrdersWork>;
   Work2.OnWorkStart := EventWork2Start;
   Work2.OnWorkDone := EventWork2Done;
-  Button2.Action := Work2.Action;
+  Button2.Action := Work2.WorkAction;
 end;
 
 end.

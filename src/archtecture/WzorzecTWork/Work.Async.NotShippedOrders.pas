@@ -24,7 +24,7 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    function DoWork: boolean; override;
+    function Execute: boolean; override;
     property InProgress: boolean read FInProgress;
     property NotShippedOrders: TOrders read FNotShippedOrders;
   end;
@@ -85,11 +85,11 @@ begin
   Result := StrToDate(DateStr, AFormatSettings);
 end;
 
-function TNotShippedOrdersWork.DoWork: boolean;
+function TNotShippedOrdersWork.Execute: boolean;
 var
   dtDay: TDateTime;
 begin
-  Action.Enabled := False;
+  WorkAction.Enabled := False;
   FInProgress := True;
   CallWorkStart;
   dtDay := ISODateStringToDate('1998-06-01');
@@ -121,7 +121,7 @@ begin
         begin
           Caption := 'Done';
           CallWorkDone;
-          Action.Enabled := True;
+          WorkAction.Enabled := True;
         end);
     end);
   FInProgress := False;
