@@ -20,12 +20,10 @@ type
   private
     FForEachOrderDelay: word;
     FNotShippedOrders: TOrders;
-    FInProgress: boolean;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    function Execute: boolean; override;
-    property InProgress: boolean read FInProgress;
+    procedure Execute; override;
     property NotShippedOrders: TOrders read FNotShippedOrders;
   end;
 
@@ -64,9 +62,7 @@ constructor TNotShippedOrdersWork.Create(AOwner: TComponent);
 begin
   inherited;
   FNotShippedOrders := TOrders.Create;
-  FInProgress := False;
-  FForEachOrderDelay := 60;
-  Caption := '[Work2] Start getting data';
+  FForEachOrderDelay := 150;
 end;
 
 destructor TNotShippedOrdersWork.Destroy;
@@ -85,13 +81,12 @@ begin
   Result := StrToDate(DateStr, AFormatSettings);
 end;
 
-function TNotShippedOrdersWork.Execute: boolean;
+procedure TNotShippedOrdersWork.Execute;
 var
   dtDay: TDateTime;
 begin
+  inherited;
   WorkAction.Enabled := False;
-  FInProgress := True;
-  CallWorkStart;
   dtDay := ISODateStringToDate('1998-06-01');
   TTask.Run(
     procedure()
@@ -120,12 +115,10 @@ begin
         procedure()
         begin
           Caption := 'Done';
-          CallWorkDone;
+          WorkDone;
           WorkAction.Enabled := True;
         end);
     end);
-  FInProgress := False;
-  Result := True;
 end;
 
 end.

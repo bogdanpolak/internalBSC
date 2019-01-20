@@ -4,61 +4,53 @@ interface
 
 uses
   System.Classes,
-  Vcl.ExtCtrls,
   Plus.TWork;
 
 type
-  TCommandOneState = (csReady,csPrepared,csWorking);
+  TCommandOneState = (csInitialState, csPrepared, csWorking);
+
 type
   TCommandOneWork = class(TWork)
   private
-    FDisableTimer: TTimer;
-    procedure DisableTimerEvent (Sender: TObject);
   public
     State: TCommandOneState;
     constructor Create(AOwner: TComponent); override;
-    function Execute: boolean;  override;
+    procedure Execute; override;
   end;
 
 implementation
 
-
 { TCommandOneWork }
+
+uses Plus.Vcl.Timer;
 
 constructor TCommandOneWork.Create(AOwner: TComponent);
 begin
   inherited;
-  State := csReady;
-  Caption := 'Click to preapre';
-  FDisableTimer := Vcl.ExtCtrls.TTimer.Create(Self);
-  FDisableTimer.Enabled := False;
-  FDisableTimer.OnTimer := DisableTimerEvent;
+  State := csInitialState;
 end;
 
-function TCommandOneWork.Execute: boolean;
+procedure TCommandOneWork.Execute;
 begin
-  if State=csReady then
+  inherited;
+  if State = csInitialState then
   begin
-    self.Caption := 'Command is prepared and ready';
+    Self.Caption := 'Command is prepared and ready';
     State := csPrepared;
   end
-  else if State=csPrepared then
+  else if State = csPrepared then
   begin
     State := csWorking;
-    self.Caption := 'Working for 3 seconds';
+    Self.Caption := 'Working for 3 seconds (or a little more)';
     WorkAction.Enabled := False;
-    FDisableTimer.Interval := 3000;
-    FDisableTimer.Enabled := True;
+    Plus.Vcl.Timer.TEvenOnTimer.SetupOnce(Self, 3000,
+      procedure
+      begin
+        State := csInitialState;
+        Caption := 'Click to preapre';
+        WorkAction.Enabled := True;
+      end);
   end;
-  Result := True;
-end;
-
-procedure TCommandOneWork.DisableTimerEvent(Sender: TObject);
-begin
-  FDisableTimer.Enabled := False;
-  State := csReady;
-  Caption := 'Click to preapre';
-  WorkAction.Enabled := True;
 end;
 
 end.

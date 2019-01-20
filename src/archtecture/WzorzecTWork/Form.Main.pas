@@ -19,9 +19,11 @@ type
     lblResults: TLabel;
     procedure FormCreate(Sender: TObject);
   private
-    Work2 :TNotShippedOrdersWork;
-    procedure EventWork2Start(Sender: TObject);
-    procedure EventWork2Done(Sender: TObject);
+    actCommandOne: TWorkAction;
+    actNotShipped: TWorkAction;
+    procedure EventWork2Started(Sender: TObject; Work:TWork);
+    procedure EventWork2Done(Sender: TObject; Work:TWork);
+    procedure Event_OnActionExecute(Sender: TObject);
   public
     { Public declarations }
   end;
@@ -33,31 +35,45 @@ implementation
 
 {$R *.dfm}
 
-procedure TForm1.EventWork2Done(Sender: TObject);
+procedure TForm1.EventWork2Done(Sender: TObject; Work:TWork);
 var
   WorkResult: string;
 begin
-  WorkResult := Work2.NotShippedOrders.ToString;
+  WorkResult := (Work as TNotShippedOrdersWork).NotShippedOrders.ToString;
   lblResults.Caption := 'Not Shipped orders: ' + sLineBreak + WorkResult;
 end;
 
-procedure TForm1.EventWork2Start(Sender: TObject);
+procedure TForm1.EventWork2Started(Sender: TObject; Work:TWork);
 begin
   lblResults.Caption := '...';
+end;
+
+procedure TForm1.Event_OnActionExecute(Sender: TObject);
+begin
+  actCommandOne.Caption := 'Shortcut';
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   // --------------------------------------------------------------------
   // --------------------------------------------------------------------
-  Button1.Action := TWorkAction.Create(Button1)
-    .AddWork<TCommandOneWork>.WorkAction;
+  actCommandOne := TWorkAction.Create(Self);
+  actCommandOne.Caption := 'Command One: Click to preapre';
+  // TODO: Provide proper code, this is not working:
+  // actCommandOne.ShortCut := Vcl.Menus.TextToShortCut('Ctrl+1');
+  // actCommandOne.ShortCut := System.Classes.scCtrl + System.UITypes.vk1;
+  actCommandOne.OnExecute := Event_OnActionExecute;
+  Button1.Action := actCommandOne;
+  // actCommandOne.CreateAndAddWork(TCommandOneWork);
+
   // --------------------------------------------------------------------
   // --------------------------------------------------------------------
-  Work2 := TWorkAction.Create(Button1).AddWork<TNotShippedOrdersWork>;
-  Work2.OnWorkStart := EventWork2Start;
-  Work2.OnWorkDone := EventWork2Done;
-  Button2.Action := Work2.WorkAction;
+  actNotShipped := TWorkAction.Create(Self);
+  actNotShipped.Caption := 'Get not shipped orders (SQLite_Demo)';
+  Button2.Action := actNotShipped;
+  actNotShipped.CreateAndAddWork(TNotShippedOrdersWork);
+  actNotShipped.OnWorkStarted := EventWork2Started;
+  actNotShipped.OnWorkDone := EventWork2Done;
 end;
 
 end.

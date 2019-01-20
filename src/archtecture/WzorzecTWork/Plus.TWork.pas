@@ -13,40 +13,45 @@ type
 
   EInvalidWork = class(Exception);
 
+  TWorkActionEvent = procedure(Sender: TObject; AWork: TWork) of object;
+
+  TClassOfWork = class of TWork;
+
   TWorkAction = class(TAction)
   private
-    FWork: TObjectList<TWork>;
-  protected
-    function HandlesTarget(Target: TObject): Boolean; override;
-    procedure ExecuteTarget(Target: TObject); override;
+    FWorkList: TObjectList<TWork>;
+    FOnWorkStarted: TWorkActionEvent;
+    FOnWorkDone: TWorkActionEvent;
+    procedure SetOnWorkStarted(const Event: TWorkActionEvent);
+    procedure SetOnWorkDone(const Event: TWorkActionEvent);
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure RegisterWork(aWork: TWork);
-    function AddWork<T: TWork>: T;
+    function AddWork(AWork: TWork): TWork;
+    function CreateAndAddWork (WorkClas: TClassOfWork): TWork;
+    function HandlesTarget(Target: TObject): Boolean; override;
+    procedure ExecuteTarget(Target: TObject); override;
+    procedure WorkDone(Work: TWork);
+    procedure WorkStarted(Work: TWork);
+    property OnWorkStarted: TWorkActionEvent read FOnWorkStarted
+      write SetOnWorkStarted;
+    property OnWorkDone: TWorkActionEvent read FOnWorkDone write SetOnWorkDone;
   end;
 
   TWork = class(TComponent)
   private
     FWorkAction: TWorkAction;
-    FOnWorkDone: TNotifyEvent;
-    FOnWorkStart: TNotifyEvent;
     procedure SetWorkAction(const aWorkAction: TWorkAction);
     procedure ValidateIfWorkActionIsSet;
     function GetCaption: string;
     procedure SetCaption(ACaption: string);
-    procedure SetOnWorkStart(const Event: TNotifyEvent);
-    procedure SetOnWorkDone(const Event: TNotifyEvent);
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    function Execute: boolean; virtual; abstract;
-    procedure CallWorkDone;
-    procedure CallWorkStart;
+    procedure WorkDone;
+    procedure Execute; virtual;
     property WorkAction: TWorkAction read FWorkAction write SetWorkAction;
     property Caption: String read GetCaption write SetCaption;
-    property OnWorkStart: TNotifyEvent read FOnWorkStart write SetOnWorkStart;
-    property OnWorkDone: TNotifyEvent read FOnWorkDone write SetOnWorkDone;
   end;
 
 implementation
@@ -54,19 +59,6 @@ implementation
 // -------------------------------------------------------------------
 // -------------------------------------------------------------------
 // TWork
-// -------------------------------------------------------------------
-
-procedure TWork.CallWorkDone;
-begin
-  if Assigned(OnWorkDone) then
-    OnWorkDone(Self);
-end;
-
-procedure TWork.CallWorkStart;
-begin
-  if Assigned(OnWorkStart) then
-    OnWorkStart(Self);
-end;
 
 constructor TWork.Create(AOwner: TComponent);
 begin
@@ -81,6 +73,16 @@ destructor TWork.Destroy;
 begin
 
   inherited;
+end;
+
+procedure TWork.WorkDone;
+begin
+  WorkAction.WorkDone(Self);
+end;
+
+procedure TWork.Execute;
+begin
+  WorkAction.WorkStarted(Self);
 end;
 
 procedure TWork.SetWorkAction(const aWorkAction: TWorkAction);
@@ -107,48 +109,41 @@ begin
   WorkAction.Caption := ACaption;
 end;
 
-procedure TWork.SetOnWorkDone(const Event: TNotifyEvent);
-begin
-  FOnWorkDone := Event;
-end;
-
-procedure TWork.SetOnWorkStart(const Event: TNotifyEvent);
-begin
-  FOnWorkStart := Event;
-end;
 
 // -------------------------------------------------------------------
 // -------------------------------------------------------------------
-// TActionWork
-// -------------------------------------------------------------------
-
-function TWorkAction.AddWork<T>: T;
-var
-  aWork: TWork;
-begin
-  aWork := T.Create(Self);
-  Self.RegisterWork(aWork);
-  Result := aWork as T;
-end;
+// TWorkAction
 
 constructor TWorkAction.Create(AOwner: TComponent);
 begin
   inherited;
-  FWork := TObjectList<TWork>.Create;
+  FWorkList := TObjectList<TWork>.Create;
 end;
 
 destructor TWorkAction.Destroy;
 begin
-  FWork.Free;
+  FWorkList.Free;
   inherited;
 end;
 
-function TWorkAction.HandlesTarget(Target: TObject): Boolean;
-var
-  isAccepted: Boolean;
+function TWorkAction.AddWork(AWork: TWork): TWork;
 begin
-  isAccepted := (Target <> nil);
-  Result := isAccepted;
+  FWorkList.Add(AWork);
+  Result := AWork;
+end;
+
+function TWorkAction.CreateAndAddWork (WorkClas: TClassOfWork): TWork;
+var
+  AWork: TWork;
+begin
+  AWork := WorkClas.Create(Self);
+  Self.AddWork(AWork);
+  Result := AWork;
+end;
+
+function TWorkAction.HandlesTarget(Target: TObject): Boolean;
+begin
+  Result := (FWorkList.Count>0);
 end;
 
 procedure TWorkAction.ExecuteTarget(Target: TObject);
@@ -156,13 +151,30 @@ var
   Work: TWork;
 begin
   inherited;
-  for Work in FWork do
+  for Work in FWorkList do
     Work.Execute;
 end;
 
-procedure TWorkAction.RegisterWork(aWork: TWork);
+procedure TWorkAction.SetOnWorkStarted(const Event: TWorkActionEvent);
 begin
-  FWork.Add(aWork);
+  FOnWorkStarted := Event;
+end;
+
+procedure TWorkAction.SetOnWorkDone(const Event: TWorkActionEvent);
+begin
+  FOnWorkDone := Event;
+end;
+
+procedure TWorkAction.WorkStarted(Work: TWork);
+begin
+  if Assigned(FOnWorkStarted) then
+    FOnWorkStarted(Self, Work);
+end;
+
+procedure TWorkAction.WorkDone(Work: TWork);
+begin
+  if Assigned(FOnWorkDone) then
+    FOnWorkDone(Self, Work);
 end;
 
 end.

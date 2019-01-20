@@ -5,7 +5,6 @@ object ModuleOrders: TModuleOrders
   object FDConnection1: TFDConnection
     Params.Strings = (
       'ConnectionDef=SQLite_Demo')
-    Connected = True
     LoginPrompt = False
     Left = 52
     Top = 22
