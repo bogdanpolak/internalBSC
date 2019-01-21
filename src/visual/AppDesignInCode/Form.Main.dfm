@@ -3,7 +3,7 @@ object Form1: TForm1
   Top = 0
   Caption = 'Form1'
   ClientHeight = 336
-  ClientWidth = 466
+  ClientWidth = 490
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -25,10 +25,11 @@ object Form1: TForm1
     TabOrder = 0
   end
   object GroupBox2: TGroupBox
-    Left = 191
-    Top = 0
-    Width = 234
-    Height = 336
+    AlignWithMargins = True
+    Left = 194
+    Top = 3
+    Width = 255
+    Height = 330
     Align = alLeft
     Caption = 'GroupBox2'
     TabOrder = 1
@@ -36,8 +37,8 @@ object Form1: TForm1
       AlignWithMargins = True
       Left = 5
       Top = 18
-      Width = 224
-      Height = 313
+      Width = 245
+      Height = 307
       Align = alClient
       ColCount = 3
       DefaultColWidth = 24
