@@ -1,8 +1,11 @@
-# Internal BSC
+# Repozytorium `Internal BSC`
 
-Repozytorium z planami BSC Polska.
+Wewnętrzne repozytorium Akademii BSC Polska.
 
-*Czytelniku nie ma tutaj żadnych poufnych informacji. Jeśli zauważysz coś co jest dla Ciebie szczególnie ważne lub chciałbyś zmienić pewne plany to skontaktuj się z nami.*
+* Czytelniku oglądane repozytorium zawiera wersje robocze materiałów i przykładów szkoleniowych.
+* Nie ma tutaj żadnych poufnych informacji.
+* Przykłady zostały zebrane z różnych źródeł i nie mają zaznaczonych informacji autorskich 
+* Jeśli zauważysz coś co jest dla Ciebie użyteczne możesz wykorzystać pod warunkiem, że zweryfikujesz autorstwo używanych składników. W razie wątpliwości prosimy o kontakt z firmą BSC Polska.
 
-* MATERIALY ROBOCZE
-  * Skolenia AKADEMII BSC
+* MATERIAŁY ROBOCZE
+  * Szkolenia AKADEMII BSC
