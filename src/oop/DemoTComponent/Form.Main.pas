@@ -37,12 +37,12 @@ implementation
 uses Base.Foo, Form.Second;
 
 procedure TFormMain.btnCreateTFooClass1Click(Sender: TObject);
-var
-  foo: TFoo;
 begin
   Self.Tag := Self.Tag + 1;
-  foo := TFoo.Create(Self);
-  foo.Name := 'Foo' + Self.Tag.ToString;
+  with TFoo.Create(Self) do begin
+    Name := 'Foo' + Self.Tag.ToString;
+    SetupTimeBomb();
+  end;
 end;
 
 procedure TFormMain.FormClose(Sender: TObject; var Action: TCloseAction);

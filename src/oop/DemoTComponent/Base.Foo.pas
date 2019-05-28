@@ -15,6 +15,7 @@ type
     procedure OnTimer (Sender: TObject);
   public
     constructor Create (AOwner: TComponent); override;
+    procedure SetupTimeBomb (DelayMs: integer = 1000);
   end;
 
 implementation
@@ -24,15 +25,19 @@ implementation
 constructor TFoo.Create(AOwner: TComponent);
 begin
   inherited;
-  FTimer := TTimer.Create(Self);
-  FTimer.Interval := 600;
-  FTimer.OnTimer := OnTimer;
-  FTimer.Enabled := True;
 end;
 
 procedure TFoo.OnTimer(Sender: TObject);
 begin
   Free;
+end;
+
+procedure TFoo.SetupTimeBomb(DelayMs: integer);
+begin
+  FTimer := TTimer.Create(Self);
+  FTimer.Interval := DelayMs;
+  FTimer.OnTimer := OnTimer;
+  FTimer.Enabled := True;
 end;
 
 end.
