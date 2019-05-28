@@ -25,10 +25,6 @@ object FormMain: TFormMain
     Align = alClient
     ItemHeight = 13
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 39
-    ExplicitWidth = 225
-    ExplicitHeight = 349
   end
   object GroupBox1: TGroupBox
     AlignWithMargins = True
@@ -39,7 +35,6 @@ object FormMain: TFormMain
     Align = alTop
     Caption = 'GroupBox1'
     TabOrder = 0
-    ExplicitWidth = 279
     object btnCreateTFooClass1: TButton
       AlignWithMargins = True
       Left = 5
@@ -50,9 +45,6 @@ object FormMain: TFormMain
       Caption = 'Create TFoo with auto-destructing'
       TabOrder = 0
       OnClick = btnCreateTFooClass1Click
-      ExplicitLeft = 8
-      ExplicitTop = 8
-      ExplicitWidth = 121
     end
   end
 end

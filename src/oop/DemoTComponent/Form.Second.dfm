@@ -44,7 +44,6 @@ object Form2: TForm2
       Caption = 'btnTBarOwnerSelf'
       TabOrder = 1
       OnClick = btnTBarOwnerSelfClick
-      ExplicitLeft = 3
     end
     object btnTBarOwnerReceiver: TButton
       AlignWithMargins = True
@@ -56,9 +55,6 @@ object Form2: TForm2
       Caption = 'btnTBarOwnerReceiver'
       TabOrder = 2
       OnClick = btnTBarOwnerReceiverClick
-      ExplicitLeft = 56
-      ExplicitTop = 88
-      ExplicitWidth = 75
     end
   end
 end
