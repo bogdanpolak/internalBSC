@@ -6,22 +6,11 @@ uses
   Vcl.Controls;
 
 type
-  THelperWinControl = class helper for TWinControl
-    /// <summary>
-    ///   Closes all TFrame components on the container <br/> (sets Visible to False)
-    /// </summary>
-    /// <example>
-    ///   <code lang="Delphi">MainPanel.HideAllChildFrames();
-    /// CommandFrame := TCommandFrame.Create(MainPanel);
-    /// CommandFrame.Align := alTop;
-    /// CommandFrame.Parent := MainPanel;
-    /// gridFrame := TGridFrame.Create(MainPanel);
-    /// gridFrame.Align := alClient;
-    /// gridFrame.Parent := MainPanel; </code>
-    /// </example>
+  TWinControlHelper = class helper for TWinControl
+  public
     procedure HideAllChildFrames;
-    function SumHeightForChildrens(ControlsToExclude: TArray<TControl>)
-      : integer;
+    function SumHeightForChildrens(
+      ControlsToExclude: TArray<TControl>): Integer;
   end;
 
 implementation
@@ -29,29 +18,31 @@ implementation
 uses
   Vcl.Forms;
 
-procedure THelperWinControl.HideAllChildFrames();
+{ TWinControlHelper }
+
+procedure TWinControlHelper.HideAllChildFrames;
 var
-  i: integer;
+  i: Integer;
 begin
-  for i := self.ControlCount - 1 downto 0 do
-    if self.Controls[i] is TFrame then
-      (self.Controls[i] as TFrame).Visible := False;
+  for i := Self.ControlCount - 1 downto 0 do
+    if Self.Controls[i] is TFrame then
+      (Self.Controls[i] as TFrame).Visible := False;
 end;
 
-function THelperWinControl.SumHeightForChildrens(ControlsToExclude
-  : TArray<TControl>): integer;
+function TWinControlHelper.SumHeightForChildrens(
+  ControlsToExclude: TArray<TControl>): Integer;
 var
-  i: integer;
+  i: Integer;
   ctrl: Vcl.Controls.TControl;
   isExcluded: Boolean;
-  j: integer;
-  sumHeight: integer;
-  ctrlHeight: integer;
+  j: Integer;
+  sumHeight: Integer;
+  ctrlHeight: Integer;
 begin
   sumHeight := 0;
-  for i := 0 to self.ControlCount - 1 do
+  for i := 0 to Self.ControlCount - 1 do
   begin
-    ctrl := self.Controls[i];
+    ctrl := Self.Controls[i];
     isExcluded := False;
     for j := 0 to Length(ControlsToExclude) - 1 do
       if ControlsToExclude[j] = ctrl then
