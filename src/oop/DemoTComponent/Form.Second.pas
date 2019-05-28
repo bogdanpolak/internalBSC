@@ -9,30 +9,37 @@ uses
 
 type
   TForm2 = class(TForm)
-    Button1: TButton;
-    procedure Button1Click(Sender: TObject);
+    btnCreateTBarClass: TButton;
+    GroupBox1: TGroupBox;
+    procedure btnCreateTBarClassClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
   public
     { Public declarations }
   end;
 
-var
-  Form2: TForm2;
 
 implementation
 
 {$R *.dfm}
 
-uses Base.Bar;
+uses
+  Base.Bar,
+  Base.Foo;
 
-procedure TForm2.Button1Click(Sender: TObject);
+procedure TForm2.btnCreateTBarClassClick(Sender: TObject);
 var
   bar: TBar;
 begin
   Self.Tag := Self.Tag +1;
-  bar := TBar.Create(Self);
+  bar := TBar.Create(Application);
   bar.Name := 'Bar'+Self.Tag.ToString;
   bar.Free;
+end;
+
+procedure TForm2.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
 end;
 
 end.

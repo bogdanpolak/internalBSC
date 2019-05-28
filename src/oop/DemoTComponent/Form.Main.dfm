@@ -1,9 +1,9 @@
-object Form1: TForm1
+object FormMain: TFormMain
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'TComponent Demo'
   ClientHeight = 396
-  ClientWidth = 241
+  ClientWidth = 283
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,21 +16,43 @@ object Form1: TForm1
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object Button1: TButton
-    Left = 8
-    Top = 8
-    Width = 121
-    Height = 25
-    Caption = 'Button1'
-    TabOrder = 0
-    OnClick = Button1Click
-  end
   object ListBox1: TListBox
-    Left = 8
-    Top = 39
-    Width = 225
-    Height = 349
+    AlignWithMargins = True
+    Left = 3
+    Top = 71
+    Width = 277
+    Height = 322
+    Align = alClient
     ItemHeight = 13
     TabOrder = 1
+    ExplicitLeft = 8
+    ExplicitTop = 39
+    ExplicitWidth = 225
+    ExplicitHeight = 349
+  end
+  object GroupBox1: TGroupBox
+    AlignWithMargins = True
+    Left = 3
+    Top = 3
+    Width = 277
+    Height = 62
+    Align = alTop
+    Caption = 'GroupBox1'
+    TabOrder = 0
+    ExplicitWidth = 279
+    object btnCreateTFooClass1: TButton
+      AlignWithMargins = True
+      Left = 5
+      Top = 18
+      Width = 267
+      Height = 25
+      Align = alTop
+      Caption = 'Create TFoo with auto-destructing'
+      TabOrder = 0
+      OnClick = btnCreateTFooClass1Click
+      ExplicitLeft = 8
+      ExplicitTop = 8
+      ExplicitWidth = 121
+    end
   end
 end

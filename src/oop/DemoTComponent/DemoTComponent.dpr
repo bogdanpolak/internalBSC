@@ -2,7 +2,7 @@ program DemoTComponent;
 
 uses
   Vcl.Forms,
-  Form.Main in 'Form.Main.pas' {Form1},
+  Form.Main in 'Form.Main.pas' {FormMain},
   Base.Receiver in 'Base.Receiver.pas',
   Base.Bar in 'Base.Bar.pas',
   Base.Foo in 'Base.Foo.pas',
@@ -13,7 +13,6 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
-  Application.CreateForm(TForm2, Form2);
+  Application.CreateForm(TFormMain, FormMain);
   Application.Run;
 end.

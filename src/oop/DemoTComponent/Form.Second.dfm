@@ -2,8 +2,8 @@ object Form2: TForm2
   Left = 0
   Top = 0
   Caption = 'Form2'
-  ClientHeight = 340
-  ClientWidth = 227
+  ClientHeight = 162
+  ClientWidth = 215
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,15 +11,35 @@ object Form2: TForm2
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
-  object Button1: TButton
-    Left = 16
-    Top = 8
-    Width = 75
-    Height = 25
-    Caption = 'Button1'
+  object GroupBox1: TGroupBox
+    AlignWithMargins = True
+    Left = 3
+    Top = 3
+    Width = 209
+    Height = 156
+    Align = alClient
+    Caption = 'GroupBox1'
     TabOrder = 0
-    OnClick = Button1Click
+    ExplicitLeft = 32
+    ExplicitTop = 136
+    ExplicitWidth = 185
+    ExplicitHeight = 105
+    object btnCreateTBarClass: TButton
+      AlignWithMargins = True
+      Left = 5
+      Top = 18
+      Width = 199
+      Height = 25
+      Align = alTop
+      Caption = 'btnCreateTBarClass'
+      TabOrder = 0
+      OnClick = btnCreateTBarClassClick
+      ExplicitLeft = 16
+      ExplicitTop = 8
+      ExplicitWidth = 75
+    end
   end
 end

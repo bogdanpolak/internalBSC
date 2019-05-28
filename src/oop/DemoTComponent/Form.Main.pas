@@ -9,22 +9,23 @@ uses
   Base.Receiver;
 
 type
-  TForm1 = class(TForm)
-    Button1: TButton;
+  TFormMain = class(TForm)
+    btnCreateTFooClass1: TButton;
     ListBox1: TListBox;
+    GroupBox1: TGroupBox;
     procedure FormCreate(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure btnCreateTFooClass1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
   private
-    FReceiver: TReceiver;
     procedure OnReciver(AComponent: TComponent; Operation: TOperation);
   public
+    FReceiver: TReceiver;
     { Public declarations }
   end;
 
 var
-  Form1: TForm1;
+  FormMain: TFormMain;
 
 implementation
 
@@ -32,7 +33,7 @@ implementation
 
 uses Base.Foo, Form.Second;
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TFormMain.btnCreateTFooClass1Click(Sender: TObject);
 var
   foo: TFoo;
 begin
@@ -41,29 +42,31 @@ begin
   foo.Name := 'Foo' + Self.Tag.ToString;
 end;
 
-procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TFormMain.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   FReceiver.OnNotification := nil;
 end;
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TFormMain.FormCreate(Sender: TObject);
 begin
   FReceiver := TReceiver.Create(Self);
   FReceiver.OnNotification :=
-      procedure(AComponent: TComponent; Operation: TOperation)
+    procedure(AComponent: TComponent; Operation: TOperation)
     begin
-      if AComponent<>Self then
-        OnReciver(AComponent, Operation);
+      OnReciver(AComponent, Operation);
     end;
 end;
 
-procedure TForm1.FormShow(Sender: TObject);
+procedure TFormMain.FormShow(Sender: TObject);
 begin
-  Form2.Show;
-  Form2.FreeNotification(FReceiver);
+  with TForm2.Create(Application) do begin
+    Show;
+    Left := Self.Left + Self.Width - 8;
+    Top := Self.Top;
+  end;
 end;
 
-procedure TForm1.OnReciver(AComponent: TComponent; Operation: TOperation);
+procedure TFormMain.OnReciver(AComponent: TComponent; Operation: TOperation);
 var
   op: string;
 begin
