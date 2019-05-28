@@ -60,6 +60,7 @@ end;
 procedure TFormMain.FormShow(Sender: TObject);
 begin
   with TForm2.Create(Application) do begin
+    Receiver := FReceiver;
     Show;
     Left := Self.Left + Self.Width - 8;
     Top := Self.Top;

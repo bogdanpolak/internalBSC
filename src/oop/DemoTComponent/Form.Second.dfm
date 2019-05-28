@@ -21,12 +21,8 @@ object Form2: TForm2
     Width = 209
     Height = 156
     Align = alClient
-    Caption = 'GroupBox1'
+    Caption = 'Create TBar object:'
     TabOrder = 0
-    ExplicitLeft = 32
-    ExplicitTop = 136
-    ExplicitWidth = 185
-    ExplicitHeight = 105
     object btnCreateTBarClass: TButton
       AlignWithMargins = True
       Left = 5
@@ -37,8 +33,31 @@ object Form2: TForm2
       Caption = 'btnCreateTBarClass'
       TabOrder = 0
       OnClick = btnCreateTBarClassClick
-      ExplicitLeft = 16
-      ExplicitTop = 8
+    end
+    object btnTBarOwnerSelf: TButton
+      AlignWithMargins = True
+      Left = 5
+      Top = 49
+      Width = 199
+      Height = 25
+      Align = alTop
+      Caption = 'btnTBarOwnerSelf'
+      TabOrder = 1
+      OnClick = btnTBarOwnerSelfClick
+      ExplicitLeft = 3
+    end
+    object btnTBarOwnerReceiver: TButton
+      AlignWithMargins = True
+      Left = 5
+      Top = 80
+      Width = 199
+      Height = 25
+      Align = alTop
+      Caption = 'btnTBarOwnerReceiver'
+      TabOrder = 2
+      OnClick = btnTBarOwnerReceiverClick
+      ExplicitLeft = 56
+      ExplicitTop = 88
       ExplicitWidth = 75
     end
   end
