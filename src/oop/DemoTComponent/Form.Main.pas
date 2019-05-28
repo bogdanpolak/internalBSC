@@ -34,7 +34,10 @@ implementation
 
 {$R *.dfm}
 
-uses Base.Foo, Form.Second;
+uses
+  Form.Second,
+  Base.Foo,
+  Base.Bar;
 
 procedure TFormMain.btnCreateTFooClass1Click(Sender: TObject);
 begin
@@ -73,6 +76,7 @@ end;
 procedure TFormMain.OnReciver(AComponent: TComponent; Operation: TOperation);
 var
   op: string;
+  s: string;
 begin
   case Operation of
     opInsert:
@@ -80,7 +84,13 @@ begin
     opRemove:
       op := '[REMOVE]';
   end;
-  ListBox1.Items.Add(op+'  '+AComponent.Name+': '+AComponent.ClassName);
+  s := op+'  '+AComponent.Name+': '+AComponent.ClassName;
+  if (Operation = opRemove) and (AComponent is TBar) then
+  begin
+    if (AComponent as TBar).Info <> '' then
+      s := s + '  info: '+(AComponent as TBar).Info;
+  end;
+  ListBox1.Items.Add(s);
 end;
 
 end.

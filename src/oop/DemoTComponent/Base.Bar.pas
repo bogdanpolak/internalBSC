@@ -10,6 +10,10 @@ uses
 
 type
   TBar = class (TComponent)
+  private
+    FInfo: string;
+  public
+    property Info: string read FInfo write FInfo;
   end;
 
 implementation
